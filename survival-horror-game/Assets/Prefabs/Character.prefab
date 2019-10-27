@@ -97,8 +97,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   speed: 3
   lamp: {fileID: 4825706338941809387}
+=======
+  speed: 1
+  body: {fileID: 222187439058258039}
+  lamp: {fileID: 3578489193491677587}
+>>>>>>> Added 2 KeyCodes in dont destroy
 =======
   speed: 1
   body: {fileID: 222187439058258039}
