@@ -33,11 +33,6 @@ public class PlayerController : MonoBehaviour
         Movement(x, y);
     }
 
-    public void InCollision()
-    {
-        Debug.Log("Collides");
-    }
-
     /// <summary>
     /// Manages player's movement
     /// </summary>
