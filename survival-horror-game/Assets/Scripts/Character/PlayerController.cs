@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _dd = FindObjectOfType<DontDestroyOnLoad>();
-        if(_dd == null)
+        _manager = GetComponent<PlayerManager>();
+        if (_dd == null)
         {
 #if UNITY_EDITOR
             Debug.LogError("Error: DontDestroyOnLoad hasn't been found in the scene.");
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 direction = new Vector2(x, y).normalized;
         Vector2 pos = transform.position;
-        float s = isRunning ? speed * multiplier : speed;
+        float s = isRunning ? _manager.speed * _manager.runningFactor : _manager.speed;
         pos += direction * s * Time.deltaTime;
         transform.position = pos;
     }
@@ -80,16 +81,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void ToggleLamp()
     {
-        lamp.Active = !lamp.Active;
+        _manager.lamp.Active = !_manager.lamp.Active;
     }
 
-    // Defines the walking speed of the player
-    public float speed = 1f;
-    // Multiplier when running
-    public float multiplier = 2f;
-    // The lamp
-    public Lamp lamp;
-
+    // Player manager
+    private PlayerManager _manager;
     // Player settings
     private DontDestroyOnLoad _dd;
 }
