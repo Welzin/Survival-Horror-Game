@@ -57,8 +57,8 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 v3 = Input.mousePosition;
         v3 = Camera.main.ScreenToWorldPoint(v3);
-        v3.z = body.transform.position.z;
-        body.transform.right = v3 - transform.position;
+        v3.z = transform.position.z;
+        transform.right = v3 - transform.position;
     }
 
     /// <summary>
@@ -71,8 +71,6 @@ public class PlayerController : MonoBehaviour
 
     // Defines the walking speed of the player
     public float speed;
-    // The sprite of the body
-    public GameObject body;
     // The lamp
     public Lamp lamp;
 

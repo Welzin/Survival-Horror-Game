@@ -7,6 +7,20 @@ public class Lamp : MonoBehaviour
     private void Start()
     {
         Active = false;
+        _actualBattery = maxBattery;
+    }
+
+    private void Update()
+    {
+        if (_active)
+        {
+            _actualBattery -= consommationBySec * Time.deltaTime;
+            if (_actualBattery <= 0)
+            {
+                _actualBattery = 0;
+                Active = false;
+            }
+        }
     }
 
     public bool Active
@@ -17,7 +31,7 @@ public class Lamp : MonoBehaviour
         }
         set
         {
-            if (GetComponent<MeshRenderer>())
+            if (_actualBattery > 0 && GetComponent<MeshRenderer>())
             {
                 MeshRenderer mesh = GetComponent<MeshRenderer>();
                 _active = value;
@@ -26,5 +40,9 @@ public class Lamp : MonoBehaviour
         }
     }
 
+    public float maxBattery = 100f;
+    public float consommationBySec = 10f;
+
     private bool _active;
+    private float _actualBattery;
 }
