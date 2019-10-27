@@ -8,12 +8,22 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _dd = FindObjectOfType<DontDestroyOnLoad>();
+        if(_dd == null)
+        {
+#if UNITY_EDITOR
+            Debug.LogError("Error: DontDestroyOnLoad hasn't been found in the scene.");
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            // Display an error message and exit the app
+#endif
+        }
     }
 
     void Update()
     {
         int x = 0;
         int y = 0;
+        bool isRunning = false;
         if (Input.GetKey(_dd.LeftKey().Item1) || Input.GetKey(_dd.LeftKey().Item2))
         {
             x -= 1;
@@ -34,19 +44,23 @@ public class PlayerController : MonoBehaviour
         {
             ToggleLamp();
         }
-
-        Movement(x, y);
+        if(Input.GetKey(_dd.Run().Item1) || Input.GetKey(_dd.Run().Item2))
+        {
+            isRunning = true;
+        }
+        Movement(x, y, isRunning);
         PlayerRotation();
     }
 
     /// <summary>
     /// Manages player's movement
     /// </summary>
-    private void Movement(float x, float y)
+    private void Movement(int x, int y, bool isRunning)
     {
         Vector2 direction = new Vector2(x, y).normalized;
         Vector2 pos = transform.position;
-        pos += direction * speed * Time.deltaTime;
+        float s = isRunning ? speed * multiplier : speed;
+        pos += direction * s * Time.deltaTime;
         transform.position = pos;
     }
 
@@ -70,7 +84,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // Defines the walking speed of the player
-    public float speed;
+    public float speed = 1f;
+    // Multiplier when running
+    public float multiplier = 2f;
     // The lamp
     public Lamp lamp;
 

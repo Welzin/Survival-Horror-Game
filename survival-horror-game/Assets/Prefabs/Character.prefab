@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &160503261046944929
@@ -93,10 +93,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 160503261046944934}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7413aed389d87364a83d5ed88695f838, type: 3}
+  m_Script: {fileID: 11500000, guid: c521ff11d67d5fe408a22df8b6d1dbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 1
   lamp: {fileID: 4825706338941809387}
 --- !u!61 &160503261046944930
 BoxCollider2D:
@@ -215,8 +215,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -254,6 +252,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1875382473949530328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d794760ecdfe0d64e8ee439fb5754d76, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b1b4f11eb2353b4a9fa245e05301bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxBattery: 100
+  consommationBySec: 10

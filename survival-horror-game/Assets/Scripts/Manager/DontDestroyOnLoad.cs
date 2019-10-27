@@ -11,6 +11,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         up = (KeyCode.Z, KeyCode.UpArrow);
         down = (KeyCode.S, KeyCode.DownArrow);
         lamp = (KeyCode.A, KeyCode.Mouse0);
+        run = (KeyCode.LeftControl, KeyCode.LeftShift);
 
         DontDestroyOnLoad(gameObject);
     }
@@ -34,10 +35,15 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         return lamp;
     }
+    public (KeyCode, KeyCode) Run()
+    {
+        return run;
+    }
 
     private (KeyCode, KeyCode) left;
     private (KeyCode, KeyCode) right;
     private (KeyCode, KeyCode) up;
     private (KeyCode, KeyCode) down;
     private (KeyCode, KeyCode) lamp;
+    private (KeyCode, KeyCode) run;
 }
