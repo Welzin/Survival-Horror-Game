@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400000}
   - component: {fileID: 11400000}
-  - component: {fileID: 1920670263401544794}
-  - component: {fileID: 103724879273024077}
+  - component: {fileID: 4711193724606741361}
+  - component: {fileID: 4658660804153989706}
   m_Layer: 9
   m_Name: PointLight
   m_TagString: Untagged
@@ -51,7 +51,7 @@ MonoBehaviour:
   Material: {fileID: 2100000, guid: 04a39e1d85156e34bb45d05db1a5eb00, type: 2}
   LightOrigin: {x: 0, y: 0, z: 1}
   Shape: 0
---- !u!23 &1920670263401544794
+--- !u!23 &4711193724606741361
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,7 +89,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &103724879273024077
+--- !u!33 &4658660804153989706
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
