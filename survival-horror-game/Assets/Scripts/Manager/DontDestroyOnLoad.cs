@@ -6,38 +6,38 @@ public class DontDestroyOnLoad : MonoBehaviour
 {
     void Awake()
     {
-        left = KeyCode.Q;
-        right = KeyCode.D;
-        up = KeyCode.Z;
-        down = KeyCode.S;
-        lamp = KeyCode.A;
+        left = (KeyCode.Q, KeyCode.LeftArrow);
+        right = (KeyCode.D, KeyCode.RightArrow);
+        up = (KeyCode.Z, KeyCode.UpArrow);
+        down = (KeyCode.S, KeyCode.DownArrow);
+        lamp = (KeyCode.A, KeyCode.Mouse0);
 
         DontDestroyOnLoad(gameObject);
     }
-    public KeyCode LeftKey()
+    public (KeyCode, KeyCode) LeftKey()
     {
         return left;
     }
-    public KeyCode RightKey()
+    public (KeyCode, KeyCode) RightKey()
     {
         return right;
     }
-    public KeyCode UpKey()
+    public (KeyCode, KeyCode) UpKey()
     {
         return up;
     }
-    public KeyCode DownKey()
+    public (KeyCode, KeyCode) DownKey()
     {
         return down;
     }
-    public KeyCode BindLamp()
+    public (KeyCode, KeyCode) BindLamp()
     {
         return lamp;
     }
 
-    private KeyCode left;
-    private KeyCode right;
-    private KeyCode up;
-    private KeyCode down;
-    private KeyCode lamp;
+    private (KeyCode, KeyCode) left;
+    private (KeyCode, KeyCode) right;
+    private (KeyCode, KeyCode) up;
+    private (KeyCode, KeyCode) down;
+    private (KeyCode, KeyCode) lamp;
 }

@@ -9,6 +9,7 @@ public class CameraFollow : MonoBehaviour
     {
         _character = FindObjectOfType<PlayerController>().gameObject;
         _playerPos = _character.transform.position;
+        centerOnCharacter();
     }
 
     // Update is called once per frame
@@ -17,9 +18,13 @@ public class CameraFollow : MonoBehaviour
         Vector2 currentPlayerPos = _character.transform.position;
         if(currentPlayerPos != _playerPos)
         {
-            transform.position = new Vector3(currentPlayerPos.x, currentPlayerPos.y, transform.position.z);
             _playerPos = currentPlayerPos;
+            centerOnCharacter();
         }
+    }
+    void centerOnCharacter()
+    {
+        transform.position = new Vector3(_playerPos.x, _playerPos.y, transform.position.z);
     }
 
     private GameObject _character;

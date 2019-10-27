@@ -14,23 +14,23 @@ public class PlayerController : MonoBehaviour
     {
         int x = 0;
         int y = 0;
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(_dd.LeftKey()))
+        if (Input.GetKey(_dd.LeftKey().Item1) || Input.GetKey(_dd.LeftKey().Item2))
         {
             x -= 1;
         }
-        if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(_dd.RightKey()))
+        if (Input.GetKey(_dd.RightKey().Item1) || Input.GetKey(_dd.RightKey().Item2))
         {
             x += 1;
         }
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(_dd.UpKey()))
+        if (Input.GetKey(_dd.UpKey().Item1) || Input.GetKey(_dd.UpKey().Item2))
         {
             y += 1;
         }
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(_dd.DownKey()))
+        if (Input.GetKey(_dd.DownKey().Item1) || Input.GetKey(_dd.DownKey().Item2))
         {
             y -= 1;
         }
-        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(_dd.BindLamp()))
+        if (Input.GetKeyDown(_dd.BindLamp().Item1) || Input.GetKeyDown(_dd.BindLamp().Item2))
         {
             ToggleLamp();
         }
