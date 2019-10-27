@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     {
         int x = 0;
         int y = 0;
-        if(Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(_dd.LeftKey()))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(_dd.LeftKey()))
         {
             x -= 1;
         }
@@ -30,7 +30,13 @@ public class PlayerController : MonoBehaviour
         {
             y -= 1;
         }
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(_dd.BindLamp()))
+        {
+            ToggleLamp();
+        }
+
         Movement(x, y);
+        PlayerRotation();
     }
 
     /// <summary>
@@ -44,8 +50,32 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
     }
 
+    /// <summary>
+    /// The player look at the mouse position
+    /// </summary>
+    void PlayerRotation()
+    {
+        Vector3 v3 = Input.mousePosition;
+        v3 = Camera.main.ScreenToWorldPoint(v3);
+        v3.z = body.transform.position.z;
+        body.transform.right = v3 - transform.position;
+    }
+
+    /// <summary>
+    /// Switch the lamp activation
+    /// </summary>
+    void ToggleLamp()
+    {
+        lamp.Active = !lamp.Active;
+    }
+
     // Defines the walking speed of the player
     public float speed;
+    // The sprite of the body
+    public GameObject body;
+    // The lamp
+    public Lamp lamp;
+
     // Player settings
     private DontDestroyOnLoad _dd;
 }

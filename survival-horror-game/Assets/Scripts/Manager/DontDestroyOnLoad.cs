@@ -10,6 +10,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         right = KeyCode.D;
         up = KeyCode.Z;
         down = KeyCode.S;
+        lamp = KeyCode.A;
 
         DontDestroyOnLoad(gameObject);
     }
@@ -29,9 +30,14 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         return down;
     }
+    public KeyCode BindLamp()
+    {
+        return lamp;
+    }
 
     private KeyCode left;
     private KeyCode right;
     private KeyCode up;
     private KeyCode down;
+    private KeyCode lamp;
 }
