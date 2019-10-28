@@ -12,8 +12,11 @@ public class DontDestroyOnLoad : MonoBehaviour
         down = (KeyCode.S, KeyCode.DownArrow);
         lamp = (KeyCode.A, KeyCode.Mouse0);
         run = (KeyCode.LeftControl, KeyCode.LeftShift);
+<<<<<<< HEAD
         interact = (KeyCode.E, KeyCode.Mouse1);
 
+=======
+>>>>>>> Added Monsters
         DontDestroyOnLoad(gameObject);
     }
     public (KeyCode, KeyCode) LeftKey()
@@ -51,5 +54,9 @@ public class DontDestroyOnLoad : MonoBehaviour
     private (KeyCode, KeyCode) down;
     private (KeyCode, KeyCode) lamp;
     private (KeyCode, KeyCode) run;
+<<<<<<< HEAD
     private (KeyCode, KeyCode) interact;
 }
+=======
+}
+>>>>>>> Added Monsters
