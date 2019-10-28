@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     {
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         _manager = GetComponent<PlayerManager>();
+        _animator = GetComponent<Animator>();
         if (_dd == null)
         {
 #if UNITY_EDITOR
@@ -71,11 +72,9 @@ public class PlayerController : MonoBehaviour
         {
             GrabObject();
         }
-        if(x != 0 || y != 0)
-        {
-            Movement(x, y, isRunning);
-        }
-        PlayerRotation();
+
+        Movement(x, y, isRunning);
+        LampRotation();
     }
 
     /// <summary>
@@ -83,6 +82,33 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Movement(int x, int y, bool isRunning)
     {
+        if (x == 0 && y == 0)
+        {
+            _animator.SetInteger("Mouvement", 0);
+            return;
+        }
+        else
+        {
+            _animator.SetInteger("Mouvement", 1);
+        }
+    
+        if (x < 0)
+        {
+            _animator.SetInteger("Direction", 1);
+        }
+        else if (x > 0)
+        {
+            _animator.SetInteger("Direction", 3);
+        }
+        else if (y < 0)
+        {
+            _animator.SetInteger("Direction", 0);
+        }
+        else if (y > 0)
+        {
+            _animator.SetInteger("Direction", 2);
+        }
+
         Vector2 direction = new Vector2(x, y).normalized;
         Vector2 pos = transform.position;
         float s = isRunning ? _manager.speed * _manager.runningFactor : _manager.speed;
@@ -93,12 +119,12 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// The player look at the mouse position
     /// </summary>
-    void PlayerRotation()
+    void LampRotation()
     {
         Vector3 v3 = Input.mousePosition;
         v3 = Camera.main.ScreenToWorldPoint(v3);
         v3.z = transform.position.z;
-        transform.up = v3 - transform.position;
+        _manager.lamp.transform.up = v3 - _manager.lamp.transform.position;
     }
 
     /// <summary>
@@ -146,6 +172,8 @@ public class PlayerController : MonoBehaviour
 
     // Player manager
     private PlayerManager _manager;
+    // The animator
+    private Animator _animator;
     // Player settings
     private DontDestroyOnLoad _dd;
     // The item in range
