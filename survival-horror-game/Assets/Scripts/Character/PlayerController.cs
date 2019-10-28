@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
             // Display an error message and exit the app
 #endif
         }
+        _lockMovement = false;
     }
 
     void FixedUpdate()
@@ -70,8 +71,10 @@ public class PlayerController : MonoBehaviour
         {
             GrabObject();
         }
-
-        Movement(x, y, isRunning);
+        if(x != 0 || y != 0)
+        {
+            Movement(x, y, isRunning);
+        }
         PlayerRotation();
     }
 
@@ -132,10 +135,21 @@ public class PlayerController : MonoBehaviour
         _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _lockMovement = true;
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        _lockMovement = false;
+    }
+
     // Player manager
     private PlayerManager _manager;
     // Player settings
     private DontDestroyOnLoad _dd;
     // The item in range
     private ItemObject _itemInRange;
+    // Locks the movement if the player enters in a collider
+    private bool _lockMovement;
 }

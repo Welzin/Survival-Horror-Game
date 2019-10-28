@@ -111,7 +111,6 @@ public class Monster : MonoBehaviour
             if(dist <= lightDetectionRange)
             {
                 RaycastHit2D obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("LightObstacles"));
-                Debug.Log(obstrusion.collider);
                 if (obstrusion.collider == null)
                 {
                     _hasTarget = true;
