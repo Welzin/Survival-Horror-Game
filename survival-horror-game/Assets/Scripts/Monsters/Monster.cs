@@ -36,7 +36,7 @@ public class Monster : MonoBehaviour
     {
         float x = transform.position.x;
         float y = transform.position.y;
-        if(Math.Abs(_destination.x - x) > _errorPercentage || Math.Abs(_destination.y - y) > _errorPercentage)
+        if (Math.Abs(_destination.x - x) > _errorPercentage || Math.Abs(_destination.y - y) > _errorPercentage)
         {
             Move();
         }
@@ -45,7 +45,7 @@ public class Monster : MonoBehaviour
 
     private void ExecutePattern()
     {
-        if(_pattern.Count != 0 && !_hasTarget)
+        if (_pattern.Count != 0 && !_hasTarget)
         {
             Pattern toDo = _pattern.Dequeue();
             float x = transform.position.x;
@@ -90,7 +90,7 @@ public class Monster : MonoBehaviour
         pos += direction * speed * Time.deltaTime;
         transform.position = pos;
     }
-
+    
     private void SearchForLight()
     {
         // Get the position of the lamp
