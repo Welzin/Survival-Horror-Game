@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
 
     // The lamp handle
     public Lamp lamp;
+    // The body which will turn
+    public GameObject body;
     // The speed of the character
     public float speed = 3.0f;
     // Multiplier when running

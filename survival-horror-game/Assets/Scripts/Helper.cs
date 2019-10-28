@@ -28,7 +28,6 @@ public class Helper : MonoBehaviour
 
     public void DisplayHelp(Type type)
     {
-        Debug.Log("Display");
         switch (type)
         {
             case Type.CatchItem:
@@ -41,7 +40,6 @@ public class Helper : MonoBehaviour
 
     public void StopDisplayingHelp(Type type)
     {
-        Debug.Log("Stop");
         _actualDisplayingTypes.Remove(type);
 
         if (_actualDisplayingTypes.Count == 0)
@@ -57,7 +55,6 @@ public class Helper : MonoBehaviour
             }
         }
     }
-
 
     public Text textZone;
     // The actual Helper type displaying

@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         _manager = GetComponent<PlayerManager>();
         _animator = GetComponent<Animator>();
+
         if (_dd == null)
         {
 #if UNITY_EDITOR
@@ -25,7 +26,9 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         // Search for an item
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
+        // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
+        Debug.DrawRay(transform.position, _manager.body.transform.up, Color.cyan);
 
         // If it find one and that this one is not the same than the actual item
         if (hit.collider != null && hit.collider.gameObject.GetComponent<ItemObject>() && hit.collider.gameObject.GetComponent<ItemObject>() != _itemInRange)
@@ -82,6 +85,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Movement(int x, int y, bool isRunning)
     {
+        // Set the animation mouvement value (idle, walking, running...)
         if (x == 0 && y == 0)
         {
             _animator.SetInteger("Mouvement", 0);
@@ -91,7 +95,8 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetInteger("Mouvement", 1);
         }
-    
+
+        // Set the animation direction value (down, left, up, right)
         if (x < 0)
         {
             _animator.SetInteger("Direction", 1);
@@ -109,10 +114,14 @@ public class PlayerController : MonoBehaviour
             _animator.SetInteger("Direction", 2);
         }
 
+        // Calculation of the new position
         Vector2 direction = new Vector2(x, y).normalized;
         Vector2 pos = transform.position;
         float s = isRunning ? _manager.speed * _manager.runningFactor : _manager.speed;
         pos += direction * s * Time.deltaTime;
+
+        // The body is looking at this direction to allow detection with raycast (see FixedUpdate)
+        _manager.body.transform.up = pos - (Vector2)_manager.body.transform.position;
         transform.position = pos;
     }
 
