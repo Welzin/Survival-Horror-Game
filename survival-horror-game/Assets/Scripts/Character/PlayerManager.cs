@@ -7,13 +7,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _inventory = new Inventory(hud);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        inventory = new Inventory(hud);
     }
 
     // The lamp handle
@@ -22,8 +16,10 @@ public class PlayerManager : MonoBehaviour
     public float speed = 3.0f;
     // Multiplier when running
     public float runningFactor = 2f;
+    // The distance to grab an object
+    public float catchDistance = 0.5f;
     // The hud where everything will be displayed
     public HUD hud;
     // Inventory
-    Inventory _inventory;
+    public Inventory inventory;
 }

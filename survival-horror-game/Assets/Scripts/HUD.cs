@@ -61,4 +61,5 @@ public class HUD : MonoBehaviour
 
     public GameObject keyZone;
     public GameObject itemZone;
+    public Helper helper;
 }

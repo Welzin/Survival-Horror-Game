@@ -9,18 +9,6 @@ public class Inventory
         _hud = hud;
         _items = new List<Item>();
         _keys = new List<Key>();
-
-        Item item = new Key(Resources.Load<Sprite>("Sprites/Square"));
-        AddItem(item);
-        AddItem(item);
-        AddItem(item);
-        AddItem(item);
-        AddItem(item);
-
-        Key key = new Key(Resources.Load<Sprite>("Sprites/Square"));
-        AddKey(key);
-        AddKey(key);
-        AddKey(key);
     }
 
     public void AddItem(Item item)

@@ -20,6 +20,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        // Search for an item
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
+
+        // If it find one and that this one is not the same than the actual item
+        if (hit.collider != null && hit.collider.gameObject.GetComponent<ItemObject>() && hit.collider.gameObject.GetComponent<ItemObject>() != _itemInRange)
+        {
+            NewItemInRange(hit.collider.gameObject.GetComponent<ItemObject>());
+        }
+        // If there is no item at range but we already had one in range
+        else if (hit.collider == null && _itemInRange != null)
+        {
+            NoMoreItem();
+        }
+    }
+
     void Update()
     {
         int x = 0;
@@ -45,10 +62,15 @@ public class PlayerController : MonoBehaviour
         {
             ToggleLamp();
         }
-        if(Input.GetKey(_dd.Run().Item1) || Input.GetKey(_dd.Run().Item2))
+        if (Input.GetKey(_dd.Run().Item1) || Input.GetKey(_dd.Run().Item2))
         {
             isRunning = true;
         }
+        if (Input.GetKeyDown(_dd.Interact().Item1) || Input.GetKeyDown(_dd.Interact().Item2) && _itemInRange != null)
+        {
+            GrabObject();
+        }
+
         Movement(x, y, isRunning);
         PlayerRotation();
     }
@@ -73,7 +95,7 @@ public class PlayerController : MonoBehaviour
         Vector3 v3 = Input.mousePosition;
         v3 = Camera.main.ScreenToWorldPoint(v3);
         v3.z = transform.position.z;
-        transform.right = v3 - transform.position;
+        transform.up = v3 - transform.position;
     }
 
     /// <summary>
@@ -84,8 +106,36 @@ public class PlayerController : MonoBehaviour
         _manager.lamp.Active = !_manager.lamp.Active;
     }
 
+    /// <summary>
+    /// Grab the item in range and put it into the inventory
+    /// </summary>
+    void GrabObject()
+    {
+        if (_itemInRange != null)
+        {
+            _manager.inventory.AddItem(_itemInRange.item);
+            Destroy(_itemInRange.gameObject);
+
+            NoMoreItem();
+        }
+    }
+
+    void NewItemInRange(ItemObject item)
+    {
+        _itemInRange = item;
+        _manager.hud.helper.DisplayHelp(Helper.Type.CatchItem);
+    }
+
+    void NoMoreItem()
+    {
+        _itemInRange = null;
+        _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
+    }
+
     // Player manager
     private PlayerManager _manager;
     // Player settings
     private DontDestroyOnLoad _dd;
+    // The item in range
+    private ItemObject _itemInRange;
 }
