@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
         if (!lamp.Active)
         {
             _actualStress += stressWithoutLightBySec * Time.deltaTime;
-            hud.ChangeStressPercentage(_actualStress / maxStress * 100);
+            hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
         }
     }
 

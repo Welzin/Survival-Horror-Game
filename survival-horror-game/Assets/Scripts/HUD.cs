@@ -8,13 +8,11 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void DisplayKeys(List<Key> keys)
@@ -67,17 +65,9 @@ public class HUD : MonoBehaviour
         batteryNumberZone.text = "x " + batteryNumber;
     }
 
-    public void ChangeStressPercentage(float percentage)
-    {
-        RectTransform rt = stressBar.transform.parent.GetComponent<RectTransform>();
-        float width = rt.sizeDelta.x;
-        float height = rt.sizeDelta.y;
-        stressBar.GetComponent<RectTransform>().sizeDelta = new Vector2(width * (percentage / 100f), height);
-    }
-
     public GameObject keyZone;
     public GameObject itemZone;
-    public GameObject stressBar;
+    public StressBar stressBar;
     public Text batteryNumberZone;
     public Helper helper;
 }
