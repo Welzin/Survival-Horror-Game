@@ -42,6 +42,8 @@ public class Lamp : MonoBehaviour
         }
     }
 
+    public float actualBattery {  get { return _actualBattery; } }
+
     public float maxBattery = 100f;
     public float consommationBySec = 10f;
 

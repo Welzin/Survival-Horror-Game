@@ -18,6 +18,10 @@ public class PlayerManager : MonoBehaviour
             _actualStress += stressWithoutLightBySec * Time.deltaTime;
             hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
         }
+        else
+        {
+            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+        }
     }
 
     // The lamp handle
