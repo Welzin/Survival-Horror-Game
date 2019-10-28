@@ -161,15 +161,6 @@ public class PlayerController : MonoBehaviour
         _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        _lockMovement = true;
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        _lockMovement = false;
-    }
-
     // Player manager
     private PlayerManager _manager;
     // The animator

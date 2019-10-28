@@ -120,7 +120,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< HEAD
 --- !u!1 &241407066
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,15 +202,12 @@ MeshRenderer:
   m_SortingOrder: 0
 --- !u!114 &241407070
 MonoBehaviour:
-=======
 --- !u!43 &201976549
 Mesh:
->>>>>>> Added Monsters
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 241407066}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -251,7 +247,6 @@ BoxCollider2D:
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &253056251
-=======
   m_Name: Generated Mesh (DONT change it)
   serializedVersion: 10
   m_SubMeshes:
@@ -410,7 +405,6 @@ BoxCollider2D:
     size: 0
     path: 
 --- !u!1 &241407066
->>>>>>> Added Monsters
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -489,7 +483,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 08b630ac6f3e17949a5dc5e57eb5ec72, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -503,15 +496,12 @@ MeshRenderer:
   m_SpriteSortPoint: 0
 --- !u!4 &253056253
 Transform:
-=======
 --- !u!114 &241407070
 MonoBehaviour:
->>>>>>> Added Monsters
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_GameObject: {fileID: 253056251}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 5.12, z: 0}
@@ -522,7 +512,6 @@ MonoBehaviour:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!43 &465845671
 Mesh:
-=======
   m_GameObject: {fileID: 241407066}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -603,12 +592,10 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!4 &253056253
 Transform:
->>>>>>> Added Monsters
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_Name: Generated Mesh (DONT change it)
   serializedVersion: 10
   m_SubMeshes:
@@ -767,7 +754,6 @@ Transform:
     size: 0
     path: 
 --- !u!43 &665237461
-=======
   m_GameObject: {fileID: 253056251}
   m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 5.12, z: 0}
@@ -777,7 +763,6 @@ Transform:
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!43 &297847379
->>>>>>> Added Monsters
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -946,7 +931,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   serializedVersion: 6
   m_Component:
   - component: {fileID: 705507995}
@@ -1034,8 +1018,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!21 &769761676
 Material:
-=======
->>>>>>> Added Monsters
   serializedVersion: 6
   m_Component:
   - component: {fileID: 705507995}
@@ -1053,7 +1035,6 @@ Light:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_Name: Generated Material (DONT change it)
   m_Shader: {fileID: 4800000, guid: 9423e206b9b6f5f45b0eeb0790bba270, type: 3}
   m_ShaderKeywords: 
@@ -1086,7 +1067,6 @@ Light:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-=======
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
   serializedVersion: 9
@@ -1155,7 +1135,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
->>>>>>> Added Monsters
 --- !u!1 &839250476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,11 +1147,7 @@ GameObject:
   - component: {fileID: 839250478}
   - component: {fileID: 839250477}
   m_Layer: 0
-<<<<<<< HEAD
-  m_Name: monster_test
-=======
   m_Name: character
->>>>>>> Added Monsters
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1190,7 +1165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5657ef00f598947b4814299e6d6448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
   lightDetectionRange: 5
   soundDetectionRange: 1
   movementPattern:
@@ -1200,11 +1174,9 @@ MonoBehaviour:
   - action: 1
     intervalUntilNextAction: 5
     movementAmplitude: 5
-=======
   lightDetectionRange: 1
   soundDetectionRange: 1
   movementPattern: 01000000020000000000000003000000
->>>>>>> Added Monsters
   speed: 1
   yell: {fileID: 0}
 --- !u!212 &839250478
@@ -1404,7 +1376,6 @@ MonoBehaviour:
   LightSourcesLayer: 10
   AmbientLightLayer: 8
   LightObstaclesLayer: 9
-<<<<<<< HEAD
 --- !u!1001 &1131666155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1524,10 +1495,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c3d662645dc66a41b3f8b9fda87baea, type: 3}
---- !u!21 &1199832158
-Material:
-  serializedVersion: 6
-=======
 --- !u!21 &1162967438
 Material:
   serializedVersion: 6
@@ -1723,12 +1690,10 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!4 &1276441935
 Transform:
->>>>>>> Added Monsters
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
   m_Name: Generated Material (DONT change it)
   m_Shader: {fileID: 4800000, guid: a4b0d33bda33cd144862711ad1341c78, type: 3}
   m_ShaderKeywords: TANGENT_TEXCOORD NORMAL_TEXCOORD
@@ -2104,8 +2069,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> Added Monsters
   m_GameObject: {fileID: 1276441933}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
