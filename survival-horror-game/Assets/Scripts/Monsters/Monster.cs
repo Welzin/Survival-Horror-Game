@@ -6,7 +6,10 @@ using UnityEngine;
 // The monster will move according to these action
 // Each monster will move the same amount of time
 // But their speed is different.
+<<<<<<< HEAD
 // More actions can be added later
+=======
+>>>>>>> Added Monsters
 public enum Actions
 {
     Up,
