@@ -8,6 +8,16 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         inventory = new Inventory(hud);
+        _actualStress = 0;
+    }
+
+    private void Update()
+    {
+        if (!lamp.Active)
+        {
+            _actualStress += stressWithoutLightBySec * Time.deltaTime;
+            hud.ChangeStressPercentage(_actualStress / maxStress * 100);
+        }
     }
 
     // The lamp handle
@@ -16,6 +26,10 @@ public class PlayerManager : MonoBehaviour
     public GameObject body;
     // The speed of the character
     public float speed = 3.0f;
+    // The speed of the character
+    public float maxStress = 100f;
+    // The speed of the character
+    public float stressWithoutLightBySec = 2f;
     // Multiplier when running
     public float runningFactor = 2f;
     // The distance to grab an object
@@ -24,4 +38,6 @@ public class PlayerManager : MonoBehaviour
     public HUD hud;
     // Inventory
     public Inventory inventory;
+    
+    private float _actualStress;
 }
