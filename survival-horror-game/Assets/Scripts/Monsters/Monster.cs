@@ -28,6 +28,15 @@ public class Monster : MonoBehaviour
         _hasTarget = false;
         // Uncertainty depends on the speed of the mob
         _errorPercentage = speed / 50;
+        SoundManager sm = FindObjectOfType<SoundManager>();
+        if(sm == null)
+        {
+            Debug.LogWarning("Monster: " + gameObject.name + " can not hear any sound!");
+        }
+        else
+        {
+            sm.Subscribe(this);
+        }
         // In 1s, the monster will execute its first pattern
         Invoke("ExecutePattern", 1);
     }
@@ -140,6 +149,10 @@ public class Monster : MonoBehaviour
         _hasTarget = false;
         // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
         Invoke("ExecutePattern", 10);
+    }
+
+    public void DetectSound(Vector2 center, float radius)
+    {
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
