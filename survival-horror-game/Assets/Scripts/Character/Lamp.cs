@@ -31,11 +31,13 @@ public class Lamp : MonoBehaviour
         }
         set
         {
-            if (_actualBattery > 0 && GetComponent<MeshRenderer>())
+            if (GetComponent<MeshRenderer>())
             {
                 MeshRenderer mesh = GetComponent<MeshRenderer>();
                 _active = value;
+                if (_actualBattery <= 0) { _active = false;  }
                 mesh.enabled = _active;
+
             }
         }
     }
