@@ -12,7 +12,6 @@ public class DontDestroyOnLoad : MonoBehaviour
         down = (KeyCode.S, KeyCode.DownArrow);
         lamp = (KeyCode.A, KeyCode.Mouse0);
         run = (KeyCode.LeftControl, KeyCode.LeftShift);
-
         DontDestroyOnLoad(gameObject);
     }
     public (KeyCode, KeyCode) LeftKey()
