@@ -95,20 +95,20 @@ public class Monster : MonoBehaviour
     {
         // Get the position of the lamp
         Lamp lamp = FindObjectOfType<Lamp>();
-        if(lamp == null)
+        if (lamp == null)
         {
 #if UNITY_EDITOR
             Debug.LogError("Error: There are no lamps in the level");
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
-        if(lamp.Active)
+        if (lamp.Active)
         {
             Vector2 lampPos = lamp.transform.position;
             Vector2 pos = transform.position;
             // Distance between lamp and monster
             float dist = Vector2.Distance(pos, lampPos);
-            if(dist <= lightDetectionRange)
+            if (dist <= lightDetectionRange)
             {
                 RaycastHit2D obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("LightObstacles"));
                 if (obstrusion.collider == null)
@@ -128,7 +128,7 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            if(_hasTarget)
+            if (_hasTarget)
             {
                 ResetTarget();
             }
