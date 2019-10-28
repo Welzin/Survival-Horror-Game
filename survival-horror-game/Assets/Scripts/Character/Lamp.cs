@@ -6,8 +6,8 @@ public class Lamp : MonoBehaviour
 {
     private void Start()
     {
-        Active = false;
         _actualBattery = maxBattery;
+        Active = false;
     }
 
     private void Update()
