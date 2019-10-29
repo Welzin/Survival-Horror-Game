@@ -13,15 +13,7 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if (!lamp.Active)
-        {
-            _actualStress += stressWithoutLightBySec * Time.deltaTime;
-            hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
-        }
-        else
-        {
-            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
-        }
+        ManageStress();
     }
 
     /// <summary>
@@ -45,6 +37,52 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Manage all the stress feelings by the player
+    /// </summary>
+    private void ManageStress()
+    {
+        foreach (Light light in FindObjectsOfType<Light>())
+        {
+            float proximity = (light.transform.position - transform.position).magnitude;
+            if (proximity <= light.radius)
+            {
+                // Search for an item
+                // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
+                RaycastHit2D hit = Physics2D.Raycast(light.transform.position, transform.position, light.radius, LayerMask.GetMask("Wall"));
+                Debug.DrawRay(light.transform.position, transform.position, Color.cyan);
+
+                // If it find one and that this one is not the same than the actual item
+                if (hit.collider == null)
+                {
+                    // This is the factor between 0 and 1 wich say how close teh character is from the light
+                    float factor = (light.radius - proximity) / light.radius;
+                    // It represent the effective light which are on the character
+                    float effectiveLight = factor * light.effectiveLight;
+
+                    AddStress(-(effectiveLight * stressRemovedWithLight * Time.deltaTime));
+                }
+            }
+        }
+        if (!lamp.Active)
+        {
+            AddStress(stressInTheDark * Time.deltaTime);
+        }
+        else
+        {
+            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+        }
+    }
+
+    private void AddStress(float stress)
+    {
+        // No less than 0, no more than maxStress
+        _actualStress = Mathf.Max(Mathf.Min(_actualStress + stress, maxStress), 0);
+        hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
+
+        Debug.Log(_actualStress);
+    }
+
     // The lamp handle
     public Lamp lamp;
     // The body which will turn
@@ -53,8 +91,10 @@ public class PlayerManager : MonoBehaviour
     public float speed = 3.0f;
     // The speed of the character
     public float maxStress = 100f;
-    // The speed of the character
-    public float stressWithoutLightBySec = 2f;
+    // The stress by second in the dark
+    public float stressInTheDark = 2f;
+    // The stress removed by second when you are under an effectivelight = 1
+    public float stressRemovedWithLight = 2f;
     // Multiplier when running
     public float runningFactor = 2f;
     // The distance to grab an object
