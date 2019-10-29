@@ -20,19 +20,30 @@ public class Inventory
             _keys.Add((Key) item);
             _hud.DisplayKeys(_keys);
         }
-        else if (item is Teddy)
-        {
-            _teddy = (Teddy) item;
-        }
         else if (item is Battery)
         {
             _batteryNumber += 1;
             _hud.ChangeBatteryNumber(_batteryNumber);
         }
-        else if (item is Item)
+        else
         {
-            _items.Add((Utility) item);
-            _hud.DisplayItems(_items, _teddy);
+            if (item is Teddy)
+            {
+                _teddy = (Teddy)item;
+            }
+            else
+            {
+                _items.Add((Utility)item);
+            }
+
+            List<Utility> itemToDisplay = new List<Utility>();
+            if (_teddy != null)
+            {
+                itemToDisplay.Add(_teddy);
+            }
+            itemToDisplay.AddRange(_items);
+
+            _hud.DisplayItems(itemToDisplay);
         }
 
         _hud.helper.DisplayInfo("You catch an item : " + item.name);

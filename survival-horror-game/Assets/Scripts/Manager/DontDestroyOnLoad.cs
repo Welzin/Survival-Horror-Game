@@ -14,6 +14,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         run         = (KeyCode.LeftControl, KeyCode.LeftShift);
         interact    = (KeyCode.E, KeyCode.Mouse1);
         reload      = (KeyCode.R, KeyCode.None);
+        hugTeddy    = (KeyCode.F, KeyCode.None);
 
         DontDestroyOnLoad(gameObject);
     }
@@ -49,6 +50,10 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         return reload;
     }
+    public (KeyCode, KeyCode) HugTeddy()
+    {
+        return hugTeddy;
+    }
 
     private (KeyCode, KeyCode) left;
     private (KeyCode, KeyCode) right;
@@ -58,4 +63,5 @@ public class DontDestroyOnLoad : MonoBehaviour
     private (KeyCode, KeyCode) run;
     private (KeyCode, KeyCode) interact;
     private (KeyCode, KeyCode) reload;
+    private (KeyCode, KeyCode) hugTeddy;
 }

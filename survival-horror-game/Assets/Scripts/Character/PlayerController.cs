@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
             // Display an error message and exit the app
 #endif
         }
-        _lockMovement = false;
     }
 
     void FixedUpdate()
@@ -47,24 +46,32 @@ public class PlayerController : MonoBehaviour
         int x = 0;
         int y = 0;
         bool isRunning = false;
+        // When something cannot be done at the same time than doing an action, StopAction() is called to stop it.
+        // We prefer to stop the action instead of avoid teh possibility to move etc...
+        // StopAction must be called BEFORE the new action. (Otherwise this is the new action that will be stopped)
         if (Input.GetKey(_dd.LeftKey().Item1) || Input.GetKey(_dd.LeftKey().Item2))
         {
+            _manager.StopAction();
             x -= 1;
         }
         if (Input.GetKey(_dd.RightKey().Item1) || Input.GetKey(_dd.RightKey().Item2))
         {
+            _manager.StopAction();
             x += 1;
         }
         if (Input.GetKey(_dd.UpKey().Item1) || Input.GetKey(_dd.UpKey().Item2))
         {
+            _manager.StopAction();
             y += 1;
         }
         if (Input.GetKey(_dd.DownKey().Item1) || Input.GetKey(_dd.DownKey().Item2))
         {
+            _manager.StopAction();
             y -= 1;
         }
         if (Input.GetKeyDown(_dd.BindLamp().Item1) || Input.GetKeyDown(_dd.BindLamp().Item2))
         {
+            _manager.StopAction();
             _manager.ToggleLamp();
         }
         if (Input.GetKey(_dd.Run().Item1) || Input.GetKey(_dd.Run().Item2))
@@ -73,15 +80,27 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(_dd.Interact().Item1) || Input.GetKeyDown(_dd.Interact().Item2) && _itemInRange != null)
         {
+            _manager.StopAction();
             GrabObject();
         }
         if (Input.GetKeyDown(_dd.Reload().Item1) || Input.GetKeyDown(_dd.Reload().Item2))
         {
+            _manager.StopAction();
             _manager.ReloadLamp();
+        }
+        if (Input.GetKeyDown(_dd.HugTeddy().Item1) || Input.GetKeyDown(_dd.HugTeddy().Item2))
+        {
+            _manager.StopAction();
+            StartCoroutine(_manager.HugTeddy());
         }
 
         Movement(x, y, isRunning);
-        LampRotation();
+
+        // If you are in action, you cannot move the lamp
+        if (!_manager.DoingAnAction())
+        {
+            LampRotation();
+        }
     }
 
     /// <summary>
@@ -130,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
         // Generate sound
         SoundManager sm = FindObjectOfType<SoundManager>();
-        if(sm != null)
+        if (sm != null)
         {
             sm.CreateSoundWave(transform.position, 4);
         }
@@ -185,6 +204,4 @@ public class PlayerController : MonoBehaviour
     private DontDestroyOnLoad _dd;
     // The item in range
     private ItemObject _itemInRange;
-    // Locks the movement if the player enters in a collider
-    private bool _lockMovement;
 }

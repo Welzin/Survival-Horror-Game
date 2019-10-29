@@ -8,6 +8,17 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _dd = FindObjectOfType<DontDestroyOnLoad>();
+
+        if (_dd == null)
+        {
+#if UNITY_EDITOR
+            Debug.LogError("Error: DontDestroyOnLoad hasn't been found in the scene.");
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            // Display an error message and exit the app
+#endif
+        }
     }
 
     // Update is called once per frame
@@ -35,16 +46,11 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void DisplayItems(List<Utility> items, Teddy teddy)
+    public void DisplayItems(List<Utility> items)
     {
         foreach (Transform child in itemZone.transform)
         {
             Destroy(child.gameObject);
-        }
-
-        if (teddy != null)
-        {
-            items.Insert(0, teddy);
         }
 
         foreach (Utility item in items)
@@ -57,6 +63,19 @@ public class HUD : MonoBehaviour
 
             image.rectTransform.sizeDelta = new Vector2(size, size);
             go.transform.SetParent(itemZone.transform);
+
+            if (item is Teddy)
+            {
+                GameObject go2 = new GameObject();
+                Text text = go2.AddComponent<Text>();
+                text.text = _dd.HugTeddy().Item1.ToString();
+                text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+                text.alignment = TextAnchor.MiddleLeft;
+
+                text.rectTransform.sizeDelta = new Vector2(size, size);
+                text.rectTransform.position = new Vector2(size, 0);
+                go2.transform.SetParent(go.transform);
+            }
         }
     }
 
@@ -71,4 +90,7 @@ public class HUD : MonoBehaviour
     public BatteryBar batteryBar;
     public Text batteryNumberZone;
     public Helper helper;
+
+    // Player settings
+    private DontDestroyOnLoad _dd;
 }

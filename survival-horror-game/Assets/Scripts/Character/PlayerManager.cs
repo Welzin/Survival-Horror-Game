@@ -38,6 +38,45 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Begin or stop hugging teddy
+    /// </summary>
+    public IEnumerator HugTeddy()
+    {
+        Debug.Log("hug");
+        Action action = actionBar.StartAction(5);
+        yield return new WaitForSeconds(5);
+
+        if (action.interrupted)
+        {
+            Debug.Log("L'action a été interrompue");
+        }
+        else
+        {
+            Debug.Log("L'action s'est terminée");
+        }
+    }
+
+    /// <summary>
+    /// Is the player already doing an action
+    /// </summary>
+    /// <returns></returns>
+    public bool DoingAnAction()
+    {
+        return actionBar.inAction;
+    }
+
+    /// <summary>
+    /// Interrupt an action
+    /// </summary>
+    public void StopAction()
+    {
+        if (actionBar.inAction)
+        {
+            actionBar.ActionInterrupted();
+        }
+    }
+
+    /// <summary>
     /// Manage all the stress feelings by the player
     /// </summary>
     private void ManageStress()
@@ -59,10 +98,6 @@ public class PlayerManager : MonoBehaviour
                     float effectiveLight = factor * light.effectiveLight;
 
                     AddStress(-(effectiveLight * stressRemovedWithLight * Time.deltaTime));
-                }
-                else
-                {
-                    Debug.Log("obstacle between the light and player");
                 }
             }
         }
@@ -103,6 +138,9 @@ public class PlayerManager : MonoBehaviour
     public HUD hud;
     // Inventory
     public Inventory inventory;
+    // The action bar to display when the player is doing an action
+    public ActionBar actionBar;
     
     private float _actualStress;
+    private delegate void actionToDo();
 }
