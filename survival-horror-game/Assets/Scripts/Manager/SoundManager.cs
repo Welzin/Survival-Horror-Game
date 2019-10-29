@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    private void Start()
+    private void Awake()
     {
         _listeners = new List<Monster>();
     }
@@ -35,7 +35,7 @@ public class SoundManager : MonoBehaviour
         sound.radius = radius;
         sound.isTrigger = true;
         // Sound layer
-        go.layer = 12;
+        go.layer = LayerMask.NameToLayer("Sound");
         go.name = "Soundwave";
         return go;
     }

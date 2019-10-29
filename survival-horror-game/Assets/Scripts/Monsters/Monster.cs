@@ -15,6 +15,12 @@ public enum Actions
     Right,
 }
 
+public enum Behaviour
+{
+    Follow,
+    Flee,
+}
+
 public class Monster : MonoBehaviour
 {
     void Start()
@@ -151,8 +157,39 @@ public class Monster : MonoBehaviour
 
     private void SetTarget(Vector2 targetPos)
     {
+        if (targetBehaviour == Behaviour.Follow)
+        {
+            _destination = targetPos;
+        }
+        else
+        {
+            Vector2 pos = transform.position;
+            float xDiff = Math.Abs(pos.x - targetPos.x);
+            float yDiff = Math.Abs(pos.y - targetPos.y);
+            if(targetPos.x > pos.x)
+            {
+                if(targetPos.y < pos.y)
+                {
+                    _destination = new Vector2(pos.x - xDiff, pos.y + yDiff);
+                }
+                else
+                {
+                    _destination = new Vector2(pos.x - xDiff, pos.y - yDiff);
+                }
+            }
+            else
+            {
+                if (targetPos.y < pos.y)
+                {
+                    _destination = new Vector2(pos.x + xDiff, pos.y + yDiff);
+                }
+                else
+                {
+                    _destination = new Vector2(pos.x + xDiff, pos.y - yDiff);
+                }
+            }
+        }
         _hasTarget = true;
-        _destination = targetPos;
         CancelInvoke("ExecutePattern");
     }
 
@@ -161,7 +198,7 @@ public class Monster : MonoBehaviour
         // Direction -> y axis
         LayerMask layer = LayerMask.GetMask("Sound");
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, soundDetectionRange, new Vector2(0, 1), Mathf.Infinity, layer);
-        if(hit)
+        if (hit)
         {
             Vector2 soundPos = hit.transform.position;
             if(!_hasTarget)
@@ -186,7 +223,8 @@ public class Monster : MonoBehaviour
     public List<Pattern> movementPattern;
     public float speed = 1f;
     public AudioSource yell;
-    // Need a public var to know what to do when a target is found.
+    // Behaviour when seeing a target
+    public Behaviour targetBehaviour;
 
     private Queue<Pattern> _pattern;
     // Has a target been found ?

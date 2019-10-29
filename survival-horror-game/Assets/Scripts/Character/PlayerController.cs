@@ -127,6 +127,9 @@ public class PlayerController : MonoBehaviour
         // The body is looking at this direction to allow detection with raycast (see FixedUpdate)
         _manager.body.transform.up = pos - (Vector2)_manager.body.transform.position;
         transform.position = pos;
+
+        // Generate sound
+        FindObjectOfType<SoundManager>().CreateSoundWave(transform.position, 4);
     }
 
     /// <summary>
