@@ -27,13 +27,22 @@ public class PlayerManager : MonoBehaviour
     /// <summary>
     /// Reload the lamp if the player have a battery. Delete the battery after.
     /// </summary>
-    public void ReloadLamp()
+    public IEnumerator ReloadLamp()
     {
         if (inventory.HaveBattery())
         {
-            lamp.Reload();
-            inventory.BatteryUsed();
-            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+            bool active = lamp.Active;
+            lamp.Active = false;
+            Action action = actionBar.StartAction(timeToReloadLamp);
+            yield return new WaitForSeconds(timeToReloadLamp);
+
+            if (!action.interrupted)
+            {
+                lamp.Reload();
+                inventory.BatteryUsed();
+                hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+                lamp.Active = active;
+            }
         }
     }
 
@@ -42,17 +51,11 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public IEnumerator HugTeddy()
     {
-        Debug.Log("hug");
-        Action action = actionBar.StartAction(5);
-        yield return new WaitForSeconds(5);
+        Action action = actionBar.StartAction(timeToHugTeddy);
+        yield return new WaitForSeconds(timeToHugTeddy);
 
-        if (action.interrupted)
+        if (!action.interrupted)
         {
-            Debug.Log("L'action a été interrompue");
-        }
-        else
-        {
-            Debug.Log("L'action s'est terminée");
         }
     }
 
@@ -122,6 +125,12 @@ public class PlayerManager : MonoBehaviour
     public Lamp lamp;
     // The body which will turn
     public GameObject body;
+    // The action bar to display when the player is doing an action
+    public ActionBar actionBar;
+    // The hud where everything will be displayed
+    public HUD hud;
+    // Inventory
+    public Inventory inventory;
     // The speed of the character
     public float speed = 3.0f;
     // The speed of the character
@@ -134,12 +143,10 @@ public class PlayerManager : MonoBehaviour
     public float runningFactor = 2f;
     // The distance to grab an object
     public float catchDistance = 0.5f;
-    // The hud where everything will be displayed
-    public HUD hud;
-    // Inventory
-    public Inventory inventory;
-    // The action bar to display when the player is doing an action
-    public ActionBar actionBar;
+    // The time that take the action "hug Teddy"
+    public float timeToHugTeddy = 2f;
+    // The time that take the action "reload lamp"
+    public float timeToReloadLamp = 2f;
     
     private float _actualStress;
     private delegate void actionToDo();

@@ -41,8 +41,12 @@ public class ActionBar : MonoBehaviour
 
     public void ActionInterrupted()
     {
-        _actualAction.interrupted = true;
-        StopAction();
+        if (_actualAction != null)
+        {
+            _actualAction.interrupted = true;
+            StopAction();
+            Debug.Log("An action has been interrupted");
+        }
     }
 
     private void StopAction()

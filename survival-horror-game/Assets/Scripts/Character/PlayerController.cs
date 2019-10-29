@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(_dd.Interact().Item1) || Input.GetKeyDown(_dd.Interact().Item2) && _itemInRange != null)
         {
             _manager.StopAction();
-            GrabObject();
+            StartCoroutine(GrabObject());
         }
         if (Input.GetKeyDown(_dd.Reload().Item1) || Input.GetKeyDown(_dd.Reload().Item2))
         {
             _manager.StopAction();
-            _manager.ReloadLamp();
+            StartCoroutine(_manager.ReloadLamp());
         }
         if (Input.GetKeyDown(_dd.HugTeddy().Item1) || Input.GetKeyDown(_dd.HugTeddy().Item2))
         {
@@ -173,14 +173,20 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Grab the item in range and put it into the inventory
     /// </summary>
-    void GrabObject()
+    private IEnumerator GrabObject()
     {
         if (_itemInRange != null)
         {
-            _manager.inventory.AddItem(_itemInRange.item);
-            Destroy(_itemInRange.gameObject);
+            Action action = _manager.actionBar.StartAction(_itemInRange.timeToGrabItem);
+            yield return new WaitForSeconds(_itemInRange.timeToGrabItem);
 
-            NoMoreItem();
+            if (!action.interrupted)
+            {
+                _manager.inventory.AddItem(_itemInRange.item);
+                Destroy(_itemInRange.gameObject);
+
+                NoMoreItem();
+            }
         }
     }
 

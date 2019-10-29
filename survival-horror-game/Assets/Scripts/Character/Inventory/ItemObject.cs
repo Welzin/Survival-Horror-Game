@@ -33,6 +33,7 @@ public class ItemObject : MonoBehaviour
     
     public Item item;
     public Type type;
+    public float timeToGrabItem = 2f;
     public string itemName = "";
     public Sprite sprite;
     public Door doorForTheKey;
