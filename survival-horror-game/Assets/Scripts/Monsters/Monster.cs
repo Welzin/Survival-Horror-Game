@@ -122,9 +122,7 @@ public class Monster : MonoBehaviour
                 RaycastHit2D obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("LightObstacles"));
                 if (obstrusion.collider == null)
                 {
-                    _hasTarget = true;
-                    _destination = lamp.transform.position;
-                    CancelInvoke("ExecutePattern");
+                    SetTarget(lamp.transform.position);
                 }
                 else
                 {
@@ -151,8 +149,33 @@ public class Monster : MonoBehaviour
         Invoke("ExecutePattern", 10);
     }
 
-    public void DetectSound(Vector2 center, float radius)
+    private void SetTarget(Vector2 targetPos)
     {
+        _hasTarget = true;
+        _destination = targetPos;
+        CancelInvoke("ExecutePattern");
+    }
+
+    public void DetectSound()
+    {
+        // Direction -> y axis
+        LayerMask layer = LayerMask.GetMask("Sound");
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, soundDetectionRange, new Vector2(0, 1), Mathf.Infinity, layer);
+        if(hit)
+        {
+            Vector2 soundPos = hit.transform.position;
+            if(!_hasTarget)
+            {
+                SetTarget(soundPos);
+            }
+            else
+            {
+                if(Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_destination, transform.position))
+                {
+                    SetTarget(soundPos);
+                }
+            }
+        }
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
