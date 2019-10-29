@@ -34,6 +34,8 @@ public class Inventory
             _items.Add((Utility) item);
             _hud.DisplayItems(_items, _teddy);
         }
+
+        _hud.helper.DisplayInfo("You catch an item : " + item.name);
     }
 
     public bool HaveBattery()
@@ -56,12 +58,19 @@ public class Inventory
 
 public class Item
 {
-    public Item() {}
+    public Item(string name)
+    {
+        _name = name;
+    }
+
+    public string name { get { return _name; } }
+
+    private readonly string _name;
 }
 
 public class Utility : Item
 {
-    public Utility(Sprite sprite) : base()
+    public Utility(Sprite sprite, string name) : base(name)
     {
         _sprite = sprite;
     }
@@ -73,7 +82,7 @@ public class Utility : Item
 
 public class Key : Utility
 {
-    public Key(Sprite sprite, Door doorToOpen) : base(sprite)
+    public Key(Sprite sprite, Door doorToOpen) : base(sprite, "a key")
     {
         _doorToOpen = doorToOpen;
     }
@@ -85,10 +94,10 @@ public class Key : Utility
 
 public class Battery : Item
 {
-    public Battery() : base() {}
+    public Battery() : base("a battery") {}
 }
 
 public class Teddy : Utility
 {
-    public Teddy() : base(Resources.Load<Sprite>("Sprites/Teddy")) {}
+    public Teddy() : base(Resources.Load<Sprite>("Sprites/Teddy"), "Teddy !!") {}
 }

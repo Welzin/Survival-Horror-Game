@@ -7,6 +7,8 @@ public class Helper : MonoBehaviour
 {
     void Start()
     {
+        _infoDisplay = false;
+        _info = "";
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         if (_dd == null)
         {
@@ -21,10 +23,33 @@ public class Helper : MonoBehaviour
         _actualDisplayingTypes = new HashSet<Type>();
     }
 
+    private void Update()
+    {
+        if (_infoDisplay)
+        {
+            _actualDisplayingTime += Time.deltaTime;
+
+            if (_actualDisplayingTime >= timeTextIsDisplay)
+            {
+                DisplayOtherHelp();
+                _infoDisplay = false;
+                _info = "";
+            }
+        }
+    }
+
     public enum Type
     {
         CatchItem,
     };
+
+    public void DisplayInfo(string info)
+    {
+        _info = info;
+        textZone.text = info;
+        _infoDisplay = true;
+        _actualDisplayingTime = 0;
+    }
 
     public void DisplayHelp(Type type)
     {
@@ -41,8 +66,16 @@ public class Helper : MonoBehaviour
     public void StopDisplayingHelp(Type type)
     {
         _actualDisplayingTypes.Remove(type);
+        DisplayOtherHelp();
+    }
 
-        if (_actualDisplayingTypes.Count == 0)
+    private void DisplayOtherHelp()
+    {
+        if (_info != "")
+        {
+            textZone.text = _info;
+        }
+        else if (_actualDisplayingTypes.Count == 0)
         {
             textZone.text = "";
         }
@@ -57,6 +90,16 @@ public class Helper : MonoBehaviour
     }
 
     public Text textZone;
+    // When an info is displaying, 
+    public float timeTextIsDisplay;
+
+    // Is There an info display
+    private bool _infoDisplay;
+    // time from which the text is displaying
+    private float _actualDisplayingTime;
+    // The info to display
+    private string _info;
+
     // The actual Helper type displaying
     private HashSet<Type> _actualDisplayingTypes;
     // Player settings
