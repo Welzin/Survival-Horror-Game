@@ -9,11 +9,18 @@ public class PlayerManager : MonoBehaviour
     {
         inventory = new Inventory(hud);
         _actualStress = 0;
+        _huggingTeddy = false;
     }
 
     private void Update()
     {
         ManageStress();
+
+        // HUD change according to the lamp's battery value
+        if (lamp.Active)
+        {
+            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+        }
     }
 
     /// <summary>
@@ -51,11 +58,19 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public IEnumerator HugTeddy()
     {
-        Action action = actionBar.StartAction(timeToHugTeddy);
-        yield return new WaitForSeconds(timeToHugTeddy);
-
-        if (!action.interrupted)
+        if (inventory.HaveTeddy())
         {
+            Action action = actionBar.StartAction(timeToHugTeddy);
+            yield return new WaitForSeconds(timeToHugTeddy);
+
+            if (!action.interrupted)
+            {
+                _huggingTeddy = true;
+            }
+        }
+        else
+        {
+            hud.helper.DisplayInfo("You cannot hug Teddy because he is lost :(");
         }
     }
 
@@ -73,6 +88,11 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void StopAction()
     {
+        if (_huggingTeddy)
+        {
+            _huggingTeddy = false;
+        }
+
         if (actionBar.inAction)
         {
             actionBar.ActionInterrupted();
@@ -84,6 +104,8 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void ManageStress()
     {
+        float effectiveLight = 0;
+
         foreach (Light light in FindObjectsOfType<Light>())
         {
             float proximity = (light.transform.position - transform.position).magnitude;
@@ -98,20 +120,34 @@ public class PlayerManager : MonoBehaviour
                     // This is the factor between 0 and 1 wich say how close teh character is from the light
                     float factor = (light.radius - proximity) / light.radius;
                     // It represent the effective light which are on the character
-                    float effectiveLight = factor * light.effectiveLight;
-
-                    AddStress(-(effectiveLight * stressRemovedWithLight * Time.deltaTime));
+                    effectiveLight += factor * light.effectiveLight;
                 }
             }
         }
-        if (!lamp.Active)
+
+        if (lamp.Active)
         {
-            AddStress(stressInTheDark * Time.deltaTime);
+            effectiveLight = Mathf.Max(1, effectiveLight);
+        }
+
+
+        // If the effectiv light is less than one, we consider that the player is still on the dark.
+        if (effectiveLight < 1)
+        {
+            // But if there is some light, the stress is increase slower
+            AddStress(stressInTheDark * Time.deltaTime * (1 - effectiveLight));
         }
         else
         {
-            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+            // If the light is sufficient, the stress decrease.
+            AddStress(-(effectiveLight - 1) * stressRemovedWithLight * Time.deltaTime);
         }
+
+        if (_huggingTeddy)
+        {
+            AddStress(- stressRemovedWileHugging * Time.deltaTime);
+        }
+
     }
 
     private void AddStress(float stress)
@@ -119,6 +155,7 @@ public class PlayerManager : MonoBehaviour
         // No less than 0, no more than maxStress
         _actualStress = Mathf.Max(Mathf.Min(_actualStress + stress, maxStress), 0);
         hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
+        Debug.Log(stress);
     }
 
     // The lamp handle
@@ -139,6 +176,8 @@ public class PlayerManager : MonoBehaviour
     public float stressInTheDark = 2f;
     // The stress removed by second when you are under an effectivelight = 1
     public float stressRemovedWithLight = 2f;
+    // The stress removed by second when you are hugging Teddy
+    public float stressRemovedWileHugging = 1f;
     // Multiplier when running
     public float runningFactor = 2f;
     // The distance to grab an object
@@ -149,5 +188,5 @@ public class PlayerManager : MonoBehaviour
     public float timeToReloadLamp = 2f;
     
     private float _actualStress;
-    private delegate void actionToDo();
+    private bool _huggingTeddy;
 }

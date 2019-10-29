@@ -54,6 +54,11 @@ public class Inventory
         return _batteryNumber > 0;
     }
 
+    public bool HaveTeddy()
+    {
+        return _teddy != null;
+    }
+
     public void BatteryUsed()
     {
         _batteryNumber -= 1;

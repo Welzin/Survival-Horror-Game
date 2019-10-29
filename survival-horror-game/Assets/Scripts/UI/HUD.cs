@@ -40,6 +40,7 @@ public class HUD : MonoBehaviour
             GameObject go = new GameObject();
             Image image = go.AddComponent<Image>();
             image.sprite = key.sprite;
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
 
             image.rectTransform.sizeDelta = new Vector2(size, size);
             go.transform.SetParent(keyZone.transform);
@@ -60,6 +61,7 @@ public class HUD : MonoBehaviour
             GameObject go = new GameObject();
             Image image = go.AddComponent<Image>();
             image.sprite = item.sprite;
+            image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
 
             image.rectTransform.sizeDelta = new Vector2(size, size);
             go.transform.SetParent(itemZone.transform);
