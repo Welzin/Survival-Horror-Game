@@ -47,12 +47,10 @@ public class PlayerManager : MonoBehaviour
             float proximity = (light.transform.position - transform.position).magnitude;
             if (proximity <= light.radius)
             {
-                // Search for an item
-                // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
-                RaycastHit2D hit = Physics2D.Raycast(light.transform.position, transform.position, light.radius, LayerMask.GetMask("Wall"));
-                Debug.DrawRay(light.transform.position, transform.position, Color.cyan);
+                // Search for a wall
+                // If there is a wall, the light isn't seen
+                RaycastHit2D hit = Physics2D.Raycast(light.transform.position, (transform.position - light.transform.position).normalized, light.radius, LayerMask.GetMask("Obstacle"));
 
-                // If it find one and that this one is not the same than the actual item
                 if (hit.collider == null)
                 {
                     // This is the factor between 0 and 1 wich say how close teh character is from the light
@@ -61,6 +59,10 @@ public class PlayerManager : MonoBehaviour
                     float effectiveLight = factor * light.effectiveLight;
 
                     AddStress(-(effectiveLight * stressRemovedWithLight * Time.deltaTime));
+                }
+                else
+                {
+                    Debug.Log("obstacle between the light and player");
                 }
             }
         }
@@ -79,8 +81,6 @@ public class PlayerManager : MonoBehaviour
         // No less than 0, no more than maxStress
         _actualStress = Mathf.Max(Mathf.Min(_actualStress + stress, maxStress), 0);
         hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
-
-        Debug.Log(_actualStress);
     }
 
     // The lamp handle
