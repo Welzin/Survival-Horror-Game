@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         _manager = GetComponent<PlayerManager>();
         _animator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
 
         if (_dd == null)
         {
@@ -136,7 +137,10 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetInteger("Direction", 2);
         }
-
+        if(!_audio.isPlaying)
+        {
+            _audio.PlayOneShot(_manager.footsteps);
+        }
         // Calculation of the new position
         Vector2 direction = new Vector2(x, y).normalized;
         Vector2 pos = transform.position;
@@ -201,6 +205,7 @@ public class PlayerController : MonoBehaviour
         _itemInRange = null;
         _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
     }
+    
 
     // Player manager
     private PlayerManager _manager;
@@ -210,4 +215,6 @@ public class PlayerController : MonoBehaviour
     private DontDestroyOnLoad _dd;
     // The item in range
     private ItemObject _itemInRange;
+
+    private AudioSource _audio;
 }

@@ -187,6 +187,8 @@ public class PlayerManager : MonoBehaviour
     // The time that take the action "reload lamp"
     public float timeToReloadLamp = 2f;
     
+    public AudioClip footsteps;
+    
     private float _actualStress;
     private bool _huggingTeddy;
 }
