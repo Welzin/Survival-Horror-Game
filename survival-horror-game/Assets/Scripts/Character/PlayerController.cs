@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(_dd.BindLamp().Item1) || Input.GetKeyDown(_dd.BindLamp().Item2))
         {
-            ToggleLamp();
+            _manager.ToggleLamp();
         }
         if (Input.GetKey(_dd.Run().Item1) || Input.GetKey(_dd.Run().Item2))
         {
@@ -74,6 +74,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(_dd.Interact().Item1) || Input.GetKeyDown(_dd.Interact().Item2) && _itemInRange != null)
         {
             GrabObject();
+        }
+        if (Input.GetKeyDown(_dd.Reload().Item1) || Input.GetKeyDown(_dd.Reload().Item2))
+        {
+            _manager.ReloadLamp();
         }
 
         Movement(x, y, isRunning);
@@ -134,14 +138,6 @@ public class PlayerController : MonoBehaviour
         v3 = Camera.main.ScreenToWorldPoint(v3);
         v3.z = transform.position.z;
         _manager.lamp.transform.up = v3 - _manager.lamp.transform.position;
-    }
-
-    /// <summary>
-    /// Switch the lamp activation
-    /// </summary>
-    void ToggleLamp()
-    {
-        _manager.lamp.Active = !_manager.lamp.Active;
     }
 
     /// <summary>

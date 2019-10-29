@@ -6,13 +6,14 @@ public class DontDestroyOnLoad : MonoBehaviour
 {
     void Awake()
     {
-        left = (KeyCode.Q, KeyCode.LeftArrow);
-        right = (KeyCode.D, KeyCode.RightArrow);
-        up = (KeyCode.Z, KeyCode.UpArrow);
-        down = (KeyCode.S, KeyCode.DownArrow);
-        lamp = (KeyCode.A, KeyCode.Mouse0);
-        run = (KeyCode.LeftControl, KeyCode.LeftShift);
-        interact = (KeyCode.E, KeyCode.Mouse1);
+        left        = (KeyCode.Q, KeyCode.LeftArrow);
+        right       = (KeyCode.D, KeyCode.RightArrow);
+        up          = (KeyCode.Z, KeyCode.UpArrow);
+        down        = (KeyCode.S, KeyCode.DownArrow);
+        lamp        = (KeyCode.A, KeyCode.Mouse0);
+        run         = (KeyCode.LeftControl, KeyCode.LeftShift);
+        interact    = (KeyCode.E, KeyCode.Mouse1);
+        reload      = (KeyCode.R, KeyCode.None);
 
         DontDestroyOnLoad(gameObject);
     }
@@ -44,6 +45,10 @@ public class DontDestroyOnLoad : MonoBehaviour
     {
         return interact;
     }
+    public (KeyCode, KeyCode) Reload()
+    {
+        return reload;
+    }
 
     private (KeyCode, KeyCode) left;
     private (KeyCode, KeyCode) right;
@@ -51,6 +56,6 @@ public class DontDestroyOnLoad : MonoBehaviour
     private (KeyCode, KeyCode) down;
     private (KeyCode, KeyCode) lamp;
     private (KeyCode, KeyCode) run;
-
     private (KeyCode, KeyCode) interact;
+    private (KeyCode, KeyCode) reload;
 }

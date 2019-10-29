@@ -23,6 +23,11 @@ public class Lamp : MonoBehaviour
         }
     }
 
+    public void Reload()
+    {
+        _actualBattery = Mathf.Min(_actualBattery + batteryGainOnReload, maxBattery); 
+    }
+
     public bool Active
     {
         get
@@ -46,6 +51,7 @@ public class Lamp : MonoBehaviour
 
     public float maxBattery = 100f;
     public float consommationBySec = 10f;
+    public float batteryGainOnReload;
 
     private bool _active;
     private float _actualBattery;

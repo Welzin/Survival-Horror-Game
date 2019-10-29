@@ -7,7 +7,7 @@ public class Inventory
     public Inventory(HUD hud)
     {
         _hud = hud;
-        _items = new List<Item>();
+        _items = new List<Utility>();
         _keys = new List<Key>();
         _teddy = null;
         _batteryNumber = 0;
@@ -22,22 +22,33 @@ public class Inventory
         }
         else if (item is Teddy)
         {
-            _teddy = (Teddy)item;
+            _teddy = (Teddy) item;
         }
         else if (item is Battery)
         {
             _batteryNumber += 1;
             _hud.ChangeBatteryNumber(_batteryNumber);
         }
-        else
+        else if (item is Item)
         {
-            _items.Add(item);
+            _items.Add((Utility) item);
             _hud.DisplayItems(_items, _teddy);
         }
     }
+
+    public bool HaveBattery()
+    {
+        return _batteryNumber > 0;
+    }
+
+    public void BatteryUsed()
+    {
+        _batteryNumber -= 1;
+        _hud.ChangeBatteryNumber(_batteryNumber);
+    }
     
-    public HUD _hud;
-    private List<Item> _items;
+    private HUD _hud;
+    private List<Utility> _items;
     private List<Key> _keys;
     private Teddy _teddy;
     private int _batteryNumber;
@@ -45,7 +56,12 @@ public class Inventory
 
 public class Item
 {
-    public Item(Sprite sprite)
+    public Item() {}
+}
+
+public class Utility : Item
+{
+    public Utility(Sprite sprite) : base()
     {
         _sprite = sprite;
     }
@@ -55,7 +71,7 @@ public class Item
     private readonly Sprite _sprite;
 }
 
-public class Key : Item
+public class Key : Utility
 {
     public Key(Sprite sprite, Door doorToOpen) : base(sprite)
     {
@@ -69,10 +85,10 @@ public class Key : Item
 
 public class Battery : Item
 {
-    public Battery() : base(Resources.Load<Sprite>("Sprites/Battery")) {}
+    public Battery() : base() {}
 }
 
-public class Teddy : Item
+public class Teddy : Utility
 {
     public Teddy() : base(Resources.Load<Sprite>("Sprites/Teddy")) {}
 }

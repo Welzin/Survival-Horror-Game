@@ -35,7 +35,7 @@ public class HUD : MonoBehaviour
         }
     }
 
-    public void DisplayItems(List<Item> items, Teddy teddy)
+    public void DisplayItems(List<Utility> items, Teddy teddy)
     {
         foreach (Transform child in itemZone.transform)
         {
@@ -47,7 +47,7 @@ public class HUD : MonoBehaviour
             items.Insert(0, teddy);
         }
 
-        foreach (Item item in items)
+        foreach (Utility item in items)
         {
             float size = itemZone.GetComponent<RectTransform>().sizeDelta.x;
 
@@ -62,7 +62,7 @@ public class HUD : MonoBehaviour
 
     public void ChangeBatteryNumber(int batteryNumber)
     {
-        batteryNumberZone.text = "x " + batteryNumber;
+        batteryNumberZone.text = batteryNumber.ToString();
     }
 
     public GameObject keyZone;

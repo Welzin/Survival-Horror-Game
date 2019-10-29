@@ -6,16 +6,19 @@ public class ItemObject : MonoBehaviour
 {
     public enum Type
     {
+        Utility,
         Key,
         Battery,
-        Teddy,
-        Other
+        Teddy
     };
 
     private void Start()
     {
         switch (type)
         {
+            case Type.Utility:
+                item = new Utility(sprite);
+                break;
             case Type.Key:
                 item = new Key(sprite, doorForTheKey);
                 break;
@@ -24,9 +27,6 @@ public class ItemObject : MonoBehaviour
                 break;
             case Type.Teddy:
                 item = new Teddy();
-                break;
-            case Type.Other:
-                item = new Item(sprite);
                 break;
         }
     }

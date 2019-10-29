@@ -24,6 +24,27 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Switch the lamp activation
+    /// </summary>
+    public void ToggleLamp()
+    {
+        lamp.Active = !lamp.Active;
+    }
+
+    /// <summary>
+    /// Reload the lamp if the player have a battery. Delete the battery after.
+    /// </summary>
+    public void ReloadLamp()
+    {
+        if (inventory.HaveBattery())
+        {
+            lamp.Reload();
+            inventory.BatteryUsed();
+            hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+        }
+    }
+
     // The lamp handle
     public Lamp lamp;
     // The body which will turn
