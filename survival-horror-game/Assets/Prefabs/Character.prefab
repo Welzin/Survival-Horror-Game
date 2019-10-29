@@ -365,7 +365,9 @@ MonoBehaviour:
   catchDistance: 0.5
   timeToHugTeddy: 2
   timeToReloadLamp: 2
-  footsteps: {fileID: 8300000, guid: aba6e48dd1678ba4aab1139138d29651, type: 3}
+  footsteps: {fileID: 8300000, guid: ad7cbab4efe03744d8a214af766985e8, type: 3}
+  runningSteps: {fileID: 8300000, guid: b84b58cf65787684b9ae6a9da00c0cdb, type: 3}
+  walkingNoise: 2
 --- !u!95 &2105399054
 Animator:
   serializedVersion: 3
@@ -396,7 +398,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

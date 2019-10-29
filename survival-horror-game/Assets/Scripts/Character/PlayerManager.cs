@@ -188,6 +188,8 @@ public class PlayerManager : MonoBehaviour
     public float timeToReloadLamp = 2f;
     
     public AudioClip footsteps;
+    public AudioClip runningSteps;
+    public float walkingNoise = 2f;
     
     private float _actualStress;
     private bool _huggingTeddy;

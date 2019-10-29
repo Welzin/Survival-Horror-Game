@@ -109,6 +109,15 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Movement(int x, int y, bool isRunning)
     {
+        // Currently 0.4f, may be changed to a public var
+        if(isRunning)
+        {
+            _animator.speed = _manager.runningFactor;
+        }
+        else
+        {
+            _animator.speed = 1;
+        }
         // Set the animation mouvement value (idle, walking, running...)
         if (x == 0 && y == 0)
         {
@@ -137,9 +146,32 @@ public class PlayerController : MonoBehaviour
         {
             _animator.SetInteger("Direction", 2);
         }
-        if(!_audio.isPlaying)
+        // If the player is running, play running steps sounds
+        if (isRunning)
         {
-            _audio.PlayOneShot(_manager.footsteps);
+            if(!_audio.isPlaying)
+            {
+                _audio.clip = _manager.runningSteps;
+                _audio.PlayOneShot(_manager.runningSteps);
+            }
+        }
+        // Else, check if the user is running. If he's running, stop the sound and play the footstep's one, otherwise
+        // just check if it's playing.
+        else
+        {
+            if(_audio.isPlaying)
+            {
+                if(_audio.clip != _manager.footsteps)
+                {
+                    _audio.Stop();
+                    _audio.clip = _manager.footsteps;
+                    _audio.PlayOneShot(_manager.footsteps);
+                }
+            }
+            else
+            {
+                _audio.PlayOneShot(_manager.footsteps);
+            }
         }
         // Calculation of the new position
         Vector2 direction = new Vector2(x, y).normalized;
@@ -155,7 +187,8 @@ public class PlayerController : MonoBehaviour
         SoundManager sm = FindObjectOfType<SoundManager>();
         if (sm != null)
         {
-            sm.CreateSoundWave(transform.position, 4);
+            float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
+            sm.CreateSoundWave(transform.position, noise);
         }
         else
         {
