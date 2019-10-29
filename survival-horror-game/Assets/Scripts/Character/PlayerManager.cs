@@ -155,7 +155,6 @@ public class PlayerManager : MonoBehaviour
         // No less than 0, no more than maxStress
         _actualStress = Mathf.Max(Mathf.Min(_actualStress + stress, maxStress), 0);
         hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
-        Debug.Log(stress);
     }
 
     // The lamp handle
