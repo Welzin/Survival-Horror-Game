@@ -129,7 +129,15 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
 
         // Generate sound
-        FindObjectOfType<SoundManager>().CreateSoundWave(transform.position, 4);
+        SoundManager sm = FindObjectOfType<SoundManager>();
+        if(sm != null)
+        {
+            sm.CreateSoundWave(transform.position, 4);
+        }
+        else
+        {
+            Debug.LogWarning("Player cannot generate sound: There are no objects of type Sound Manager in the scene!");
+        }
     }
 
     /// <summary>
