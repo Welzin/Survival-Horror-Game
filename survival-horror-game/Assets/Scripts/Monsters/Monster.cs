@@ -125,8 +125,8 @@ public class Monster : MonoBehaviour
             float dist = Vector2.Distance(pos, lampPos);
             if (dist <= lightDetectionRange)
             {
-                RaycastHit2D obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("LightObstacles"));
-                if (obstrusion.collider == null)
+                bool obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("Obstacle"));
+                if (!obstrusion)
                 {
                     SetTarget(lamp.transform.position);
                 }
