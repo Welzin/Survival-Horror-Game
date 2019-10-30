@@ -14,11 +14,12 @@ public class Condition
     }
 
     public Action condition = Action.CheckRect;
+    public GameObject destination;
     public int timeToCheck = 0;
     // Is it a continuous action ?
     public bool isLooping = false;
-    public Figures.Rect Rectangle;
-    public Figures.Circ Circle;
+    public Figures.Rect rectangle;
+    public Figures.Circ circle;
 }
  
 namespace Figures
@@ -27,7 +28,14 @@ namespace Figures
     public class Rect
     {
         public Vector2 topLeft;
+        public Vector2 topRight;
+        public Vector2 bottomLeft;
         public Vector2 bottomRight;
+
+        public bool Contains(Vector2 point)
+        {
+            return point.x >= topLeft.x  && point.x <= topRight.x && topRight.y >= point.y && bottomLeft.y <= point.y;
+        }
     }
     [System.Serializable]
     public class Circ
@@ -51,6 +59,7 @@ public class MonsterEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"), new GUIContent("Monster's speed"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("yell"), new GUIContent("Monster's yell"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetBehaviour"), new GUIContent("Behaviour when spotting target"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("currentFloor"), new GUIContent("Starting floor"), true);
         DisplayCondition();
         serializedObject.ApplyModifiedProperties();
     }
@@ -64,15 +73,21 @@ public class MonsterEditor : Editor
             EditorGUI.indentLevel++;
             SerializedProperty conditionProp = serializedObject.FindProperty("cond").FindPropertyRelative("condition");
             EditorGUILayout.PropertyField(conditionProp);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("destination"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("timeToCheck"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("isLooping"));
-            if ((int)Condition.Action.CheckCircle == conditionProp.intValue)
+            if((int)Condition.Action.CheckCircle == conditionProp.intValue)
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Circle"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("circle"), true);
             }
             else
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Rectangle"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("rectangle"), true);
+
+                Debug.DrawLine(_monster.cond.rectangle.topLeft, _monster.cond.rectangle.topRight, Color.green, Time.deltaTime);
+                Debug.DrawLine(_monster.cond.rectangle.topLeft, _monster.cond.rectangle.bottomLeft, Color.green, Time.deltaTime);
+                Debug.DrawLine(_monster.cond.rectangle.topRight, _monster.cond.rectangle.bottomRight, Color.green, Time.deltaTime);
+                Debug.DrawLine(_monster.cond.rectangle.bottomLeft, _monster.cond.rectangle.bottomRight, Color.green, Time.deltaTime);
             }
             EditorGUI.indentLevel--;
         }
