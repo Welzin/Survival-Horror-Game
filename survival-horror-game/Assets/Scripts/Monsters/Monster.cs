@@ -15,6 +15,7 @@ public class Monster : MonoBehaviour
     {
         _pattern = new Queue<Pattern>();
         _destination = transform.position;
+        _allNodes = FindObjectsOfType<Node>();
         foreach (Pattern act in movementPattern)
         {
             _pattern.Enqueue(act);
@@ -30,6 +31,13 @@ public class Monster : MonoBehaviour
         else
         {
             sm.Subscribe(this);
+        }        
+        List<Node> path = Pathfinder.Path(NearestNode(new Vector2(0, 0)), NearestNode(new Vector2(2, 2)), _allNodes);
+        Debug.Log(NearestNode(new Vector2(2, 2)));
+        Debug.Log(NearestNode(new Vector2(0, 0)));
+        foreach (Node node in path)
+        {
+            Debug.Log(node);
         }
         // If nothing has alerted the monster, will check the destination at timeToCheck.
         Invoke("Check", cond.timeToCheck);
@@ -48,9 +56,15 @@ public class Monster : MonoBehaviour
 
     private void Check()
     {
-        //_destination = cond.destination.transform.position;
+        _destination = cond.destination.transform.position;
         // Pathfinder:
-        // MoveTo(destination) 
+/*        List<Node> path = Pathfinder.Path(NearestNode(_destination), NearestNode(transform.position));
+
+        foreach(Node node in path)
+        {
+            Debug.Log(node);
+        }*/
+
         PlayerController player = FindObjectOfType<PlayerController>();
         if(player != null)
         {
@@ -212,6 +226,20 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private Node NearestNode(Vector2 position)
+    {
+        (Node, float) minNode = (_allNodes[0], float.MaxValue);
+        foreach(Node node in _allNodes)
+        {
+            float dist = Mathf.Sqrt(Mathf.Abs((Mathf.Pow(node.X(), 2) - Mathf.Pow(position.x, 2))) + Mathf.Abs((Mathf.Pow(node.Y(), 2) - Mathf.Pow(position.y, 2))));
+            if (dist < minNode.Item2)
+            {
+                minNode = (node, dist);
+            }
+        }
+        return minNode.Item1;
+    }
+
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
     public float lightDetectionRange = 1f;
     // Draws a circle and checks if the monster hears a sound (not limited by sight)
@@ -233,4 +261,6 @@ public class Monster : MonoBehaviour
     private Vector2 _destination;
     // Accepted error percentage on movement
     private float _errorPercentage;
+
+    private Node[] _allNodes;
 }
