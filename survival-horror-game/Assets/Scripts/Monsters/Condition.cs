@@ -17,8 +17,8 @@ public class Condition
     public int timeToCheck = 0;
     // Is it a continuous action ?
     public bool isLooping = false;
-    public Figures.Rect Rectangle;
-    public Figures.Circ Circle;
+    public Figures.Rect rectangle;
+    public Figures.Circ circle;
 }
  
 namespace Figures
@@ -27,6 +27,8 @@ namespace Figures
     public class Rect
     {
         public Vector2 topLeft;
+        public Vector2 topRight;
+        public Vector2 bottomLeft;
         public Vector2 bottomRight;
     }
     [System.Serializable]
@@ -68,11 +70,16 @@ public class MonsterEditor : Editor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("isLooping"));
             if((int)Condition.Action.CheckCircle == conditionProp.intValue)
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Circle"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("circle"), true);
             }
             else
             {
-                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Rectangle"), true);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("rectangle"), true);
+
+                Debug.DrawLine(_monster.cond.rectangle.topLeft, _monster.cond.rectangle.topRight, Color.green, Time.deltaTime);
+                Debug.DrawLine(_monster.cond.rectangle.topLeft, _monster.cond.rectangle.bottomLeft, Color.green, Time.deltaTime);
+                Debug.DrawLine(_monster.cond.rectangle.topRight, _monster.cond.rectangle.bottomRight, Color.green, Time.deltaTime);
+                Debug.DrawLine(_monster.cond.rectangle.bottomLeft, _monster.cond.rectangle.bottomRight, Color.green, Time.deltaTime);
             }
             EditorGUI.indentLevel--;
         }

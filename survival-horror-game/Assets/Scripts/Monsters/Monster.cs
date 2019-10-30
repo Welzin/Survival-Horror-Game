@@ -191,7 +191,7 @@ public class Monster : MonoBehaviour
     public AudioSource yell;
     // Behaviour when seeing a target
     public Behaviour targetBehaviour = Behaviour.Follow;
-
+    // Only one ?
     public Condition cond;
 
     private Queue<Pattern> _pattern;
