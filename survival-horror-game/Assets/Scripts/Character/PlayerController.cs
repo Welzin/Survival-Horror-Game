@@ -122,6 +122,10 @@ public class PlayerController : MonoBehaviour
         if (x == 0 && y == 0)
         {
             _animator.SetInteger("Mouvement", 0);
+            if(_audio.isPlaying)
+            {
+                _audio.Stop();
+            }
             return;
         }
         else
