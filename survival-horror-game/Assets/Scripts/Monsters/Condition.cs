@@ -14,6 +14,9 @@ public class Condition
     }
 
     public Action condition = Action.CheckRect;
+    public int timeToCheck = 0;
+    // Is it a continuous action ?
+    public bool isLooping = false;
     public Figures.Rect Rectangle;
     public Figures.Circ Circle;
 }
@@ -60,8 +63,10 @@ public class MonsterEditor : Editor
         {
             EditorGUI.indentLevel++;
             SerializedProperty conditionProp = serializedObject.FindProperty("cond").FindPropertyRelative("condition");
-            bool changed = EditorGUILayout.PropertyField(conditionProp);
-            if((int)Condition.Action.CheckCircle == conditionProp.intValue)
+            EditorGUILayout.PropertyField(conditionProp);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("timeToCheck"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("isLooping"));
+            if ((int)Condition.Action.CheckCircle == conditionProp.intValue)
             {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Circle"), true);
             }
