@@ -31,9 +31,9 @@ public class Helper : MonoBehaviour
 
             if (_actualDisplayingTime >= timeTextIsDisplay)
             {
-                DisplayOtherHelp();
                 _infoDisplay = false;
                 _info = "";
+                DisplayOtherHelp();
             }
         }
     }
