@@ -20,7 +20,7 @@ public class Pathfinder : MonoBehaviour
 
     private static float heuristic(Node current, Node objective) => Mathf.Max(Mathf.Abs(current.X() - objective.X()), Mathf.Abs(current.Y() - objective.Y()));
 
-    private static float distance(Node current, Node obj) => Mathf.Sqrt((Mathf.Pow(obj.X(), 2) - Mathf.Pow(current.X(), 2)) + (Mathf.Pow(obj.Y(), 2) - Mathf.Pow(current.Y(), 2)));
+    private static float distance(Node current, Node obj) => Mathf.Sqrt(Mathf.Pow(obj.X() - current.X(), 2) + Mathf.Pow(obj.Y()- current.Y(), 2));
 
     public static List<Node> Path(Node start, Node objective, Node[] allNodes)
     {
@@ -49,7 +49,7 @@ public class Pathfinder : MonoBehaviour
 
         while(openSet.Count != 0)
         {
-            Node current = getMin(fScore);
+            Node current = getMin(fScore, openSet);
             if(current == objective)
             {
                 return ReconstructPath(cameFrom, current);
@@ -74,18 +74,17 @@ public class Pathfinder : MonoBehaviour
         return new List<Node>();
     }
 
-    private static Node getMin(Dictionary<Node, float> dict)
+    private static Node getMin(Dictionary<Node, float> dict, HashSet<Node> checkSet)
     {
         (Node, float) min = (dict.First().Key, float.MaxValue);
-        foreach(float val in dict.Values)
+        foreach(Node node in checkSet)
         {
-            if(val < min.Item2)
+            float val = dict[node];
+            if (val < min.Item2)
             {
-                min.Item1 = dict.FirstOrDefault(x => x.Value == val).Key;
-                min.Item2 = val;
+                min = (node, val);
             }
         }
-
         return min.Item1;
     }
 }

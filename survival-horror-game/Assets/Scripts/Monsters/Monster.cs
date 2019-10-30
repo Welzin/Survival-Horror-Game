@@ -33,8 +33,11 @@ public class Monster : MonoBehaviour
             sm.Subscribe(this);
         }        
         List<Node> path = Pathfinder.Path(NearestNode(new Vector2(0, 0)), NearestNode(new Vector2(2, 2)), _allNodes);
-        Debug.Log(NearestNode(new Vector2(2, 2)));
+        /*        Debug.Log(NearestNode(new Vector2(2, 2)));
+                Debug.Log(NearestNode(new Vector2(0, 0)));*/
+        Debug.Log(gameObject.name);
         Debug.Log(NearestNode(new Vector2(0, 0)));
+        Debug.Log(NearestNode(new Vector2(2, 2)));
         foreach (Node node in path)
         {
             Debug.Log(node);
@@ -231,7 +234,7 @@ public class Monster : MonoBehaviour
         (Node, float) minNode = (_allNodes[0], float.MaxValue);
         foreach(Node node in _allNodes)
         {
-            float dist = Mathf.Sqrt(Mathf.Abs((Mathf.Pow(node.X(), 2) - Mathf.Pow(position.x, 2))) + Mathf.Abs((Mathf.Pow(node.Y(), 2) - Mathf.Pow(position.y, 2))));
+            float dist = Mathf.Sqrt(Mathf.Pow(node.X()- position.x, 2) + Mathf.Pow(node.Y() - position.y, 2));
             if (dist < minNode.Item2)
             {
                 minNode = (node, dist);
