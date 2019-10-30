@@ -14,6 +14,7 @@ public class Condition
     }
 
     public Action condition = Action.CheckRect;
+    public GameObject destination;
     public int timeToCheck = 0;
     // Is it a continuous action ?
     public bool isLooping = false;
@@ -30,6 +31,11 @@ namespace Figures
         public Vector2 topRight;
         public Vector2 bottomLeft;
         public Vector2 bottomRight;
+
+        public bool Contains(Vector2 point)
+        {
+            return topLeft.x <= point.x && topRight.x >= point.x && topRight.y >= point.y && bottomLeft.y <= point.y;
+        }
     }
     [System.Serializable]
     public class Circ
@@ -66,6 +72,7 @@ public class MonsterEditor : Editor
             EditorGUI.indentLevel++;
             SerializedProperty conditionProp = serializedObject.FindProperty("cond").FindPropertyRelative("condition");
             EditorGUILayout.PropertyField(conditionProp);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("destination"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("timeToCheck"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("isLooping"));
             if((int)Condition.Action.CheckCircle == conditionProp.intValue)
