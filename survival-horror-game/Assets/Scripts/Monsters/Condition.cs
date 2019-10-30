@@ -34,7 +34,7 @@ namespace Figures
 
         public bool Contains(Vector2 point)
         {
-            return topLeft.x <= point.x && topRight.x >= point.x && topRight.y >= point.y && bottomLeft.y <= point.y;
+            return point.x >= topLeft.x  && point.x <= topRight.x && topRight.y >= point.y && bottomLeft.y <= point.y;
         }
     }
     [System.Serializable]
@@ -59,6 +59,7 @@ public class MonsterEditor : Editor
         EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"), new GUIContent("Monster's speed"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("yell"), new GUIContent("Monster's yell"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetBehaviour"), new GUIContent("Behaviour when spotting target"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("currentFloor"), new GUIContent("Starting floor"), true);
         DisplayCondition();
         serializedObject.ApplyModifiedProperties();
     }
