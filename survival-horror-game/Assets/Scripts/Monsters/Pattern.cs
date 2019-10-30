@@ -5,15 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class Pattern
 {
-    public Actions action;
+    public GameObject goTo;
     public int intervalUntilNextAction;
-    public int movementAmplitude;
 
-    public Pattern(Actions act, int interval, int movement)
+    public Pattern(GameObject act, int interval, int movement)
     {
-        action = act;
+        goTo = act;
         intervalUntilNextAction = interval;
-        movementAmplitude = movement;
     }
 
     public Pattern() { }
