@@ -66,7 +66,7 @@ public class MonsterEditor : Editor
             EditorGUILayout.PropertyField(conditionProp);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("timeToCheck"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("isLooping"));
-            if ((int)Condition.Action.CheckCircle == conditionProp.intValue)
+            if((int)Condition.Action.CheckCircle == conditionProp.intValue)
             {
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Circle"), true);
             }
