@@ -1,9 +1,0 @@
-==> Placer des "nodes" sur la map qui permettent de facilement faire un pathfinder pour avoir un mouvement correct des parents
-==> Quand ils sont à une certaine distance, ils voient que c'est le garçon, donc ils courent
-==> Intégrer l'étage duquel est émis le son pour pas que les parents mongolisent
-
-TODO
-
-==> Parents
-==> Ecran d'accueil
-==> Display d'un texte en haut de l'écran (skippable en appuyant sur une touche)
