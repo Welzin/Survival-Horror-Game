@@ -222,8 +222,9 @@ public class Monster : MonoBehaviour
     public AudioSource yell;
     // Behaviour when seeing a target
     public Behaviour targetBehaviour = Behaviour.Follow;
-    // Only one ?
     public Condition cond;
+    [Range(0, 1)]
+    public int currentFloor = 0;
 
     private Queue<Pattern> _pattern;
     // Has a target been found ?
