@@ -31,8 +31,8 @@ public class Monster : MonoBehaviour
         {
             sm.Subscribe(this);
         }
-        // In 1s, the monster will execute its first pattern
-        Invoke("ExecutePattern", 1);
+        // If nothing has alerted the monster, will check the destination at timeToCheck.
+        Invoke("Check", cond.timeToCheck);
     }
 
     void Update()
@@ -46,6 +46,34 @@ public class Monster : MonoBehaviour
         SearchForLight();
     }
 
+    private void Check()
+    {
+        //_destination = cond.destination.transform.position;
+        // Pathfinder:
+        // MoveTo(destination) 
+        PlayerController player = FindObjectOfType<PlayerController>();
+        if(player != null)
+        {
+            if (!cond.rectangle.Contains(player.gameObject.transform.position))
+            {
+                Debug.Log(gameObject.name + " Not Found.");
+                Invoke("ExecutePattern", 1);
+            }
+            else
+            {
+                Debug.Log(gameObject.name + " Found.");
+                // Game Over
+            }
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.LogError("Error: There is no player in the scene");
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        }
+    }
+
     private void ExecutePattern()
     {
         if (_pattern.Count != 0 && !_hasTarget)
@@ -53,8 +81,7 @@ public class Monster : MonoBehaviour
             Pattern toDo = _pattern.Dequeue();
             float x = transform.position.x;
             float y = transform.position.y;
-            // Destination
-            //Vector2 dest = toDo.goTo.position;
+            _destination = toDo.goTo.transform.position;
             _pattern.Enqueue(toDo);
             Invoke("ExecutePattern", toDo.intervalUntilNextAction);
         }
@@ -123,6 +150,10 @@ public class Monster : MonoBehaviour
 
     private void SetTarget(Vector2 targetPos)
     {
+        if(IsInvoking("Check"))
+        {
+            CancelInvoke("Check");
+        }
         if (targetBehaviour == Behaviour.Follow)
         {
             _destination = targetPos;
