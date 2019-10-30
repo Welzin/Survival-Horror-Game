@@ -1,0 +1,79 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
+using UnityEditor.AnimatedValues;
+
+[System.Serializable]
+public class Condition
+{
+    public enum Action
+    {
+        CheckRect,
+        CheckCircle,
+    }
+
+    public Action condition = Action.CheckRect;
+    public Figures.Rect Rectangle;
+    public Figures.Circ Circle;
+}
+ 
+namespace Figures
+{
+    [System.Serializable]
+    public class Rect
+    {
+        public Vector2 topLeft;
+        public Vector2 bottomRight;
+    }
+    [System.Serializable]
+    public class Circ
+    {
+        public Vector2 center;
+        public float radius;
+    }
+}
+
+[CustomEditor(typeof(Monster))]
+[CanEditMultipleObjects]
+public class MonsterEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("lightDetectionRange"), new GUIContent("Range of light detection"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("soundDetectionRange"), new GUIContent("Range of sound detection"), true);
+        EditorGUILayout.HelpBox("The field 'Interval Until Next Action' will be called after the end of the current movement", MessageType.Info);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("movementPattern"), new GUIContent("Patterns"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"), new GUIContent("Monster's speed"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("yell"), new GUIContent("Monster's yell"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("targetBehaviour"), new GUIContent("Behaviour when spotting target"), true);
+        DisplayCondition();
+        serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DisplayCondition()
+    {
+        _showExtraFields.target = EditorGUILayout.ToggleLeft("Condition to activate pattern", _showExtraFields.target);
+        _monster = (Monster)target;
+        if(EditorGUILayout.BeginFadeGroup(_showExtraFields.faded))
+        {
+            EditorGUI.indentLevel++;
+            SerializedProperty conditionProp = serializedObject.FindProperty("cond").FindPropertyRelative("condition");
+            bool changed = EditorGUILayout.PropertyField(conditionProp);
+            if((int)Condition.Action.CheckCircle == conditionProp.intValue)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Circle"), true);
+            }
+            else
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("Rectangle"), true);
+            }
+            EditorGUI.indentLevel--;
+        }
+        EditorGUILayout.EndFadeGroup();
+    }
+
+    private AnimBool _showExtraFields = new AnimBool(true);
+    private Monster _monster;
+} 

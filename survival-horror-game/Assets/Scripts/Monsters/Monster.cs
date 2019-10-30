@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-// The monster will move according to these action
-// Each monster will move the same amount of time
-// But their speed is different.
-// More actions can be added later
-public enum Actions
-{
-    Up,
-    Down,
-    Left,
-    Right,
-}
-
 public enum Behaviour
 {
     Follow,
@@ -65,30 +53,8 @@ public class Monster : MonoBehaviour
             Pattern toDo = _pattern.Dequeue();
             float x = transform.position.x;
             float y = transform.position.y;
-            int amplitude = toDo.movementAmplitude;
-            switch (toDo.action)
-            {
-                case Actions.Up:
-                    {
-                        _destination = new Vector2(x, y + amplitude);
-                        break;
-                    }
-                case Actions.Down:
-                    {
-                        _destination = new Vector2(x, y - amplitude);
-                        break;
-                    }
-                case Actions.Right:
-                    {
-                        _destination = new Vector2(x + amplitude, y);
-                        break;
-                    }
-                case Actions.Left:
-                    {
-                        _destination = new Vector2(x - amplitude, y);
-                        break;
-                    }
-            }
+            // Destination
+            //Vector2 dest = toDo.goTo.position;
             _pattern.Enqueue(toDo);
             Invoke("ExecutePattern", toDo.intervalUntilNextAction);
         }
@@ -224,7 +190,9 @@ public class Monster : MonoBehaviour
     public float speed = 1f;
     public AudioSource yell;
     // Behaviour when seeing a target
-    public Behaviour targetBehaviour;
+    public Behaviour targetBehaviour = Behaviour.Follow;
+
+    public Condition cond;
 
     private Queue<Pattern> _pattern;
     // Has a target been found ?
