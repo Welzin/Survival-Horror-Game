@@ -8,12 +8,11 @@ public class Node : MonoBehaviour
     {
         _node = gameObject;
     }
-
-    public List<Node> neighbours;
-
     public float X() => _node.transform.position.x;
     public float Y() => _node.transform.position.y;
     public Vector2 Position() => _node.transform.position;
+    public void SetGO(GameObject go) { _node = go; }
 
+    public List<Node> neighbours;
     private GameObject _node;
 }

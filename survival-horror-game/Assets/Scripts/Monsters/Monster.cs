@@ -57,7 +57,7 @@ public class Monster : MonoBehaviour
         // Start movement of the gameObject
         _move.StartMovement(transform.position, cond.destination.transform.position);
         // Wait until the movement has ended
-        StartCoroutine(WaitNonBlocking(_move.isMovementFinished, CheckForPlayer));
+        StartCoroutine(_move.WaitNonBlocking(_move.isMovementFinished, CheckForPlayer));
     }
 
     /// <summary>
@@ -88,6 +88,9 @@ public class Monster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// It will execute the current pattern, and call this function again for the next pattern
+    /// </summary>
     private void ExecutePattern()
     {
         if (_pattern.Count != 0 && !_hasTarget)
@@ -103,6 +106,10 @@ public class Monster : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Checks if the gameObject is in range of the player's lamp turned on
+    /// If it's in range, it will target the player.
+    /// </summary>
     private void SearchForLight()
     {
         // Get the position of the lamp
@@ -216,15 +223,6 @@ public class Monster : MonoBehaviour
                 }
             }
         }
-    }
-
-    private IEnumerator WaitNonBlocking(Func<bool> predicate, System.Action onComplete)
-    {
-        while(!predicate())
-        {
-            yield return new WaitForFixedUpdate();
-        }
-        onComplete();
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)

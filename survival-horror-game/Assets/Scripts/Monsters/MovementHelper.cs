@@ -12,6 +12,7 @@ public class MovementHelper : MonoBehaviour
     {
         _allNodes = FindObjectsOfType<Node>();
         _currentPath = new Queue<Node>();
+        _isPursuing = false;
         // Might be modified to be a class with informations such as speed, name, ...
         Monster m = GetComponent<Monster>();
         if(m == null)
@@ -32,13 +33,12 @@ public class MovementHelper : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        int count = _currentPath.Count;
         // If the gameObject is near the destination's node and there are still enqueued nodes, we can change the destination.
         if (_currentDestination != null)
         {
             if(IsNear(transform.position, _currentDestination))
             {
-                if (count > 0)
+                if (_currentPath.Count > 0)
                 {
                     _currentDestination = _currentPath.Dequeue();
                 }
@@ -93,6 +93,36 @@ public class MovementHelper : MonoBehaviour
             // Begins the movement
             _isMovementFinished = false;
         }
+    }
+
+    /// <summary>
+    /// Goes towards the nearest node of the target, then pursue it.
+    /// </summary>
+    /// <param name="target"></param>
+    public void RunTowardTarget(GameObject target)
+    {
+        StartMovement(transform.position, target.transform.position);
+        // Wait until movement is finished, then forcefully run towards target
+        StartCoroutine(WaitNonBlocking(isMovementFinished, ForcefulMove));
+    }
+
+    /// <summary>
+    /// Waits while the predicate is false. Runs the given function after
+    /// </summary>
+    /// <param name="predicate">Wait until the predicate is true</param>
+    /// <param name="onComplete">Launches this function after the wait</param>
+    public IEnumerator WaitNonBlocking(System.Func<bool> predicate, System.Action onComplete)
+    {
+        while (!predicate())
+        {
+            yield return new WaitForFixedUpdate();
+        }
+        onComplete();
+    }
+
+    private void ForcefulMove()
+    {
+
     }
 
     /// <summary>
@@ -167,4 +197,6 @@ public class MovementHelper : MonoBehaviour
     private float _speed;
     // True when a movement has ended
     private bool _isMovementFinished;
+    // Records if there currently is a target
+    private bool _isPursuing;
 }
