@@ -143,18 +143,19 @@ public class Monster : MonoBehaviour
                 }
             }
         }
-        else
+/*        else
         {
             if (_hasTarget)
             {
                 ResetTarget();
             }
-        }
+        }*/
     }
 
     private void ResetTarget()
     {
         _hasTarget = false;
+        _move.TargetLost();
         // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
         Invoke("ExecutePattern", 10);
     }
@@ -200,7 +201,7 @@ public class Monster : MonoBehaviour
         }
         _hasTarget = true;
         CancelInvoke("ExecutePattern");
-        _move.StartMovement(transform.position, destination);
+        _move.RunTowardTarget(destination);
     }
 
     public void DetectSound()
@@ -220,6 +221,10 @@ public class Monster : MonoBehaviour
                 if(Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
                 {
                     SetTarget(soundPos);
+                }
+                else
+                {
+                    ResetTarget();
                 }
             }
         }

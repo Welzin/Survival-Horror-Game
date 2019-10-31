@@ -12,7 +12,7 @@ public class MovementHelper : MonoBehaviour
     {
         _allNodes = FindObjectsOfType<Node>();
         _currentPath = new Queue<Node>();
-        _isPursuing = false;
+        _target = new Vector2(float.MaxValue, float.MaxValue);
         // Might be modified to be a class with informations such as speed, name, ...
         Monster m = GetComponent<Monster>();
         if(m == null)
@@ -99,11 +99,32 @@ public class MovementHelper : MonoBehaviour
     /// Goes towards the nearest node of the target, then pursue it.
     /// </summary>
     /// <param name="target"></param>
-    public void RunTowardTarget(GameObject target)
+    public void RunTowardTarget(Vector2 target)
     {
-        StartMovement(transform.position, target.transform.position);
-        // Wait until movement is finished, then forcefully run towards target
-        StartCoroutine(WaitNonBlocking(isMovementFinished, ForcefulMove));
+        Node node = NearestNode(target);
+        // If the nearest node from the target is already the current destination, there is no need to redo the path
+        _target = target;
+        if (node == _currentDestination)
+        {
+            // I may have to add WaitNonBlocking here with the target to tempo if it's called again before the previous movement
+            // has ended and the node is the same.
+            ForcefulMove();
+        }
+        // Else, we redo the path and wait for the end of the movement
+        else
+        {
+            StartMovement(NearestNode(transform.position), node);
+            // Wait until movement is finished, then forcefully run towards target
+            StartCoroutine(WaitNonBlocking(isMovementFinished, ForcefulMove));
+        }
+    }
+
+    /// <summary>
+    /// Call this function to cancel the forceful chase
+    /// </summary>
+    public void TargetLost()
+    {
+        _target = new Vector2(float.MaxValue, float.MaxValue);
     }
 
     /// <summary>
@@ -120,9 +141,34 @@ public class MovementHelper : MonoBehaviour
         onComplete();
     }
 
+    /// <summary>
+    /// Forcefully moves toward the target by calling this function while there is a target in view
+    /// </summary>
     private void ForcefulMove()
     {
+        ForcefulUpdate();
+        Move(_target);
+    }
 
+    /// <summary>
+    /// Forcefully update ForcefulMove every 0.05s until there is no target remaining.
+    /// </summary>
+    private void ForcefulUpdate()
+    {
+        if (_target.x == float.MaxValue && _target.y == float.MaxValue)
+        {
+            if (IsInvoking("ForcefulMove"))
+            {
+                CancelInvoke("ForcefulMove");
+            }
+        }
+        else
+        {
+            if (!IsInvoking("ForcefulMove"))
+            {
+                InvokeRepeating("ForcefulMove", 0.05f, 0.05f);
+            }
+        }
     }
 
     /// <summary>
@@ -159,10 +205,22 @@ public class MovementHelper : MonoBehaviour
         return Mathf.Abs(_currentDestination.X() - position.x) <= _errorPercentage && Mathf.Abs(_currentDestination.Y() - position.y) <= _errorPercentage;
     }
 
+    /// <summary>
+    /// Default Move() function to move to the destination node
+    /// </summary>
     private void Move()
     {
+        Move(_currentDestination.Position());
+    }
+
+    /// <summary>
+    /// Specialized move to move toward a goal
+    /// </summary>
+    /// <param name="goal">Target to move toward</param>
+    private void Move(Vector2 goal)
+    {
         Vector2 pos = transform.position;
-        Vector2 direction = (_currentDestination.Position() - pos).normalized;
+        Vector2 direction = (goal - pos).normalized;
         pos += direction * _speed * Time.deltaTime;
         transform.position = pos;
     }
@@ -198,5 +256,5 @@ public class MovementHelper : MonoBehaviour
     // True when a movement has ended
     private bool _isMovementFinished;
     // Records if there currently is a target
-    private bool _isPursuing;
+    private Vector2 _target;
 }
