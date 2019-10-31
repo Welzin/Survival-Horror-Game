@@ -13,16 +13,13 @@ public class Monster : MonoBehaviour
 {
     void Start()
     {
-        _pattern = new Queue<Pattern>();
-        _destination = transform.position;
-        _allNodes = FindObjectsOfType<Node>();
-        foreach (Pattern act in movementPattern)
-        {
-            _pattern.Enqueue(act);
-        }
+        // Adds the MonoBehaviour which manages the movements of a monster
+        _move = gameObject.AddComponent<MovementHelper>();
+        // Instanciate pattern's queue with the given pattern
+        _pattern = new Queue<Pattern>(movementPattern);
+        // It has no target at the start of the game
         _hasTarget = false;
-        // Uncertainty depends on the speed of the mob
-        _errorPercentage = speed / 50;
+        // SoundManager is the object which propagates sound within the game
         SoundManager sm = FindObjectOfType<SoundManager>();
         if(sm == null)
         {
@@ -30,30 +27,46 @@ public class Monster : MonoBehaviour
         }
         else
         {
+            // If the SoundManager is found, subscribe the monster to all the sounds emited in the game
             sm.Subscribe(this);
         }
-        // If nothing has alerted the monster, will check the destination at timeToCheck.
-        Invoke("Check", cond.timeToCheck);
+        // If there is a condition for playing patterns, play it
+        if(cond.condition != Condition.Action.None)
+        {
+            // Play the condition before executing the patterns
+            Invoke("RunCondition", cond.timeToCheck);
+        }
+        // Else, invoke patterns after 1 second
+        else
+        {
+            Invoke("ExecutePattern", 1);
+        }
     }
 
     void Update()
     {
-/*        float x = transform.position.x;
-        float y = transform.position.y;
-        if (Math.Abs(_destination.x - x) > _errorPercentage || Math.Abs(_destination.y - y) > _errorPercentage)
-        {
-            Move(NearestNode(new Vector2(x, y)), NearestNode(_destination));
-        }*/
+        // Search if the player emits light every frame
         SearchForLight();
     }
     
-    private void Check()
+    /// <summary>
+    /// Starts the movement with the destination of the condition, and awaits the end of the movement to apply the condition
+    /// </summary>
+    private void RunCondition()
     {
-        _destination = cond.destination.transform.position;
-        // Move
+        // Start movement of the gameObject
+        _move.StartMovement(transform.position, cond.destination.transform.position);
+        // Wait until the movement has ended
+        StartCoroutine(WaitNonBlocking(_move.isMovementFinished, CheckForPlayer));
+    }
 
+    /// <summary>
+    /// Checks for player in the rectangle given by the condition
+    /// </summary>
+    private void CheckForPlayer()
+    {
         PlayerController player = FindObjectOfType<PlayerController>();
-        if(player != null)
+        if (player != null)
         {
             if (!cond.rectangle.Contains(player.gameObject.transform.position))
             {
@@ -80,9 +93,7 @@ public class Monster : MonoBehaviour
         if (_pattern.Count != 0 && !_hasTarget)
         {
             Pattern toDo = _pattern.Dequeue();
-            float x = transform.position.x;
-            float y = transform.position.y;
-            _destination = toDo.goTo.transform.position;
+            _move.StartMovement(transform.position, toDo.goTo.transform.position);
             _pattern.Enqueue(toDo);
             Invoke("ExecutePattern", toDo.intervalUntilNextAction);
         }
@@ -90,16 +101,6 @@ public class Monster : MonoBehaviour
         {
             CancelInvoke("ExecutePattern");
         }
-    }
-
-    private void Move(Node start, Node dest)
-    {
-        /*        Vector2 pos = transform.position;
-                Vector2 direction = (_destination - pos).normalized;
-                pos += direction * speed * Time.deltaTime;
-                transform.position = pos;*/
-        List<Node> path = Pathfinder.Path(start, dest, _allNodes);
-        // Move through all nodes
     }
     
     private void SearchForLight()
@@ -153,13 +154,14 @@ public class Monster : MonoBehaviour
 
     private void SetTarget(Vector2 targetPos)
     {
-        if(IsInvoking("Check"))
+        Vector2 destination;
+        if(IsInvoking("RunCondition"))
         {
-            CancelInvoke("Check");
+            CancelInvoke("RunCondition");
         }
         if (targetBehaviour == Behaviour.Follow)
         {
-            _destination = targetPos;
+            destination = targetPos;
         }
         else
         {
@@ -170,27 +172,28 @@ public class Monster : MonoBehaviour
             {
                 if(targetPos.y < pos.y)
                 {
-                    _destination = new Vector2(pos.x - xDiff, pos.y + yDiff);
+                    destination = new Vector2(pos.x - xDiff, pos.y + yDiff);
                 }
                 else
                 {
-                    _destination = new Vector2(pos.x - xDiff, pos.y - yDiff);
+                    destination = new Vector2(pos.x - xDiff, pos.y - yDiff);
                 }
             }
             else
             {
                 if (targetPos.y < pos.y)
                 {
-                    _destination = new Vector2(pos.x + xDiff, pos.y + yDiff);
+                    destination = new Vector2(pos.x + xDiff, pos.y + yDiff);
                 }
                 else
                 {
-                    _destination = new Vector2(pos.x + xDiff, pos.y - yDiff);
+                    destination = new Vector2(pos.x + xDiff, pos.y - yDiff);
                 }
             }
         }
         _hasTarget = true;
         CancelInvoke("ExecutePattern");
+        _move.StartMovement(transform.position, destination);
     }
 
     public void DetectSound()
@@ -207,7 +210,7 @@ public class Monster : MonoBehaviour
             }
             else
             {
-                if(Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_destination, transform.position))
+                if(Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
                 {
                     SetTarget(soundPos);
                 }
@@ -215,18 +218,13 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private Node NearestNode(Vector2 position)
+    private IEnumerator WaitNonBlocking(Func<bool> predicate, System.Action onComplete)
     {
-        (Node, float) minNode = (_allNodes[0], float.MaxValue);
-        foreach(Node node in _allNodes)
+        while(!predicate())
         {
-            float dist = Mathf.Sqrt(Mathf.Pow(node.X()- position.x, 2) + Mathf.Pow(node.Y() - position.y, 2));
-            if (dist < minNode.Item2)
-            {
-                minNode = (node, dist);
-            }
+            yield return new WaitForFixedUpdate();
         }
-        return minNode.Item1;
+        onComplete();
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
@@ -246,10 +244,6 @@ public class Monster : MonoBehaviour
     private Queue<Pattern> _pattern;
     // Has a target been found ?
     private bool _hasTarget;
-    // The Monster has to move to this point
-    private Vector2 _destination;
-    // Accepted error percentage on movement
-    private float _errorPercentage;
 
-    private Node[] _allNodes;
+    private MovementHelper _move;
 }
