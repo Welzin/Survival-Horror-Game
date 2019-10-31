@@ -31,16 +31,6 @@ public class Monster : MonoBehaviour
         else
         {
             sm.Subscribe(this);
-        }        
-        List<Node> path = Pathfinder.Path(NearestNode(new Vector2(0, 0)), NearestNode(new Vector2(2, 2)), _allNodes);
-        /*        Debug.Log(NearestNode(new Vector2(2, 2)));
-                Debug.Log(NearestNode(new Vector2(0, 0)));*/
-        Debug.Log(gameObject.name);
-        Debug.Log(NearestNode(new Vector2(0, 0)));
-        Debug.Log(NearestNode(new Vector2(2, 2)));
-        foreach (Node node in path)
-        {
-            Debug.Log(node);
         }
         // If nothing has alerted the monster, will check the destination at timeToCheck.
         Invoke("Check", cond.timeToCheck);
@@ -48,25 +38,19 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        float x = transform.position.x;
+/*        float x = transform.position.x;
         float y = transform.position.y;
         if (Math.Abs(_destination.x - x) > _errorPercentage || Math.Abs(_destination.y - y) > _errorPercentage)
         {
-            Move();
-        }
+            Move(NearestNode(new Vector2(x, y)), NearestNode(_destination));
+        }*/
         SearchForLight();
     }
-
+    
     private void Check()
     {
         _destination = cond.destination.transform.position;
-        // Pathfinder:
-/*        List<Node> path = Pathfinder.Path(NearestNode(_destination), NearestNode(transform.position));
-
-        foreach(Node node in path)
-        {
-            Debug.Log(node);
-        }*/
+        // Move
 
         PlayerController player = FindObjectOfType<PlayerController>();
         if(player != null)
@@ -108,12 +92,14 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private void Move()
+    private void Move(Node start, Node dest)
     {
-        Vector2 pos = transform.position;
-        Vector2 direction = (_destination - pos).normalized;
-        pos += direction * speed * Time.deltaTime;
-        transform.position = pos;
+        /*        Vector2 pos = transform.position;
+                Vector2 direction = (_destination - pos).normalized;
+                pos += direction * speed * Time.deltaTime;
+                transform.position = pos;*/
+        List<Node> path = Pathfinder.Path(start, dest, _allNodes);
+        // Move through all nodes
     }
     
     private void SearchForLight()
