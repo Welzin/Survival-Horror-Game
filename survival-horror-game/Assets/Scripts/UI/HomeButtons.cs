@@ -26,11 +26,23 @@ public class HomeButtons : MonoBehaviour
     }
     public void GoBack()
     {
-        home.SetActive(true);
+        dialog.SetActive(true);
+    }
+
+    public void Ok()
+    {
         options.SetActive(false);
+        dialog.SetActive(false);
+        home.SetActive(true);
+    }
+    
+    public void Cancel()
+    {
+        dialog.SetActive(false);
     }
 
     public string scene;
     public GameObject options;
     public GameObject home;
+    public GameObject dialog;
 }
