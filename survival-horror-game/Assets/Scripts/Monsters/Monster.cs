@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-
+// Still useful ?
+// This class needs cleaning
 public enum Behaviour
 {
     Follow,
@@ -121,7 +122,7 @@ public class Monster : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
-        if (lamp.Active)
+        if (lamp.Active && !_hasTarget)
         {
             Vector2 lampPos = lamp.transform.position;
             Vector2 pos = transform.position;
@@ -136,11 +137,12 @@ public class Monster : MonoBehaviour
                 }
                 else
                 {
-                    if (_hasTarget)
-                    {
-                        ResetTarget();
-                    }
+                    ResetTarget();
                 }
+            }
+            else
+            {
+                ResetTarget();
             }
         }
 /*        else
@@ -154,10 +156,13 @@ public class Monster : MonoBehaviour
 
     private void ResetTarget()
     {
-        _hasTarget = false;
-        _move.TargetLost();
-        // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
-        Invoke("ExecutePattern", 10);
+        if(_hasTarget)
+        {
+            _hasTarget = false;
+            _move.TargetLost();
+            // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
+            Invoke("ExecutePattern", 10);
+        }
     }
 
     private void SetTarget(Vector2 targetPos)
@@ -212,21 +217,21 @@ public class Monster : MonoBehaviour
         if (hit)
         {
             Vector2 soundPos = hit.transform.position;
-            if(!_hasTarget)
+            if (!_hasTarget)
             {
                 SetTarget(soundPos);
             }
             else
             {
-                if(Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
+                if (Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
                 {
                     SetTarget(soundPos);
                 }
-                else
-                {
-                    ResetTarget();
-                }
             }
+        }
+        else
+        {
+            ResetTarget();
         }
     }
 

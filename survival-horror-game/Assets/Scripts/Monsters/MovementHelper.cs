@@ -34,9 +34,9 @@ public class MovementHelper : MonoBehaviour
     void FixedUpdate()
     {
         // If the gameObject is near the destination's node and there are still enqueued nodes, we can change the destination.
-        if (_currentDestination != null)
+        if (_currentDestination != null && !_isMovementFinished)
         {
-            if(IsNear(transform.position, _currentDestination))
+            if(IsNear(transform.position, _currentDestination.Position()))
             {
                 if (_currentPath.Count > 0)
                 {
@@ -45,16 +45,20 @@ public class MovementHelper : MonoBehaviour
                 // If there isn't any enqueued node, we inform that the movement is finished
                 else
                 {
-                    if (!_isMovementFinished)
-                    {
-                        _isMovementFinished = true;
-                    }
+                    _isMovementFinished = true;
                 }
             }
             else
             {
                 // If the gameObject isn't near, we move it
                 Move();
+            }
+        }
+        if(_target.x != float.MaxValue || _target.y != float.MaxValue)
+        {
+            if(!IsNear(transform.position, _target))
+            {
+                Move(_target);
             }
         }
     }
@@ -104,11 +108,12 @@ public class MovementHelper : MonoBehaviour
         Node node = NearestNode(target);
         // If the nearest node from the target is already the current destination, there is no need to redo the path
         _target = target;
-        if (node == _currentDestination)
+        //_currentPath.Clear();
+        //ForcefulMove();
+/*        if (Vector2.Distance(target, node.Position()) >= Vector2.Distance(transform.position, target))
         {
             // I may have to add WaitNonBlocking here with the target to tempo if it's called again before the previous movement
             // has ended and the node is the same.
-            ForcefulMove();
         }
         // Else, we redo the path and wait for the end of the movement
         else
@@ -116,7 +121,7 @@ public class MovementHelper : MonoBehaviour
             StartMovement(NearestNode(transform.position), node);
             // Wait until movement is finished, then forcefully run towards target
             StartCoroutine(WaitNonBlocking(isMovementFinished, ForcefulMove));
-        }
+        }*/
     }
 
     /// <summary>
@@ -139,36 +144,6 @@ public class MovementHelper : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         onComplete();
-    }
-
-    /// <summary>
-    /// Forcefully moves toward the target by calling this function while there is a target in view
-    /// </summary>
-    private void ForcefulMove()
-    {
-        ForcefulUpdate();
-        Move(_target);
-    }
-
-    /// <summary>
-    /// Forcefully update ForcefulMove every 0.05s until there is no target remaining.
-    /// </summary>
-    private void ForcefulUpdate()
-    {
-        if (_target.x == float.MaxValue && _target.y == float.MaxValue)
-        {
-            if (IsInvoking("ForcefulMove"))
-            {
-                CancelInvoke("ForcefulMove");
-            }
-        }
-        else
-        {
-            if (!IsInvoking("ForcefulMove"))
-            {
-                InvokeRepeating("ForcefulMove", 0.05f, 0.05f);
-            }
-        }
     }
 
     /// <summary>
@@ -198,11 +173,11 @@ public class MovementHelper : MonoBehaviour
     /// Checks if a position is near to the given node (depending on the errorPercentage)
     /// </summary>
     /// <param name="position">Position to check</param>
-    /// <param name="node">Node to check</param>
+    /// <param name="goal">Goal to check</param>
     /// <returns>True if the position and node are near</returns>
-    private bool IsNear(Vector2 position, Node node)
+    private bool IsNear(Vector2 position, Vector2 goal)
     {
-        return Mathf.Abs(_currentDestination.X() - position.x) <= _errorPercentage && Mathf.Abs(_currentDestination.Y() - position.y) <= _errorPercentage;
+        return Mathf.Abs(goal.x - position.x) <= _errorPercentage && Mathf.Abs(goal.y - position.y) <= _errorPercentage;
     }
 
     /// <summary>
@@ -240,7 +215,14 @@ public class MovementHelper : MonoBehaviour
     /// <returns>Position of the current destination</returns>
     public Vector2 Destination()
     {
-        return _currentDestination.Position();
+        if(_currentDestination != null)
+        {
+            return _currentDestination.Position();
+        }
+        else
+        {
+            return new Vector2(float.MaxValue, float.MaxValue);
+        }
     }
 
     // All nodes in the pathfinder network
