@@ -18,6 +18,8 @@ public class DontDestroyOnLoad : MonoBehaviour
 {
     void Awake()
     {
+        _soundPower = 1;
+        _musicPower = 1;
         _allKeys = new Dictionary<Controls, (KeyCode, KeyCode)>();
 
         AssignKey(Controls.Left, KeyCode.Q, KeyCode.LeftArrow);
@@ -53,5 +55,27 @@ public class DontDestroyOnLoad : MonoBehaviour
         AssignKey(control, keyOne, keyTwo);
     }
 
+    public float GetEffectsVolume()
+    {
+        return _soundPower;
+    }
+    public float GetMusicVolume()
+    {
+        return _musicPower;
+    }    
+    
+    public void SetEffectsVolume(float volume)
+    {
+        Debug.Log("VFX:" + volume);
+        _soundPower = volume;
+    }
+    public void SetMusicVolume(float volume)
+    {
+        Debug.Log("Music:" + volume);
+        _musicPower = volume;
+    }
+
     private Dictionary<Controls, (KeyCode, KeyCode)> _allKeys;
+    private float _soundPower;
+    private float _musicPower;
 }
