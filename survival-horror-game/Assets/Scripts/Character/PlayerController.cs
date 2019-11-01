@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
         _manager = GetComponent<PlayerManager>();
         _animator = GetComponent<Animator>();
         _audio = GetComponent<AudioSource>();
+        _currentFloor = 1;
 
         if (_dd == null)
         {
@@ -192,7 +193,7 @@ public class PlayerController : MonoBehaviour
         if (sm != null)
         {
             float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
-            sm.CreateSoundWave(transform.position, noise);
+            sm.CreateSoundWave(transform.position, noise, _currentFloor);
         }
         else
         {
@@ -254,4 +255,5 @@ public class PlayerController : MonoBehaviour
     private ItemObject _itemInRange;
 
     private AudioSource _audio;
+    private int _currentFloor;
 }

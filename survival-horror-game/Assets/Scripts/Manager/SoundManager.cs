@@ -13,14 +13,17 @@ public class SoundManager : MonoBehaviour
         _listeners.Add(monster);
     }
 
-    public void CreateSoundWave(Vector2 center, float radius)
+    public void CreateSoundWave(Vector2 center, float radius, int floor)
     {
         GameObject go = CreateGO(center, radius);
         if(_listeners.Count != 0)
         {
             foreach (Monster m in _listeners)
             {
-                m.DetectSound();
+                if(m.currentFloor == floor)
+                {
+                    m.DetectSound();
+                }
             }
         }
         // Delete sound wave
