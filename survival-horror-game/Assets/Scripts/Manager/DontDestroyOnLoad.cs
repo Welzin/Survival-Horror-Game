@@ -48,5 +48,10 @@ public class DontDestroyOnLoad : MonoBehaviour
         return _allKeys[control];
     }
 
+    public void SetKey(Controls control, KeyCode keyOne, KeyCode keyTwo)
+    {
+        AssignKey(control, keyOne, keyTwo);
+    }
+
     private Dictionary<Controls, (KeyCode, KeyCode)> _allKeys;
 }
