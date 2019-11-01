@@ -24,6 +24,11 @@ public class HomeButtons : MonoBehaviour
         Application.Quit();
 #endif
     }
+    public void GoBack()
+    {
+        home.SetActive(true);
+        options.SetActive(false);
+    }
 
     public string scene;
     public GameObject options;

@@ -2,66 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Controls
+{
+    Left,
+    Right,
+    Up,
+    Down,
+    Lamp,
+    Run,
+    Interact,
+    Reload,
+    HugTeddy,
+}
 public class DontDestroyOnLoad : MonoBehaviour
 {
     void Awake()
     {
-        left        = (KeyCode.Q, KeyCode.LeftArrow);
-        right       = (KeyCode.D, KeyCode.RightArrow);
-        up          = (KeyCode.Z, KeyCode.UpArrow);
-        down        = (KeyCode.S, KeyCode.DownArrow);
-        lamp        = (KeyCode.A, KeyCode.Mouse0);
-        run         = (KeyCode.LeftControl, KeyCode.LeftShift);
-        interact    = (KeyCode.E, KeyCode.Mouse1);
-        reload      = (KeyCode.R, KeyCode.None);
-        hugTeddy    = (KeyCode.F, KeyCode.None);
+        _allKeys = new Dictionary<Controls, (KeyCode, KeyCode)>();
+
+        AssignKey(Controls.Left, KeyCode.Q, KeyCode.LeftArrow);
+        AssignKey(Controls.Right, KeyCode.D, KeyCode.RightArrow);
+        AssignKey(Controls.Up, KeyCode.Z, KeyCode.UpArrow);
+        AssignKey(Controls.Down, KeyCode.S, KeyCode.DownArrow);
+        AssignKey(Controls.Lamp, KeyCode.A, KeyCode.Mouse0);
+        AssignKey(Controls.Run, KeyCode.LeftControl, KeyCode.None);
+        AssignKey(Controls.Interact, KeyCode.E, KeyCode.Mouse1);
+        AssignKey(Controls.Reload, KeyCode.R, KeyCode.None);
+        AssignKey(Controls.HugTeddy, KeyCode.F, KeyCode.None);
 
         DontDestroyOnLoad(gameObject);
     }
-    public (KeyCode, KeyCode) LeftKey()
+
+    private void AssignKey(Controls key, KeyCode keyOne, KeyCode keyTwo)
     {
-        return left;
-    }
-    public (KeyCode, KeyCode) RightKey()
-    {
-        return right;
-    }
-    public (KeyCode, KeyCode) UpKey()
-    {
-        return up;
-    }
-    public (KeyCode, KeyCode) DownKey()
-    {
-        return down;
-    }
-    public (KeyCode, KeyCode) BindLamp()
-    {
-        return lamp;
-    }
-    public (KeyCode, KeyCode) Run()
-    {
-        return run;
-    }
-    public (KeyCode, KeyCode) Interact()
-    {
-        return interact;
-    }
-    public (KeyCode, KeyCode) Reload()
-    {
-        return reload;
-    }
-    public (KeyCode, KeyCode) HugTeddy()
-    {
-        return hugTeddy;
+        _allKeys[key] = (keyOne, keyTwo);
     }
 
-    private (KeyCode, KeyCode) left;
-    private (KeyCode, KeyCode) right;
-    private (KeyCode, KeyCode) up;
-    private (KeyCode, KeyCode) down;
-    private (KeyCode, KeyCode) lamp;
-    private (KeyCode, KeyCode) run;
-    private (KeyCode, KeyCode) interact;
-    private (KeyCode, KeyCode) reload;
-    private (KeyCode, KeyCode) hugTeddy;
+    public Dictionary<Controls, (KeyCode, KeyCode)> AllKeys()
+    {
+        return _allKeys;
+    }
+
+    public (KeyCode, KeyCode) GetKey(Controls control)
+    {
+        return _allKeys[control];
+    }
+
+    private Dictionary<Controls, (KeyCode, KeyCode)> _allKeys;
 }

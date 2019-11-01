@@ -70,7 +70,7 @@ public class HUD : MonoBehaviour
             {
                 GameObject go2 = new GameObject();
                 Text text = go2.AddComponent<Text>();
-                text.text = _dd.HugTeddy().Item1.ToString();
+                text.text = _dd.GetKey(Controls.HugTeddy).Item1.ToString();
                 text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
                 text.alignment = TextAnchor.MiddleLeft;
 

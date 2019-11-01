@@ -50,46 +50,46 @@ public class PlayerController : MonoBehaviour
         // When something cannot be done at the same time than doing an action, StopAction() is called to stop it.
         // We prefer to stop the action instead of avoid teh possibility to move etc...
         // StopAction must be called BEFORE the new action. (Otherwise this is the new action that will be stopped)
-        if (Input.GetKey(_dd.LeftKey().Item1) || Input.GetKey(_dd.LeftKey().Item2))
+        if (Input.GetKey(_dd.GetKey(Controls.Left).Item1) || Input.GetKey(_dd.GetKey(Controls.Left).Item2))
         {
             _manager.StopAction();
             x -= 1;
         }
-        if (Input.GetKey(_dd.RightKey().Item1) || Input.GetKey(_dd.RightKey().Item2))
+        if (Input.GetKey(_dd.GetKey(Controls.Right).Item1) || Input.GetKey(_dd.GetKey(Controls.Right).Item2))
         {
             _manager.StopAction();
             x += 1;
         }
-        if (Input.GetKey(_dd.UpKey().Item1) || Input.GetKey(_dd.UpKey().Item2))
+        if (Input.GetKey(_dd.GetKey(Controls.Up).Item1) || Input.GetKey(_dd.GetKey(Controls.Up).Item2))
         {
             _manager.StopAction();
             y += 1;
         }
-        if (Input.GetKey(_dd.DownKey().Item1) || Input.GetKey(_dd.DownKey().Item2))
+        if (Input.GetKey(_dd.GetKey(Controls.Down).Item1) || Input.GetKey(_dd.GetKey(Controls.Down).Item2))
         {
             _manager.StopAction();
             y -= 1;
         }
-        if (Input.GetKeyDown(_dd.BindLamp().Item1) || Input.GetKeyDown(_dd.BindLamp().Item2))
+        if (Input.GetKeyDown(_dd.GetKey(Controls.Lamp).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Lamp).Item2))
         {
             _manager.StopAction();
             _manager.ToggleLamp();
         }
-        if (Input.GetKey(_dd.Run().Item1) || Input.GetKey(_dd.Run().Item2))
+        if (Input.GetKey(_dd.GetKey(Controls.Run).Item1) || Input.GetKey(_dd.GetKey(Controls.Run).Item2))
         {
             isRunning = true;
         }
-        if (Input.GetKeyDown(_dd.Interact().Item1) || Input.GetKeyDown(_dd.Interact().Item2) && _itemInRange != null)
+        if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2) && _itemInRange != null)
         {
             _manager.StopAction();
             StartCoroutine(GrabObject());
         }
-        if (Input.GetKeyDown(_dd.Reload().Item1) || Input.GetKeyDown(_dd.Reload().Item2))
+        if (Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item2))
         {
             _manager.StopAction();
             StartCoroutine(_manager.ReloadLamp());
         }
-        if (Input.GetKeyDown(_dd.HugTeddy().Item1) || Input.GetKeyDown(_dd.HugTeddy().Item2))
+        if (Input.GetKeyDown(_dd.GetKey(Controls.HugTeddy).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.HugTeddy).Item2))
         {
             _manager.StopAction();
             StartCoroutine(_manager.HugTeddy());

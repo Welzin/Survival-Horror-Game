@@ -56,7 +56,7 @@ public class Helper : MonoBehaviour
         switch (type)
         {
             case Type.CatchItem:
-                textZone.text = "Press " + _dd.Interact().Item1 + " to get this item";
+                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to get this item";
                 break;
         }
 
