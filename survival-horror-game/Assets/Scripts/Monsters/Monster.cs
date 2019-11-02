@@ -98,6 +98,8 @@ public class Monster : MonoBehaviour
         {
             Pattern toDo = _pattern.Dequeue();
             _move.StartMovement(transform.position, toDo.goTo.transform.position);
+            Debug.Log("Executing pattern...");
+            Debug.Log(toDo.goTo.name);
             _pattern.Enqueue(toDo);
             Invoke("ExecutePattern", toDo.intervalUntilNextAction);
         }
