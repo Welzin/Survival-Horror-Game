@@ -43,10 +43,10 @@ public class Helper : MonoBehaviour
         CatchItem,
     };
 
-    public void DisplayInfo(string info)
+    public void DisplayInfo(Text zone, string info)
     {
         _info = info;
-        textZone.text = info;
+        zone.text = info;
         _infoDisplay = true;
         _actualDisplayingTime = 0;
     }
@@ -90,6 +90,7 @@ public class Helper : MonoBehaviour
     }
 
     public Text textZone;
+    public Text infoZone;
     // When an info is displaying, 
     public float timeTextIsDisplay;
 

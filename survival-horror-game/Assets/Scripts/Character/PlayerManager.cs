@@ -70,7 +70,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            hud.helper.DisplayInfo("You cannot hug Teddy because he is lost :(");
+            hud.helper.DisplayInfo(hud.helper.infoZone, "You cannot hug Teddy because he is lost :(");
         }
     }
 
