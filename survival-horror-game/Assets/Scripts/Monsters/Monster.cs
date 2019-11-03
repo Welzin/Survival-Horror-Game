@@ -248,7 +248,7 @@ public class Monster : MonoBehaviour
     // Behaviour when seeing a target
     public Behaviour targetBehaviour = Behaviour.Follow;
     public Condition cond;
-    [Range(0, 1)]
+    [Range(1, 2)]
     public int currentFloor = 0;
 
     private Queue<Pattern> _pattern;

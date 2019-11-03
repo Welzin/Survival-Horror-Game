@@ -10,7 +10,7 @@ public class MovementHelper : MonoBehaviour
 {
     void Start()
     {
-        _allNodes = FindObjectsOfType<Node>();
+        UpdateAllNodes();
         _currentPath = new Queue<Node>();
         _target = new Vector2(float.MaxValue, float.MaxValue);
         // Might be modified to be a class with informations such as speed, name, ...
@@ -80,6 +80,7 @@ public class MovementHelper : MonoBehaviour
     /// <param name="goal">Node the object has to reach</param>
     public void StartMovement(Node start, Node goal)
     {
+        UpdateAllNodes();
         _currentPath = new Queue<Node>(Pathfinder.Path(start, goal, _allNodes));
         if (_currentPath.Count == 0)
         {
@@ -153,6 +154,7 @@ public class MovementHelper : MonoBehaviour
     /// <returns>Node nearest to the given position</returns>
     private Node NearestNode(Vector2 position)
     {
+        UpdateAllNodes();
         // Instantiate to _allNodes[0] because a Node is a MonoBehaviour and can not be instanciated
         // with new Node().
         (Node, float) minNode = (_allNodes[0], float.MaxValue);
@@ -198,6 +200,25 @@ public class MovementHelper : MonoBehaviour
         Vector2 direction = (goal - pos).normalized;
         pos += direction * _speed * Time.deltaTime;
         transform.position = pos;
+    }
+
+    /// <summary>
+    /// Updates local node network depending on the monster's floor
+    /// </summary>
+    private void UpdateAllNodes()
+    {
+        int floor = gameObject.GetComponent<Monster>().currentFloor;
+        FloorManager[] allFloorManager = FindObjectsOfType<FloorManager>();
+        foreach(FloorManager m in allFloorManager)
+        {
+            if(m.floorNumber == floor)
+            {
+                if (_allNodes != m.GetNodes())
+                {
+                    _allNodes = m.GetNodes();
+                }
+            }
+        }
     }
 
     /// <summary>
