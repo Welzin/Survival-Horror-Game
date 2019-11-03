@@ -15,4 +15,15 @@ public class Node : MonoBehaviour
 
     public List<Node> neighbours;
     private GameObject _node;
+
+    private void OnValidate()
+    {
+        foreach(Node node in neighbours)
+        {
+            if (node != null && !node.neighbours.Contains(this))
+            {
+                node.neighbours.Add(this);
+            }
+        }
+    }
 }
