@@ -23,6 +23,8 @@ public class CreateOptions : MonoBehaviour
             go.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Text>().text = key.Value.Item1.ToString();
             // 2 ==> Second bind > 1 ==> Button > 0 ==> Text
             go.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<UnityEngine.UI.Text>().text = key.Value.Item2.ToString();
+
+            go.transform.localScale = transform.localScale;
         }
     }
 }
