@@ -17,7 +17,7 @@ public class FloorManager : MonoBehaviour
 
     [Header("Please, put all nodes of the corresponding floor as child of this object")]
     public int floorNumber;
-    public Node floorPassageWay;
+    public Node linkNode;
 
     private Node[] _allFloorNodes;
 }

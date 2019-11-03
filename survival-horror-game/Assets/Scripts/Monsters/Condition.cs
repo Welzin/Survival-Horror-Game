@@ -10,7 +10,6 @@ public class Condition
     public enum Action
     {
         CheckRect,
-        CheckCircle,
         None,
     }
 
@@ -20,7 +19,6 @@ public class Condition
     // Is it a continuous action ?
     public bool isLooping = false;
     public Figures.Rect rectangle;
-    public Figures.Circ circle;
 }
 
 [System.Serializable]
@@ -44,12 +42,6 @@ namespace Figures
         {
             return point.x >= topLeft.x  && point.x <= topRight.x && topRight.y >= point.y && bottomLeft.y <= point.y;
         }
-    }
-    [System.Serializable]
-    public class Circ
-    {
-        public Vector2 center;
-        public float radius;
     }
 }
 
@@ -86,11 +78,7 @@ public class MonsterEditor : Editor
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("destination"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("timeToCheck"));
                 EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("isLooping"));
-                if ((int)Condition.Action.CheckCircle == conditionProp.intValue)
-                {
-                    EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("circle"), true);
-                }
-                else
+                if ((int)Condition.Action.CheckRect == conditionProp.intValue)
                 {
                     EditorGUILayout.PropertyField(serializedObject.FindProperty("cond").FindPropertyRelative("rectangle"), true);
 

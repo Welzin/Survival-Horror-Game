@@ -56,7 +56,7 @@ public class Monster : MonoBehaviour
     private void RunCondition()
     {
         // Start movement of the gameObject
-        _move.StartMovement(transform.position, cond.destination.transform.position);
+        _move.StartMovement(transform.position, cond.destination);
         // Wait until the movement has ended
         StartCoroutine(_move.WaitNonBlocking(_move.isMovementFinished, CheckForPlayer));
     }
@@ -97,7 +97,7 @@ public class Monster : MonoBehaviour
         if (_pattern.Count != 0 && !_hasTarget)
         {
             Pattern toDo = _pattern.Dequeue();
-            _move.StartMovement(transform.position, toDo.goTo.transform.position);
+            _move.StartMovement(transform.position, toDo.goTo);
             Debug.Log("Executing pattern...");
             Debug.Log(toDo.goTo.name);
             _pattern.Enqueue(toDo);

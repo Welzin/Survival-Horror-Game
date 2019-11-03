@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,22 +11,25 @@ public class MovementHelper : MonoBehaviour
 {
     void Start()
     {
-        UpdateAllNodes();
+        _allNodes = FindObjectsOfType<Node>();
         _currentPath = new Queue<Node>();
         _target = new Vector2(float.MaxValue, float.MaxValue);
         // Might be modified to be a class with informations such as speed, name, ...
-        Monster m = GetComponent<Monster>();
-        if(m == null)
+        _mainScript = GetComponent<Monster>();
+        if(_mainScript == null)
         {
-            Debug.LogWarning("Monster component not found on " + gameObject.name + ". Speed set to 1.");
+            Debug.LogError("Monster component not found on " + gameObject.name + ". Speed set to 1.");
             _speed = 1; ;
         }
         else
         {
-            _speed = m.speed;
+            _speed = _mainScript.speed;
         }
         // Uncertainty depends on the speed
         _errorPercentage = _speed / 50;
+        _floorManagers = new List<FloorManager>();
+        _floorManagers.AddRange(FindObjectsOfType<FloorManager>());
+        _floorManagers.Sort((el1, el2) => (el1.floorNumber.CompareTo(el2.floorNumber)));
     }
 
     /// <summary>
@@ -41,6 +45,7 @@ public class MovementHelper : MonoBehaviour
                 if (_currentPath.Count > 0)
                 {
                     _currentDestination = _currentPath.Dequeue();
+                    CheckFloor();
                 }
                 // If there isn't any enqueued node, we inform that the movement is finished
                 else
@@ -63,14 +68,35 @@ public class MovementHelper : MonoBehaviour
         }
     }
 
+    private void CheckFloor()
+    {
+        int currentFloor = _mainScript.currentFloor;
+        if(currentFloor == 2 && _currentDestination == _floorManagers[0].linkNode)
+        {
+            _mainScript.currentFloor = 1;
+        }
+        else if (currentFloor == 1 && _currentDestination == _floorManagers[1].linkNode)
+        {
+            _mainScript.currentFloor = 2;
+        }
+    }
+
     /// <summary>
     /// Calculates and enqueue the path to take to go from the start to the goal.
     /// </summary>
     /// <param name="start">Current position of the object to move (supposedly the gameObject)</param>
     /// <param name="goal">Position the object has to reach</param>
-    public void StartMovement(Vector2 start, Vector2 goal)
+    public void StartMovement(Vector2 start, Vector2 goal, int goalFloor)
     {
-        StartMovement(NearestNode(start), NearestNode(goal));
+        StartMovement(NearestNode(start, _mainScript.currentFloor), NearestNode(goal, goalFloor));
+    }
+    public void StartMovement(Node start, Vector2 goal, int goalFloor)
+    {
+        StartMovement(start, NearestNode(goal, goalFloor));
+    }    
+    public void StartMovement(Vector2 start, Node goal)
+    {
+        StartMovement(NearestNode(start, _mainScript.currentFloor), goal);
     }
 
     /// <summary>
@@ -80,7 +106,6 @@ public class MovementHelper : MonoBehaviour
     /// <param name="goal">Node the object has to reach</param>
     public void StartMovement(Node start, Node goal)
     {
-        UpdateAllNodes();
         _currentPath = new Queue<Node>(Pathfinder.Path(start, goal, _allNodes));
         if (_currentPath.Count == 0)
         {
@@ -106,7 +131,7 @@ public class MovementHelper : MonoBehaviour
     /// <param name="target"></param>
     public void RunTowardTarget(Vector2 target)
     {
-        Node node = NearestNode(target);
+        Node node = NearestNode(target, _mainScript.currentFloor);
         // If the nearest node from the target is already the current destination, there is no need to redo the path
         _target = target;
         //_currentPath.Clear();
@@ -152,13 +177,13 @@ public class MovementHelper : MonoBehaviour
     /// </summary>
     /// <param name="position">Position of the object</param>
     /// <returns>Node nearest to the given position</returns>
-    private Node NearestNode(Vector2 position)
+    private Node NearestNode(Vector2 position, int floor)
     {
-        UpdateAllNodes();
         // Instantiate to _allNodes[0] because a Node is a MonoBehaviour and can not be instanciated
         // with new Node().
         (Node, float) minNode = (_allNodes[0], float.MaxValue);
-        foreach (Node node in _allNodes)
+        Node[] allNodes = _floorManagers[floor - 1].GetNodes();
+        foreach (Node node in allNodes)
         {
             // Get the distance between the node and the current position
             float dist = Mathf.Sqrt(Mathf.Pow(node.X() - position.x, 2) + Mathf.Pow(node.Y() - position.y, 2));
@@ -203,25 +228,6 @@ public class MovementHelper : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates local node network depending on the monster's floor
-    /// </summary>
-    private void UpdateAllNodes()
-    {
-        int floor = gameObject.GetComponent<Monster>().currentFloor;
-        FloorManager[] allFloorManager = FindObjectsOfType<FloorManager>();
-        foreach(FloorManager m in allFloorManager)
-        {
-            if(m.floorNumber == floor)
-            {
-                if (_allNodes != m.GetNodes())
-                {
-                    _allNodes = m.GetNodes();
-                }
-            }
-        }
-    }
-
-    /// <summary>
     /// Call this function to know if the current movement has ended or not
     /// </summary>
     /// <returns>Current state of _isMovementFinished</returns>
@@ -260,4 +266,8 @@ public class MovementHelper : MonoBehaviour
     private bool _isMovementFinished;
     // Records if there currently is a target
     private Vector2 _target;
+    // All floors manager sorted in floor number
+    private List<FloorManager> _floorManagers;
+    // Associated Monster script
+    private Monster _mainScript;
 }
