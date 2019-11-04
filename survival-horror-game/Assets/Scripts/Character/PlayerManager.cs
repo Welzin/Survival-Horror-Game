@@ -20,11 +20,6 @@ public class PlayerManager : MonoBehaviour
         ManageStress();
         Move();
 
-        if (_isSpeaking && hud.dialog.FinishSpeaking())
-        {
-            _isSpeaking = false;
-        }
-
         // HUD change according to the lamp's battery value
         if (lamp.Active)
         {
@@ -193,7 +188,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Speak(string newText)
     {
-        _isSpeaking = true;
         hud.dialog.AddDialog(newText);
     }
 
@@ -204,7 +198,7 @@ public class PlayerManager : MonoBehaviour
 
     public bool IsSpeaking()
     {
-        return _isSpeaking;
+        return !hud.dialog.FinishSpeaking();
     }
 
     // The lamp handle
@@ -246,6 +240,5 @@ public class PlayerManager : MonoBehaviour
     private float _actualStress;
     private bool _huggingTeddy;
     private bool _arrived;
-    private bool _isSpeaking;
     private Vector3 _destination;
 }
