@@ -5,8 +5,7 @@ using Light2D;
 
 public class Light : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SetIntensity(intensity);
     }
@@ -22,6 +21,38 @@ public class Light : MonoBehaviour
         LightSprite light = GetComponent<LightSprite>();
         light.Color = new Color(light.Color.r, light.Color.g, light.Color.b, intensity);
         transform.localScale = new Vector2(radius * 2f, radius * 2f);
+    }
+
+    public IEnumerator StartWink(float frequency, float numberOfWink, bool lightShutDown = false, float minValue = 0f, float maxValue = 1f)
+    {
+        bool intensify = true;
+        float intensityAtBegin = intensity;
+
+        for (int i = 0; i <= numberOfWink; i++)
+        {
+            if (i == numberOfWink)
+            {
+                if (lightShutDown)
+                {
+                    SetIntensity(0);
+                }
+                else
+                {
+                    SetIntensity(intensityAtBegin);
+                }
+            }
+            else if (intensify)
+            {
+                SetIntensity(Random.Range(intensity, maxValue));
+            }
+            else
+            {
+                SetIntensity(Random.Range(minValue, intensity));
+            }
+
+            intensify = !intensify;
+            yield return new WaitForSeconds(1f / frequency);
+        }
     }
     
     // The radius of the circle
