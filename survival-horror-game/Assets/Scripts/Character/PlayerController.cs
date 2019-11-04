@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (_manager.cinematicManager.CinematicStarted())
+        {
+            return;
+        }
+
         // Search for an item
         // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
         RaycastHit2D hit = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
@@ -45,8 +50,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        int x = 0;
-        int y = 0;
+        if (_manager.cinematicManager.CinematicStarted())
+        {
+            return;
+        }
+
+        float x = 0;
+        float y = 0;
         bool isRunning = false;
         // When something cannot be done at the same time than doing an action, StopAction() is called to stop it.
         // We prefer to stop the action instead of avoid teh possibility to move etc...
@@ -82,8 +92,15 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2) && _itemInRange != null)
         {
-            _manager.StopAction();
-            StartCoroutine(GrabObject());
+            if (_manager.IsSpeaking())
+            {
+                _manager.PassDialog();
+            }
+            else
+            {
+                _manager.StopAction();
+                StartCoroutine(GrabObject());
+            }
         }
         if (Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item2))
         {
@@ -108,7 +125,7 @@ public class PlayerController : MonoBehaviour
     /// <summary>
     /// Manages player's movement
     /// </summary>
-    private void Movement(int x, int y, bool isRunning)
+    public void Movement(float x, float y, bool isRunning)
     {
         // Currently 0.4f, may be changed to a public var
         if(isRunning)

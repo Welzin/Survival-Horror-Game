@@ -8,13 +8,22 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         inventory = new Inventory(hud);
+        cinematicManager = FindObjectOfType<CinematicManager>();
+        controller = FindObjectOfType<PlayerController>();
         _actualStress = 0;
         _huggingTeddy = false;
+        _arrived = true;
     }
 
     private void Update()
     {
         ManageStress();
+        Move();
+
+        if (_isSpeaking && hud.dialog.FinishSpeaking())
+        {
+            _isSpeaking = false;
+        }
 
         // HUD change according to the lamp's battery value
         if (lamp.Active)
@@ -157,6 +166,47 @@ public class PlayerManager : MonoBehaviour
         hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
     }
 
+    public void SetNewDestination(Vector3 destination)
+    {
+        _destination = destination;
+        _arrived = false;
+    }
+
+    public bool IsMoving()
+    {
+        return !_arrived;
+    }
+
+    private void Move()
+    {
+        if (!_arrived)
+        {
+            Vector3 toGo = (_destination - controller.transform.position).normalized;
+            controller.Movement(toGo.x, toGo.y, false);
+
+            if ((controller.transform.position - _destination).magnitude < 0.1 && (controller.transform.position - _destination).magnitude > 0.1)
+            {
+                _arrived = true;
+            }
+        }
+    }
+
+    public void Speak(string newText)
+    {
+        _isSpeaking = true;
+        hud.dialog.AddDialog(newText);
+    }
+
+    public void PassDialog()
+    {
+        hud.dialog.NextDialog();
+    }
+
+    public bool IsSpeaking()
+    {
+        return _isSpeaking;
+    }
+
     // The lamp handle
     public Lamp lamp;
     // The body which will turn
@@ -167,6 +217,9 @@ public class PlayerManager : MonoBehaviour
     public HUD hud;
     // Inventory
     public Inventory inventory;
+    // PlayerController for movement
+    public PlayerController controller;
+    public CinematicManager cinematicManager;
     // The speed of the character
     public float speed = 3.0f;
     // The speed of the character
@@ -192,4 +245,7 @@ public class PlayerManager : MonoBehaviour
     
     private float _actualStress;
     private bool _huggingTeddy;
+    private bool _arrived;
+    private bool _isSpeaking;
+    private Vector3 _destination;
 }
