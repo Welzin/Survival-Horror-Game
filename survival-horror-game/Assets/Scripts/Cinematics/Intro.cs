@@ -10,14 +10,15 @@ public class Intro : Cinematic
 
     protected override IEnumerator StartCinematic()
     {
-        yield return new WaitForSeconds(1);
+        yield return null;
+        /*yield return new WaitForSeconds(1);
         player.Speak("Brrr il fait froid !");
         player.Speak("Quelle est cette lumière ?");
 
         yield return new WaitForSeconds(1);
         player.PassDialog();
         yield return new WaitForSeconds(1);
-        player.PassDialog();
+        player.PassDialog();*/
 
         StopCinematic();
     }
