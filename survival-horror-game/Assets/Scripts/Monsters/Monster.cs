@@ -124,7 +124,7 @@ public class Monster : MonoBehaviour
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
-        if (lamp.Active && !_hasTarget)
+        if (lamp.Active)
         {
             Vector2 lampPos = lamp.transform.position;
             Vector2 pos = transform.position;
@@ -147,13 +147,6 @@ public class Monster : MonoBehaviour
                 ResetTarget();
             }
         }
-/*        else
-        {
-            if (_hasTarget)
-            {
-                ResetTarget();
-            }
-        }*/
     }
 
     private void ResetTarget()
@@ -164,6 +157,7 @@ public class Monster : MonoBehaviour
             _move.TargetLost();
             // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
             Invoke("ExecutePattern", 10);
+            Debug.Log("invoking..");
         }
     }
 

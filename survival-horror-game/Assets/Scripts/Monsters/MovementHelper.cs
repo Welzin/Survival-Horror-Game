@@ -59,7 +59,7 @@ public class MovementHelper : MonoBehaviour
                 Move();
             }
         }
-        if(_target.x != float.MaxValue || _target.y != float.MaxValue)
+        if(_currentDestination == null && (_target.x != float.MaxValue || _target.y != float.MaxValue))
         {
             if(!IsNear(transform.position, _target))
             {
@@ -132,22 +132,24 @@ public class MovementHelper : MonoBehaviour
     public void RunTowardTarget(Vector2 target)
     {
         Node node = NearestNode(target, _mainScript.currentFloor);
-        // If the nearest node from the target is already the current destination, there is no need to redo the path
-        _target = target;
-        //_currentPath.Clear();
-        //ForcefulMove();
-/*        if (Vector2.Distance(target, node.Position()) >= Vector2.Distance(transform.position, target))
+        float dist = Vector2.Distance(transform.position, target);
+        // If the mob is closer than a node to the target, it can run on the target.
+        // But if the mob is really close from the target, it will still run on the target and not stop.
+        if (Vector2.Distance(target, node.Position()) > dist || dist < 0.5f)
         {
             // I may have to add WaitNonBlocking here with the target to tempo if it's called again before the previous movement
             // has ended and the node is the same.
+            _currentDestination = null;
+            _target = target;
         }
         // Else, we redo the path and wait for the end of the movement
         else
         {
-            StartMovement(NearestNode(transform.position), node);
+            StartMovement(NearestNode(transform.position, _mainScript.currentFloor), node);
             // Wait until movement is finished, then forcefully run towards target
-            StartCoroutine(WaitNonBlocking(isMovementFinished, ForcefulMove));
-        }*/
+            _target = target;
+            StartCoroutine(WaitNonBlocking(isMovementFinished, ()=>_currentDestination = null));
+        }
     }
 
     /// <summary>

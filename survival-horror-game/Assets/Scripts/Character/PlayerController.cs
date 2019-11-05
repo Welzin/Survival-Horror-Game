@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
         _manager = GetComponent<PlayerManager>();
         _animator = GetComponent<Animator>();
         _audio = GetComponent<AudioSource>();
-        _currentFloor = 1;
+        _currentFloor = 2;
 
         if (_dd == null)
         {
