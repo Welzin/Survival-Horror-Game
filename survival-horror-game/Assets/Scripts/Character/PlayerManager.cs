@@ -179,8 +179,11 @@ public class PlayerManager : MonoBehaviour
             Vector3 toGo = (_destination - controller.transform.position).normalized;
             controller.Movement(toGo.x, toGo.y, false);
 
-            if ((controller.transform.position - _destination).magnitude < 0.1 && (controller.transform.position - _destination).magnitude > 0.1)
+            Debug.Log((controller.transform.position - _destination).magnitude);
+
+            if ((controller.transform.position - _destination).magnitude < 0.1 && (controller.transform.position - _destination).magnitude > -0.1)
             {
+                Debug.Log("arrived");
                 _arrived = true;
             }
         }
