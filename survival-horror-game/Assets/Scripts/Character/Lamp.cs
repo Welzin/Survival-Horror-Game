@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Lamp : Light
 {
-    private void Start()
+    private void Awake()
     {
         _actualBattery = maxBattery;
         Active = false;

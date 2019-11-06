@@ -7,7 +7,6 @@ public class Helper : MonoBehaviour
 {
     void Start()
     {
-        _infoDisplay = false;
         _info = "";
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         if (_dd == null)
@@ -23,32 +22,20 @@ public class Helper : MonoBehaviour
         _actualDisplayingTypes = new HashSet<Type>();
     }
 
-    private void Update()
-    {
-        if (_infoDisplay)
-        {
-            _actualDisplayingTime += Time.deltaTime;
-
-            if (_actualDisplayingTime >= timeTextIsDisplay)
-            {
-                _infoDisplay = false;
-                _info = "";
-                DisplayOtherHelp();
-            }
-        }
-    }
-
     public enum Type
     {
         CatchItem,
     };
 
-    public void DisplayInfo(Text zone, string info)
+    public void DisplayInfo(string info, float time = 0f)
     {
         _info = info;
-        zone.text = info;
-        _infoDisplay = true;
-        _actualDisplayingTime = 0;
+        textZone.text = info;
+
+        if (time != 0f)
+        {
+            StartCoroutine(StopDisplayingInfoAfter(info, time));
+        }
     }
 
     public void DisplayHelp(Type type)
@@ -67,6 +54,23 @@ public class Helper : MonoBehaviour
     {
         _actualDisplayingTypes.Remove(type);
         DisplayOtherHelp();
+    }
+
+    public void StopDisplayingInfo()
+    {
+        _info = "";
+        DisplayOtherHelp();
+    }
+
+    private IEnumerator StopDisplayingInfoAfter(string info, float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        // Sinon c'est que l'info a changé depuis
+        if (_info == info)
+        {
+            StopDisplayingInfo();
+        }
     }
 
     private void DisplayOtherHelp()
@@ -91,13 +95,7 @@ public class Helper : MonoBehaviour
 
     public Text textZone;
     public Text infoZone;
-    // When an info is displaying, 
-    public float timeTextIsDisplay;
 
-    // Is There an info display
-    private bool _infoDisplay;
-    // time from which the text is displaying
-    private float _actualDisplayingTime;
     // The info to display
     private string _info;
 

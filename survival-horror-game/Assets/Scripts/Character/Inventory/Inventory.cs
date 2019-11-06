@@ -46,7 +46,7 @@ public class Inventory
             _hud.DisplayItems(itemToDisplay);
         }
 
-        _hud.helper.DisplayInfo(_hud.helper.textZone, "You catch an item : " + item.name);
+        _hud.helper.DisplayInfo("You catch an item : " + item.name, 5);
     }
 
     public bool HaveBattery()

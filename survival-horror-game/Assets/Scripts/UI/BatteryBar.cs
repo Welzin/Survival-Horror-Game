@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class BatteryBar : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _criticalBattery = false;
         _alphaMin = GetComponent<Image>().color.a;

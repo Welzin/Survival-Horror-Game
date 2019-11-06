@@ -10,12 +10,18 @@ public class Intro : Cinematic
 
     protected override IEnumerator StartCinematic()
     {
+        player.hud.transform.Find("Stress").gameObject.SetActive(false);
+        player.hud.transform.Find("Battery").gameObject.SetActive(false);
+        player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
+
         // Start in the bed
         player.transform.position = initialPosition;
 
         // Thunder begin
         yield return new WaitForSeconds(1);
+        player.hud.helper.DisplayInfo("Appuyer sur " + FindObjectOfType<DontDestroyOnLoad>().GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
         yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
+        player.hud.helper.StopDisplayingInfo();
         yield return new WaitForSeconds(3);
         StartCoroutine(StartThunder());
 
@@ -66,56 +72,6 @@ public class Intro : Cinematic
             yield return new WaitForSeconds(Random.Range(5, 13));
         }
     }
-
-    private IEnumerator SaySomething(string text)
-    {
-        player.Speak(text);
-
-        while (player.IsSpeaking())
-        {
-            yield return null;
-        }
-    }
-
-    private IEnumerator MoveTo(Vector3 position, LookAt lookAt = LookAt.NONE)
-    {
-        player.SetNewDestination(position);
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        switch(lookAt)
-        {
-            case LookAt.UP:
-                player.controller.Movement(0, 1, false);
-                break;
-            case LookAt.DOWN:
-                player.controller.Movement(0, -1, false);
-                break;
-            case LookAt.RIGHT:
-                player.controller.Movement(1, 0, false);
-                break;
-            case LookAt.LEFT:
-                player.controller.Movement(-1, 0, false);
-                break;
-        }
-
-        if (lookAt != LookAt.NONE)
-        {
-            player.controller.Movement(0, 0, false);
-        }
-    }
-
-    enum LookAt
-    {
-        NONE,
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT
-    };
 
     public Light bedsideLamp;
     public Light lightning;

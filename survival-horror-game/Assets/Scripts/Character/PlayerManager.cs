@@ -13,6 +13,12 @@ public class PlayerManager : MonoBehaviour
         _actualStress = 0;
         _huggingTeddy = false;
         _arrived = true;
+        
+        // On display la barre de stress
+        hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
+
+        // On display la barre de batterie
+        hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
     }
 
     private void Update()
@@ -80,7 +86,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            hud.helper.DisplayInfo(hud.helper.infoZone, "You cannot hug Teddy because he is lost :(");
+            hud.helper.DisplayInfo("You cannot hug Teddy because he is lost :(", 5);
         }
     }
 
