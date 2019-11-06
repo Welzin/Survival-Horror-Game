@@ -52,6 +52,11 @@ public class PlayerController : MonoBehaviour
     {
         if (_manager.cinematicManager.CinematicStarted())
         {
+            if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2) && _manager.IsSpeaking())
+            {
+                _manager.PassDialog();
+            }
+
             return;
         }
 
@@ -90,13 +95,13 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = true;
         }
-        if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2) && _itemInRange != null)
+        if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2))
         {
             if (_manager.IsSpeaking())
             {
                 _manager.PassDialog();
             }
-            else
+            else if (_itemInRange != null)
             {
                 _manager.StopAction();
                 StartCoroutine(GrabObject());
@@ -136,6 +141,7 @@ public class PlayerController : MonoBehaviour
         {
             _animator.speed = 1;
         }
+
         // Set the animation mouvement value (idle, walking, running...)
         if (x == 0 && y == 0)
         {
@@ -152,22 +158,29 @@ public class PlayerController : MonoBehaviour
         }
 
         // Set the animation direction value (down, left, up, right)
-        if (x < 0)
+        if (Mathf.Abs(x) >= Mathf.Abs(y))
         {
-            _animator.SetInteger("Direction", 1);
+            if (x < 0)
+            {
+                _animator.SetInteger("Direction", 1);
+            }
+            else if (x > 0)
+            {
+                _animator.SetInteger("Direction", 3);
+            }
         }
-        else if (x > 0)
+        else
         {
-            _animator.SetInteger("Direction", 3);
+            if (y < 0)
+            {
+                _animator.SetInteger("Direction", 0);
+            }
+            else if (y > 0)
+            {
+                _animator.SetInteger("Direction", 2);
+            }
         }
-        else if (y < 0)
-        {
-            _animator.SetInteger("Direction", 0);
-        }
-        else if (y > 0)
-        {
-            _animator.SetInteger("Direction", 2);
-        }
+
         // If the player is running, play running steps sounds
         if (isRunning)
         {

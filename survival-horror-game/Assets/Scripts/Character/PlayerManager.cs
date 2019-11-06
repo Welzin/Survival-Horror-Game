@@ -17,8 +17,14 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        ManageStress();
         Move();
+        
+        if (cinematicManager.CinematicStarted())
+        {
+            return;
+        }
+
+        ManageStress();
 
         // HUD change according to the lamp's battery value
         if (lamp.Active)
@@ -183,7 +189,7 @@ public class PlayerManager : MonoBehaviour
 
             if ((controller.transform.position - _destination).magnitude < 0.1 && (controller.transform.position - _destination).magnitude > -0.1)
             {
-                Debug.Log("arrived");
+                controller.Movement(0, 0, false);
                 _arrived = true;
             }
         }
