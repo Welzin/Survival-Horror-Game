@@ -10,156 +10,117 @@ public class Intro : Cinematic
 
     protected override IEnumerator StartCinematic()
     {
+        // Start in the bed
         player.transform.position = initialPosition;
+
+        // Thunder begin
         yield return new WaitForSeconds(1);
-        player.Speak("ZZZZZZzzzzz");
+        yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
         yield return new WaitForSeconds(3);
-        StartCoroutine(lightning.StartWink(10, 25));
-        
-        while (lightning.IsWinking())
-        {
-            yield return null;
-        }
+        StartCoroutine(StartThunder());
 
-        yield return new WaitForSeconds(1);
-        StartCoroutine(lightning.StartWink(10, 25, 0.6f));
-        player.Speak("Aaaaah! Qu'est ce que c'est ?");
-        player.PassDialog();
+        // Some text
+        yield return new WaitForSeconds(6);
+        yield return StartCoroutine(SaySomething("Aaaah !"));
+        yield return StartCoroutine(SaySomething("Qu'est ce que c'est ?"));
+        yield return StartCoroutine(SaySomething("J'ai peur de l'orage !!!"));
 
-        while (lightning.IsWinking())
-        {
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(1);
-        StartCoroutine(lightning.StartWink(10, 25, 0.6f));
-        player.Speak("Quel orage !");
-        player.PassDialog();
-
-        yield return new WaitForSeconds(1);
-        player.PassDialog();
-        player.SetNewDestination(lampTurnOnPosition);
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
+        // Turn on the light
+        yield return StartCoroutine(MoveTo(lampTurnOnPosition, LookAt.RIGHT));
         yield return new WaitForSeconds(0.5f);
         bedsideLamp.SetIntensity(1f);
         yield return new WaitForSeconds(0.5f);
 
-        player.Speak("J'ai peur de l'orage... Brrrr !! Mais mon papa a dit qu'il fallait pas pleurer !");
+        // Return at bed
+        yield return StartCoroutine(MoveTo(initialPosition, LookAt.DOWN));
+        yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir... Maintenant"));
+        yield return StartCoroutine(SaySomething("Je ne sais pas quoi faire"));
+        yield return StartCoroutine(SaySomething("..."));
         yield return new WaitForSeconds(3);
-        player.PassDialog();
+        yield return StartCoroutine(SaySomething("Surtout ne pas pleurer"));
+        yield return new WaitForSeconds(3);
 
-        player.SetNewDestination(intermediaryPosition);
+        // The light is winking
+        StartCoroutine(bedsideLamp.StartWink(10, 50, 0, 1, true));
+        yield return StartCoroutine(SaySomething("QU'EST CE QUE..."));
 
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.SetNewDestination(libraryPosition);
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.Speak("Voyons si je peux passer un peu de temps à lire...");
-        yield return new WaitForSeconds(2);
-        StartCoroutine(bedsideLamp.StartWink(10, 100, 0, 0.5f, true));
-        yield return new WaitForSeconds(0.5f);
-        player.Speak("Aaaaah qu'est ce que c'est ?");
-        player.PassDialog();
-        yield return new WaitForSeconds(2);
-        player.PassDialog();
-
-        player.SetNewDestination(intermediaryPosition);
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.SetNewDestination(lampTurnOnPosition);
-
-        player.Speak("J'ai peur");
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.Speak("Voyons ce que je peux faire ...");
-        player.PassDialog();
-        yield return new WaitForSeconds(2);
-        player.PassDialog();
-
+        // The light is shutting down
         while (bedsideLamp.IsWinking())
         {
             yield return null;
         }
 
-        player.Speak("Allume toooooi ! Nooooon !");
-        yield return new WaitForSeconds(1);
-        greenLight.SetIntensity(0.5f);
-        yield return new WaitForSeconds(1);
-        player.PassDialog();
-        player.Speak("Tiens l'orage s'est arrêté, mais qu'est ce que c'est que cette lumière ?");
+        yield return StartCoroutine(SaySomething("QU'EST CE QUI SE PASSE"));
+        yield return StartCoroutine(SaySomething("Bon, pas de panique, il y a une lampe dans l'armoire, il faut que je la réupère !"));
+        yield return StartCoroutine(SaySomething("Viiiiite !"));
 
-        player.SetNewDestination(intermediaryPosition);
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.SetNewDestination(windowPosition);
-        
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.PassDialog();
-        player.Speak("Oooh c'est beau, ça vient de dehors, j'ai envie d'aller voir !");
-        yield return new WaitForSeconds(2);
-        player.PassDialog();
-        player.Speak("Bon faut que je fasse attention à mes parents, s'ils me surprennent, ça va être la fessée !");
-        yield return new WaitForSeconds(3);
-        player.PassDialog();
-        player.Speak("Mais on y voit rien... Oh j'y pense, ma lampe !");
-        yield return new WaitForSeconds(1);
-        player.SetNewDestination(libraryPosition);
-
-        while (player.IsMoving())
-        {
-            yield return null;
-        }
-
-        player.PassDialog();
-        player.Speak("Est-ce qu'elle marche toujours ?");
-        yield return new WaitForSeconds(2);
-        player.ToggleLamp();
-        player.PassDialog();
-        player.Speak("Oui !");
-        yield return new WaitForSeconds(1);
-        player.PassDialog();
-        player.Speak("C'est parti !");
-        yield return new WaitForSeconds(1);
-        player.PassDialog();
-
-        StopCinematic(); 
+        StopCinematic();
     }
-    
+
+    private IEnumerator StartThunder()
+    {
+        _thunderOn = true;
+        while (_thunderOn)
+        {
+            StartCoroutine(lightning.StartWink(10, 25));
+            yield return new WaitForSeconds(Random.Range(5, 13));
+        }
+    }
+
+    private IEnumerator SaySomething(string text)
+    {
+        player.Speak(text);
+
+        while (player.IsSpeaking())
+        {
+            yield return null;
+        }
+    }
+
+    private IEnumerator MoveTo(Vector3 position, LookAt lookAt = LookAt.NONE)
+    {
+        player.SetNewDestination(position);
+
+        while (player.IsMoving())
+        {
+            yield return null;
+        }
+
+        switch(lookAt)
+        {
+            case LookAt.UP:
+                player.controller.Movement(0, 1, false);
+                break;
+            case LookAt.DOWN:
+                player.controller.Movement(0, -1, false);
+                break;
+            case LookAt.RIGHT:
+                player.controller.Movement(1, 0, false);
+                break;
+            case LookAt.LEFT:
+                player.controller.Movement(-1, 0, false);
+                break;
+        }
+
+        if (lookAt != LookAt.NONE)
+        {
+            player.controller.Movement(0, 0, false);
+        }
+    }
+
+    enum LookAt
+    {
+        NONE,
+        UP,
+        DOWN,
+        RIGHT,
+        LEFT
+    };
+
     public Light bedsideLamp;
     public Light lightning;
-    public Light greenLight;
     public Vector3 initialPosition;
     public Vector3 lampTurnOnPosition;
-    public Vector3 intermediaryPosition;
-    public Vector3 libraryPosition;
-    public Vector3 windowPosition;
+
+    private bool _thunderOn;
 }
