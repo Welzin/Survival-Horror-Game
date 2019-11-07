@@ -13,12 +13,6 @@ public class PlayerManager : MonoBehaviour
         _actualStress = 0;
         _huggingTeddy = false;
         _arrived = true;
-        
-        // On display la barre de stress
-        hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
-
-        // On display la barre de batterie
-        hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
     }
 
     private void Update()
@@ -33,7 +27,7 @@ public class PlayerManager : MonoBehaviour
         ManageStress();
 
         // HUD change according to the lamp's battery value
-        if (lamp.Active)
+        if (inventory.HaveLamp() && lamp.Active)
         {
             hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
         }
@@ -44,7 +38,14 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void ToggleLamp()
     {
-        lamp.Active = !lamp.Active;
+        if (inventory.HaveLamp())
+        {
+            lamp.Active = !lamp.Active;
+        }
+        else
+        {
+            hud.helper.DisplayInfo("You cannot turn on the light, you don't have it :(", 5);
+        }
     }
 
     /// <summary>
@@ -52,20 +53,31 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public IEnumerator ReloadLamp()
     {
-        if (inventory.HaveBattery())
+        if (inventory.HaveLamp())
         {
-            bool active = lamp.Active;
-            lamp.Active = false;
-            Action action = actionBar.StartAction(timeToReloadLamp);
-            yield return new WaitForSeconds(timeToReloadLamp);
-
-            if (!action.interrupted)
+            if (inventory.HaveBattery())
             {
-                lamp.Reload();
-                inventory.BatteryUsed();
-                hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
-                lamp.Active = active;
+                bool active = lamp.Active;
+                lamp.Active = false;
+                Action action = actionBar.StartAction(timeToReloadLamp);
+                yield return new WaitForSeconds(timeToReloadLamp);
+
+                if (!action.interrupted)
+                {
+                    lamp.Reload();
+                    inventory.BatteryUsed();
+                    hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
+                    lamp.Active = active;
+                }
             }
+            else
+            {
+                hud.helper.DisplayInfo("You cannot hug reload your lamp without battery :(", 5);
+            }
+        }
+        else
+        {
+            hud.helper.DisplayInfo("You don't have your lamp :(", 5);
         }
     }
 
@@ -161,16 +173,22 @@ public class PlayerManager : MonoBehaviour
 
         if (_huggingTeddy)
         {
-            AddStress(- stressRemovedWileHugging * Time.deltaTime);
+            Debug.Log("hug");
+            AddStress(- stressRemovedWhileHugging * Time.deltaTime);
         }
 
     }
 
-    private void AddStress(float stress)
+    public void AddStress(float stress)
     {
         // No less than 0, no more than maxStress
         _actualStress = Mathf.Max(Mathf.Min(_actualStress + stress, maxStress), 0);
         hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
+    }
+
+    public float Stress()
+    {
+        return _actualStress;
     }
 
     public void SetNewDestination(Vector3 destination)
@@ -236,7 +254,7 @@ public class PlayerManager : MonoBehaviour
     // The stress removed by second when you are under an effectivelight = 1
     public float stressRemovedWithLight = 2f;
     // The stress removed by second when you are hugging Teddy
-    public float stressRemovedWileHugging = 1f;
+    public float stressRemovedWhileHugging = 1f;
     // Multiplier when running
     public float runningFactor = 2f;
     // The distance to grab an object

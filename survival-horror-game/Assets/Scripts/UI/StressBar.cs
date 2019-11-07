@@ -26,6 +26,7 @@ public class StressBar : MonoBehaviour
 
     public void ChangeStressPercentage(float percentage)
     {
+
         RectTransform rt = GetComponent<RectTransform>();
         float height = rt.sizeDelta.y;
         rt.sizeDelta = new Vector2(_widthForFull * (percentage / 100f), height);

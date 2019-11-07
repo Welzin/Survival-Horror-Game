@@ -11,6 +11,10 @@ public class PlayerController : Listener
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         _manager = GetComponent<PlayerManager>();
         _animator = GetComponent<Animator>();
+        _audio = GetComponent<AudioSource>();
+
+        _itemInRange = null;
+        _doorInRange = null;
         _currentFloor = 2;
 
         if (_dd == null)
@@ -24,30 +28,6 @@ public class PlayerController : Listener
         }
     }
 
-    void FixedUpdate()
-    {
-        if (_manager.cinematicManager.CinematicStarted())
-        {
-            return;
-        }
-
-        // Search for an item
-        // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
-        Debug.DrawRay(transform.position, _manager.body.transform.up, Color.cyan);
-
-        // If it find one and that this one is not the same than the actual item
-        if (hit.collider != null && hit.collider.gameObject.GetComponent<ItemObject>() && hit.collider.gameObject.GetComponent<ItemObject>() != _itemInRange)
-        {
-            NewItemInRange(hit.collider.gameObject.GetComponent<ItemObject>());
-        }
-        // If there is no item at range but we already had one in range
-        else if (hit.collider == null && _itemInRange != null)
-        {
-            NoMoreItem();
-        }
-    }
-
     void Update()
     {
         if (_manager.cinematicManager.CinematicStarted())
@@ -58,6 +38,39 @@ public class PlayerController : Listener
             }
 
             return;
+        }
+
+        // Search for an item and a door
+        // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Door"));
+        
+        if (hit.collider != null && hit.collider.gameObject.GetComponent<ItemObject>())
+        {
+            if (_itemInRange == null)
+            {
+                _itemInRange = hit.collider.gameObject.GetComponent<ItemObject>();
+                _manager.hud.helper.DisplayHelp(Helper.Type.CatchItem);
+            }
+        }
+        else if (_itemInRange != null)
+        {
+            _itemInRange = null;
+            _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
+        }
+
+        if (hit2.collider != null && hit2.collider.gameObject.GetComponent<Door>())
+        {
+            if (_doorInRange == null)
+            {
+                _doorInRange = hit2.collider.gameObject.GetComponent<Door>();
+                _manager.hud.helper.DisplayHelp(Helper.Type.OpenDoor);
+            }
+        }
+        else if (_doorInRange != null)
+        {
+            _doorInRange = null;
+            _manager.hud.helper.StopDisplayingHelp(Helper.Type.OpenDoor);
         }
 
         float x = 0;
@@ -104,7 +117,12 @@ public class PlayerController : Listener
             else if (_itemInRange != null)
             {
                 _manager.StopAction();
-                StartCoroutine(GrabObject());
+                StartCoroutine(GrabObject(_itemInRange));
+            }
+            else if (_doorInRange != null)
+            {
+                _manager.StopAction();
+                StartCoroutine(_doorInRange.OpenTheDoor());
             }
         }
         if (Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item2))
@@ -218,23 +236,21 @@ public class PlayerController : Listener
     /// <summary>
     /// Grab the item in range and put it into the inventory
     /// </summary>
-    private IEnumerator GrabObject()
+    private IEnumerator GrabObject(ItemObject item)
     {
-        if (_itemInRange != null)
+        Action action = _manager.actionBar.StartAction(item.timeToGrabItem);
+        yield return new WaitForSeconds(item.timeToGrabItem);
+
+        if (!action.interrupted)
         {
-            Action action = _manager.actionBar.StartAction(_itemInRange.timeToGrabItem);
-            yield return new WaitForSeconds(_itemInRange.timeToGrabItem);
+            _manager.inventory.AddItem(item.item);
 
-            if (!action.interrupted)
-            {
-                _manager.inventory.AddItem(_itemInRange.item);
-                Destroy(_itemInRange.gameObject);
-
-                NoMoreItem();
-            }
+            // The object will be destroy and _itemInRange equal to null, the helper will not stop display, so, we stop displaying help here
+            _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
+            Destroy(item.gameObject);
         }
     }
-
+    
     // Called when a sound listened to is capted
     public override void DetectSound(int floorSoundEmited)
     {
@@ -253,14 +269,17 @@ public class PlayerController : Listener
         _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
     }
     
-
+    
     // Player manager
     private PlayerManager _manager;
     // The animator
     private Animator _animator;
     // Player settings
     private DontDestroyOnLoad _dd;
-    // The item in range
-    private ItemObject _itemInRange;
+
+    private AudioSource _audio;
     private int _currentFloor;
+
+    private ItemObject _itemInRange;
+    private Door _doorInRange;
 }

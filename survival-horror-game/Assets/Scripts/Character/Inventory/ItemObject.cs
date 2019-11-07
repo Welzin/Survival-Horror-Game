@@ -9,6 +9,7 @@ public class ItemObject : MonoBehaviour
         Utility,
         Key,
         Battery,
+        Lamp,
         Teddy
     };
 
@@ -24,6 +25,9 @@ public class ItemObject : MonoBehaviour
                 break;
             case Type.Battery:
                 item = new Battery();
+                break;
+            case Type.Lamp:
+                item = new LampItem();
                 break;
             case Type.Teddy:
                 item = new Teddy();

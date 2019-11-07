@@ -11,6 +11,7 @@ public class Inventory
         _keys = new List<Key>();
         _teddy = null;
         _batteryNumber = 0;
+        _lampInPossession = false;
     }
 
     public void AddItem(Item item)
@@ -24,6 +25,10 @@ public class Inventory
         {
             _batteryNumber += 1;
             _hud.ChangeBatteryNumber(_batteryNumber);
+        }
+        else if (item is LampItem)
+        {
+            _lampInPossession = true;
         }
         else
         {
@@ -54,9 +59,27 @@ public class Inventory
         return _batteryNumber > 0;
     }
 
+    public bool HaveLamp()
+    {
+        return _lampInPossession;
+    }
+
     public bool HaveTeddy()
     {
         return _teddy != null;
+    }
+
+    public bool HaveKeyForDoor(Door door)
+    {
+        foreach (Key key in _keys)
+        {
+            if (key.doorToOpen == door)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void BatteryUsed()
@@ -64,12 +87,25 @@ public class Inventory
         _batteryNumber -= 1;
         _hud.ChangeBatteryNumber(_batteryNumber);
     }
-    
+
+    public void UsedKeyForDoor(Door door)
+    {
+        foreach (Key key in _keys)
+        {
+            if (key.doorToOpen == door)
+            {
+                _keys.Remove(key);
+                return;
+            }
+        }
+    }
+
     private HUD _hud;
     private List<Utility> _items;
     private List<Key> _keys;
     private Teddy _teddy;
     private int _batteryNumber;
+    private bool _lampInPossession;
 }
 
 public class Item
@@ -106,6 +142,11 @@ public class Key : Utility
     public Door doorToOpen { get { return _doorToOpen; } }
 
     private readonly Door _doorToOpen;
+}
+
+public class LampItem : Item
+{
+    public LampItem() : base("the lamp") {}
 }
 
 public class Battery : Item
