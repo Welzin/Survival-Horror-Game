@@ -257,19 +257,6 @@ public class PlayerController : Listener
         base.DetectSound(floorSoundEmited);
     }
 
-    void NewItemInRange(ItemObject item)
-    {
-        _itemInRange = item;
-        _manager.hud.helper.DisplayHelp(Helper.Type.CatchItem);
-    }
-
-    void NoMoreItem()
-    {
-        _itemInRange = null;
-        _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
-    }
-    
-    
     // Player manager
     private PlayerManager _manager;
     // The animator
