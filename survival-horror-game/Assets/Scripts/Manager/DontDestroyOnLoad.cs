@@ -71,8 +71,13 @@ public class DontDestroyOnLoad : MonoBehaviour
     }
     public void SetMusicVolume(float volume)
     {
-        Debug.Log("Music:" + volume);
         _musicPower = volume;
+        MusicManager mm = GetComponent<MusicManager>();
+        if(!mm) { Debug.LogError("Error: MusicManager not found"); }
+        else
+        {
+            mm.ChangeVolume(volume);
+        }
     }
 
     private Dictionary<Controls, (KeyCode, KeyCode)> _allKeys;
