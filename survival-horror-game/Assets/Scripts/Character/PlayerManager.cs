@@ -245,11 +245,11 @@ public class PlayerManager : MonoBehaviour
     public float timeToHugTeddy = 2f;
     // The time that take the action "reload lamp"
     public float timeToReloadLamp = 2f;
-    
-    public AudioClip footsteps;
-    public AudioClip runningSteps;
+    // Noise range propagation when walking
     public float walkingNoise = 2f;
-    
+    // All sound emited
+    public SoundEmiter emiter;
+
     private float _actualStress;
     private bool _huggingTeddy;
     private bool _arrived;

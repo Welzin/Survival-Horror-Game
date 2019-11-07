@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Listener
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         _manager = GetComponent<PlayerManager>();
         _animator = GetComponent<Animator>();
-        _audio = GetComponent<AudioSource>();
         _currentFloor = 2;
 
         if (_dd == null)
@@ -146,10 +146,7 @@ public class PlayerController : MonoBehaviour
         if (x == 0 && y == 0)
         {
             _animator.SetInteger("Mouvement", 0);
-            if(_audio.isPlaying)
-            {
-                _audio.Stop();
-            }
+            _manager.emiter.StopEffect();
             return;
         }
         else
@@ -184,29 +181,13 @@ public class PlayerController : MonoBehaviour
         // If the player is running, play running steps sounds
         if (isRunning)
         {
-            if(!_audio.isPlaying)
-            {
-                _audio.clip = _manager.runningSteps;
-                _audio.PlayOneShot(_manager.runningSteps);
-            }
+            _manager.emiter.PlayEffect(SoundType.RunningSteps);
         }
         // Else, check if the user is running. If he's running, stop the sound and play the footstep's one, otherwise
         // just check if it's playing.
         else
         {
-            if(_audio.isPlaying)
-            {
-                if(_audio.clip != _manager.footsteps)
-                {
-                    _audio.Stop();
-                    _audio.clip = _manager.footsteps;
-                    _audio.PlayOneShot(_manager.footsteps);
-                }
-            }
-            else
-            {
-                _audio.PlayOneShot(_manager.footsteps);
-            }
+            _manager.emiter.PlayEffect(SoundType.Footsteps);
         }
         // Calculation of the new position
         Vector2 direction = new Vector2(x, y).normalized;
@@ -219,16 +200,8 @@ public class PlayerController : MonoBehaviour
         transform.position = pos;
 
         // Generate sound
-        SoundManager sm = FindObjectOfType<SoundManager>();
-        if (sm != null)
-        {
-            float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
-            sm.CreateSoundWave(transform.position, noise, _currentFloor);
-        }
-        else
-        {
-            Debug.LogWarning("Player cannot generate sound: There are no objects of type Sound Manager in the scene!");
-        }
+        float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
+        _manager.emiter.EmitSoundWave(noise, _currentFloor, ListenNoise.Monster);
     }
 
     /// <summary>
@@ -262,6 +235,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Called when a sound listened to is capted
+    public override void DetectSound(int floorSoundEmited)
+    {
+        base.DetectSound(floorSoundEmited);
+    }
+
     void NewItemInRange(ItemObject item)
     {
         _itemInRange = item;
@@ -283,7 +262,5 @@ public class PlayerController : MonoBehaviour
     private DontDestroyOnLoad _dd;
     // The item in range
     private ItemObject _itemInRange;
-
-    private AudioSource _audio;
     private int _currentFloor;
 }

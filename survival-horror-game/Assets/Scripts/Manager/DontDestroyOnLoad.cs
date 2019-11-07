@@ -66,8 +66,10 @@ public class DontDestroyOnLoad : MonoBehaviour
     
     public void SetEffectsVolume(float volume)
     {
-        Debug.Log("VFX:" + volume);
         _soundPower = volume;
+        SoundManager sm = GetComponent<SoundManager>();
+        if (!sm) Debug.LogError("Error: SoundManager not found.");
+        else sm.UpdateSoundVolume(volume);
     }
     public void SetMusicVolume(float volume)
     {

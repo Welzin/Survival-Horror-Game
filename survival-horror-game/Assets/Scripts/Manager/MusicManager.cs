@@ -112,7 +112,6 @@ public class MusicManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             _timeStaying -= 1;
-            Debug.Log(_timeStaying);
         }
         PlayLoop();
     }

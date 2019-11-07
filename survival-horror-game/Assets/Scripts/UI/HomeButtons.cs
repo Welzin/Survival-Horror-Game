@@ -7,6 +7,7 @@ public class HomeButtons : MonoBehaviour
 {
     public void Play()
     {
+        FindObjectOfType<MusicManager>().StopMusic();
         SceneManager.LoadScene(scene);
     }
 

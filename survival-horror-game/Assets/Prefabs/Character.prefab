@@ -357,6 +357,7 @@ MonoBehaviour:
   actionBar: {fileID: 786852501}
   hud: {fileID: 0}
   controller: {fileID: 160503261046944929}
+  cinematicManager: {fileID: 0}
   speed: 1
   maxStress: 100
   stressInTheDark: 2
@@ -366,9 +367,8 @@ MonoBehaviour:
   catchDistance: 0.5
   timeToHugTeddy: 2
   timeToReloadLamp: 2
-  footsteps: {fileID: 8300000, guid: ad7cbab4efe03744d8a214af766985e8, type: 3}
-  runningSteps: {fileID: 8300000, guid: b84b58cf65787684b9ae6a9da00c0cdb, type: 3}
   walkingNoise: 2
+  emiter: {fileID: 0}
 --- !u!95 &2105399054
 Animator:
   serializedVersion: 3

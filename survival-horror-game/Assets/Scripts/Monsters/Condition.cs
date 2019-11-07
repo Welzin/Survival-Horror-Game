@@ -45,7 +45,7 @@ namespace Figures
     }
 }
 
-[CustomEditor(typeof(Monster))]
+/*[CustomEditor(typeof(Monster))]
 [CanEditMultipleObjects]
 public class MonsterEditor : Editor
 {
@@ -57,7 +57,7 @@ public class MonsterEditor : Editor
         EditorGUILayout.HelpBox("The field 'Interval Until Next Action' will be called after the end of the current movement", MessageType.Info);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("movementPattern"), new GUIContent("Patterns"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"), new GUIContent("Monster's speed"), true);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("yell"), new GUIContent("Monster's yell"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("_allNoiseListened"), new GUIContent("Noise listened"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("targetBehaviour"), new GUIContent("Behaviour when spotting target"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("currentFloor"), new GUIContent("Starting floor"), true);
         DisplayCondition();
@@ -95,4 +95,4 @@ public class MonsterEditor : Editor
 
     private AnimBool _showExtraFields = new AnimBool(true);
     private Monster _monster;
-} 
+} */

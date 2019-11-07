@@ -10,27 +10,17 @@ public enum Behaviour
     Flee,
 }
 
-public class Monster : MonoBehaviour
+public class Monster : Listener
 {
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         // Adds the MonoBehaviour which manages the movements of a monster
         _move = gameObject.AddComponent<MovementHelper>();
         // Instanciate pattern's queue with the given pattern
         _pattern = new Queue<Pattern>(movementPattern);
         // It has no target at the start of the game
         _hasTarget = false;
-        // SoundManager is the object which propagates sound within the game
-        SoundManager sm = FindObjectOfType<SoundManager>();
-        if(sm == null)
-        {
-            Debug.LogWarning("Monster: " + gameObject.name + " can not hear any sound!");
-        }
-        else
-        {
-            // If the SoundManager is found, subscribe the monster to all the sounds emited in the game
-            sm.Subscribe(this);
-        }
         // If there is a condition for playing patterns, play it
         if(cond.condition != Condition.Action.None)
         {
@@ -205,7 +195,7 @@ public class Monster : MonoBehaviour
         _move.RunTowardTarget(destination);
     }
 
-    public void DetectSound()
+    public override void DetectSound(int floorSoundEmited)
     {
         // Direction -> y axis
         LayerMask layer = LayerMask.GetMask("Sound");
@@ -238,7 +228,6 @@ public class Monster : MonoBehaviour
     // Patterns of the monster when there are no target
     public List<Pattern> movementPattern;
     public float speed = 1f;
-    public AudioSource yell;
     // Behaviour when seeing a target
     public Behaviour targetBehaviour = Behaviour.Follow;
     public Condition cond;
