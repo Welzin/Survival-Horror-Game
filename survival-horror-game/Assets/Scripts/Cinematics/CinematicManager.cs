@@ -77,9 +77,17 @@ public abstract class Cinematic : MonoBehaviour
     {
         _isPlaying = false;
     }
+    protected void StartAgain()
+    {
+        _isPlaying = true;
+    }
 
     protected IEnumerator SaySomething(string text)
     {
+        while (player.IsSpeaking())
+        {
+            player.PassDialog();
+        }
         player.Speak(text);
 
         while (player.IsSpeaking())
@@ -97,6 +105,11 @@ public abstract class Cinematic : MonoBehaviour
             yield return null;
         }
 
+        Look(lookAt);
+    }
+
+    protected void Look(LookAt lookAt)
+    {
         switch (lookAt)
         {
             case LookAt.UP:

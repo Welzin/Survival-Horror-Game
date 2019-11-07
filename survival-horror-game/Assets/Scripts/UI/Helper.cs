@@ -25,6 +25,8 @@ public class Helper : MonoBehaviour
     public enum Type
     {
         CatchItem,
+        OpenDoor,
+        DoorLocked
     };
 
     public void DisplayInfo(string info, float time = 0f)
@@ -38,13 +40,24 @@ public class Helper : MonoBehaviour
         }
     }
 
-    public void DisplayHelp(Type type)
+    public void DisplayHelp(Type type, float time = 0f)
     {
         switch (type)
         {
             case Type.CatchItem:
                 textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to get this item";
                 break;
+            case Type.OpenDoor:
+                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to open this door";
+                break;
+            case Type.DoorLocked:
+                textZone.text = "The door is locked";
+                break;
+        }
+
+        if (time != 0f)
+        {
+            StartCoroutine(StopDisplayingHelpAfter(type, time));
         }
 
         _actualDisplayingTypes.Add(type);
@@ -71,6 +84,12 @@ public class Helper : MonoBehaviour
         {
             StopDisplayingInfo();
         }
+    }
+
+    private IEnumerator StopDisplayingHelpAfter(Type type, float time)
+    {
+        yield return new WaitForSeconds(time);
+        StopDisplayingHelp(type);
     }
 
     private void DisplayOtherHelp()
