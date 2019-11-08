@@ -14,26 +14,29 @@ public class Intro : Cinematic
         player.hud.transform.Find("Stress").gameObject.SetActive(false);
         player.hud.transform.Find("Battery").gameObject.SetActive(false);
         player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
-        battery.gameObject.SetActive(false);
-        keyToOpenTheRoom.gameObject.SetActive(false);
-        teddy.gameObject.SetActive(false);
+        //battery.gameObject.SetActive(false);
+        //keyToOpenTheRoom.gameObject.SetActive(false);
+        //teddy.gameObject.SetActive(false);
 
         // Start in the bed
         player.transform.position = initialPosition;
 
         // Thunder begin
-        yield return new WaitForSeconds(1);
+        /*yield return new WaitForSeconds(1);
         player.hud.helper.DisplayInfo("Appuyer sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
         yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
         player.hud.helper.StopDisplayingInfo();
         yield return new WaitForSeconds(3);
-        StartCoroutine(StartThunder());
+        lightning.Strike();
 
         // Some text
         yield return new WaitForSeconds(6);
+        lightning.Strike();
         yield return StartCoroutine(SaySomething("Aaaah !"));
         yield return StartCoroutine(SaySomething("Qu'est ce que c'est ?"));
         yield return StartCoroutine(SaySomething("J'ai peur de l'orage !!!"));
+
+        lightning.StartLoopStrike(8, 12);
 
         // Turn on the light
         yield return StartCoroutine(MoveTo(lampTurnOnPosition, LookAt.RIGHT));
@@ -66,8 +69,8 @@ public class Intro : Cinematic
         yield return new WaitForSeconds(3);
         yield return StartCoroutine(SaySomething("*Snif*"));
         yield return StartCoroutine(SaySomething("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !"));
-        
-        StopCinematic(); yield return null;
+        */
+        StopCinematic();
         
         // Tutoriel
         player.hud.helper.DisplayInfo("Appuyer sur "
@@ -204,16 +207,6 @@ public class Intro : Cinematic
         yield return StartCoroutine(SaySomething("Bon, faut que je fasse attention quand même..."));
     }
 
-    private IEnumerator StartThunder()
-    {
-        _thunderOn = true;
-        while (_thunderOn)
-        {
-            lightning.Strike();
-            yield return new WaitForSeconds(Random.Range(5, 13));
-        }
-    }
-
     public Light bedsideLamp;
     public Thunder lightning;
     public Light greenLight;
@@ -222,6 +215,4 @@ public class Intro : Cinematic
     public ItemObject teddy;
     public Vector3 initialPosition;
     public Vector3 lampTurnOnPosition;
-
-    private bool _thunderOn;
 }

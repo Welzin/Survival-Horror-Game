@@ -4,11 +4,26 @@ using UnityEngine;
 
 public class Thunder : Light
 {
+    private void Start()
+    {
+        _emiter = gameObject.AddComponent<SoundEmiter>();
+        _loop = false;
+    }
+
     public void Strike()
     {
         StartCoroutine(NewStrike());
-        _audio = gameObject.AddComponent<AudioSource>();
-        _emiter = gameObject.AddComponent<SoundEmiter>();
+    }
+
+    public void StartLoopStrike(float intervalMin, float intervalMax)
+    {
+        _loop = true;
+        StartCoroutine(NewLoopStrike(intervalMin, intervalMax));
+    }
+
+    public void StopLoopStrike()
+    {
+        _loop = false;
     }
 
     private IEnumerator NewStrike()
@@ -17,10 +32,18 @@ public class Thunder : Light
         StartCoroutine(StartWink(10, 25));
         yield return new WaitForSeconds(Random.Range(1, 3));
 
-        _audio.clip = Resources.Load<AudioClip>("Effects/Thunder/tonnerre" + random);
-        _audio.Play();
+        _emiter.PlayCustomClip(Resources.Load<AudioClip>("Effects/Thunder/tonnerre" + random));
     }
 
-    private AudioSource _audio;
+    private IEnumerator NewLoopStrike(float intervalMin, float intervalMax)
+    {
+        while (_loop)
+        {
+            Strike();
+            yield return new WaitForSeconds(Random.Range(intervalMin, intervalMax));
+        }
+    }
+
     private SoundEmiter _emiter;
+    private bool _loop;
 }

@@ -8,12 +8,7 @@ public class CinematicManager : MonoBehaviour
     {
         _cinematics = GetComponentsInChildren<Cinematic>();
         _playerManager = FindObjectOfType<PlayerManager>();
-        StartCoroutine(ManageCinematicOverTime());
-
-        MusicManager m = FindObjectOfType<MusicManager>();
-        m.UpdateMusic(0);
-        m.PlayLoop(2);
-        m.ChangeVolume(0.01f);
+        //StartCoroutine(ManageCinematicOverTime());
     }
 
     public void StartCinematic(string name)
@@ -47,8 +42,23 @@ public class CinematicManager : MonoBehaviour
 
     private IEnumerator ManageCinematicOverTime()
     {
+        MusicManager m = FindObjectOfType<MusicManager>();
+        SoundManager s = FindObjectOfType<SoundManager>();
+        m.UpdateMusic(0);
+        m.PlayLoop(2);
+        m.ChangeVolume(0.1f);
+        s.UpdateSoundVolume(0.1f);
+
         yield return null;
         StartCinematic("Intro");
+
+        while (CinematicStarted())
+        {
+            yield return null;
+        }
+
+        m.UpdateMusic(2);
+
     }
 
     private Cinematic[] _cinematics;

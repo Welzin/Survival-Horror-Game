@@ -6,39 +6,50 @@ public class Door : MonoBehaviour
 {
     private void Start()
     {
-        player = FindObjectOfType<PlayerManager>();
-        _isClosed= true;
+        _player = FindObjectOfType<PlayerManager>();
+        _animator = GetComponent<Animator>();
     }
 
     public IEnumerator OpenTheDoor()
     {
-        if (!needAKey || player.inventory.HaveKeyForDoor(this))
+        if (!needAKey || _player.inventory.HaveKeyForDoor(this))
         {
-            Action action = player.hud.actionBar.StartAction(timeToOpen);
+            Action action = _player.hud.actionBar.StartAction(timeToOpen);
             yield return new WaitForSeconds(timeToOpen);
 
             if (!action.interrupted)
             {
-                player.inventory.UsedKeyForDoor(this);
-                _isClosed = false;
-                GetComponent<BoxCollider2D>().enabled = false;
-                GetComponent<SpriteRenderer>().enabled = false;
+                _player.inventory.UsedKeyForDoor(this);
+                needAKey = false;
+                DoorOpening();
             }
         }
         else
         {
-            player.hud.helper.DisplayHelp(Helper.Type.DoorLocked, 3);
+            _player.hud.helper.DisplayHelp(Helper.Type.DoorLocked, 3);
         }
     }
 
     public bool IsClosed()
     {
-        return _isClosed;
+        return _animator.GetBool("Closing");
+    }
+
+    private void DoorOpening()
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+        _animator.SetBool("Closing", false);
+    }
+
+    private void DoorClosing()
+    {
+        GetComponent<BoxCollider2D>().enabled = true;
+        _animator.SetBool("Closing", true);
     }
 
     public bool needAKey;
     public float timeToOpen;
 
-    private PlayerManager player;
-    private bool _isClosed;
+    private Animator _animator;
+    private PlayerManager _player;
 }
