@@ -67,7 +67,7 @@ public class Intro : Cinematic
         yield return StartCoroutine(SaySomething("*Snif*"));
         yield return StartCoroutine(SaySomething("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !"));
         
-        StopCinematic();
+        StopCinematic(); yield return null;
         
         // Tutoriel
         player.hud.helper.DisplayInfo("Appuyer sur "
@@ -209,13 +209,13 @@ public class Intro : Cinematic
         _thunderOn = true;
         while (_thunderOn)
         {
-            StartCoroutine(lightning.StartWink(10, 25));
+            lightning.Strike();
             yield return new WaitForSeconds(Random.Range(5, 13));
         }
     }
 
     public Light bedsideLamp;
-    public Light lightning;
+    public Thunder lightning;
     public Light greenLight;
     public ItemObject keyToOpenTheRoom;
     public ItemObject battery;

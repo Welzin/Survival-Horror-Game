@@ -136,31 +136,32 @@ public class PlayerManager : MonoBehaviour
     {
         float effectiveLight = 0;
 
-        foreach (Light light in FindObjectsOfType<Light>())
+        if (lamp.Active)
         {
-            float proximity = (light.transform.position - transform.position).magnitude;
-            if (proximity <= light.radius)
+            effectiveLight = Mathf.Max(1.5f, effectiveLight);
+        }
+        else
+        {
+            foreach (Light light in FindObjectsOfType<Light>())
             {
-                // Search for a wall
-                // If there is a wall, the light isn't seen
-                RaycastHit2D hit = Physics2D.Raycast(light.transform.position, (transform.position - light.transform.position).normalized, light.radius, LayerMask.GetMask("Obstacle"));
-
-                if (hit.collider == null)
+                float proximity = (light.transform.position - transform.position).magnitude;
+                if (proximity <= light.radius)
                 {
-                    // This is the factor between 0 and 1 wich say how close teh character is from the light
-                    float factor = (light.radius - proximity) / light.radius;
-                    // It represent the effective light which are on the character
-                    effectiveLight += factor * light.effectiveLight;
+                    // Search for a wall
+                    // If there is a wall, the light isn't seen
+                    RaycastHit2D hit = Physics2D.Raycast(light.transform.position, (transform.position - light.transform.position).normalized, light.radius, LayerMask.GetMask("Obstacle"));
+
+                    if (hit.collider == null)
+                    {
+                        // This is the factor between 0 and 1 wich say how close the character is from the light
+                        float factor = (light.radius - proximity) / light.radius;
+                        // It represent the effective light which are on the character
+                        effectiveLight += factor * light.effectiveLight;
+                    }
                 }
             }
         }
-
-        if (lamp.Active)
-        {
-            effectiveLight = Mathf.Max(1, effectiveLight);
-        }
-
-
+        
         // If the effectiv light is less than one, we consider that the player is still on the dark.
         if (effectiveLight < 1)
         {
@@ -175,7 +176,6 @@ public class PlayerManager : MonoBehaviour
 
         if (_huggingTeddy)
         {
-            Debug.Log("hug");
             AddStress(- stressRemovedWhileHugging * Time.deltaTime);
         }
 
@@ -185,7 +185,28 @@ public class PlayerManager : MonoBehaviour
     {
         // No less than 0, no more than maxStress
         _actualStress = Mathf.Max(Mathf.Min(_actualStress + stress, maxStress), 0);
-        hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
+
+        if (_actualStress >= maxStress)
+        {
+            // If the charachter start panicking
+            if (!InPanic())
+            {
+                StartCoroutine(_panicManager.StartPanicking());
+            }
+
+            hud.stressBar.ChangeStressPercentage(100);
+        }
+        else
+        {
+            hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
+        }
+
+        heartbeat.volume = _actualStress / maxStress;
+    }
+
+    public bool InPanic()
+    {
+        return _panicManager.IsPanicking();
     }
 
     public float Stress()
@@ -193,10 +214,11 @@ public class PlayerManager : MonoBehaviour
         return _actualStress;
     }
 
-    public void SetNewDestination(Vector3 destination)
+    public void SetNewDestination(Vector3 destination, bool run = false)
     {
         _destination = destination;
         _arrived = false;
+        _shouldRun = run;
     }
 
     public bool IsMoving()
@@ -209,7 +231,7 @@ public class PlayerManager : MonoBehaviour
         if (!_arrived)
         {
             Vector3 toGo = (_destination - controller.transform.position).normalized;
-            controller.Movement(toGo.x, toGo.y, false);
+            controller.Movement(toGo.x, toGo.y, _shouldRun);
 
             if ((controller.transform.position - _destination).magnitude < 0.1 && (controller.transform.position - _destination).magnitude > -0.1)
             {
@@ -265,11 +287,14 @@ public class PlayerManager : MonoBehaviour
     public float timeToReloadLamp = 2f;
     // Noise range propagation when walking
     public float walkingNoise = 2f;
+    public AudioSource heartbeat;
 
     private float _actualStress;
     private bool _huggingTeddy;
     private bool _arrived;
+    private bool _shouldRun;
     private Vector3 _destination;
+    private PanicManager _panicManager;
     // All sound emited
     private SoundEmiter _emiter;
 
