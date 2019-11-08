@@ -90,6 +90,7 @@ public class HUD : MonoBehaviour
     public GameObject itemZone;
     public StressBar stressBar;
     public BatteryBar batteryBar;
+    public ActionBar actionBar;
     public Text batteryNumberZone;
     public Helper helper;
     public Dialog dialog;

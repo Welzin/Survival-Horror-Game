@@ -60,7 +60,7 @@ public class PlayerManager : MonoBehaviour
             {
                 bool active = lamp.Active;
                 lamp.Active = false;
-                Action action = actionBar.StartAction(timeToReloadLamp);
+                Action action = hud.actionBar.StartAction(timeToReloadLamp);
                 yield return new WaitForSeconds(timeToReloadLamp);
 
                 if (!action.interrupted)
@@ -89,7 +89,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (inventory.HaveTeddy())
         {
-            Action action = actionBar.StartAction(timeToHugTeddy);
+            Action action = hud.actionBar.StartAction(timeToHugTeddy);
             yield return new WaitForSeconds(timeToHugTeddy);
 
             if (!action.interrupted)
@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour
     /// <returns></returns>
     public bool DoingAnAction()
     {
-        return actionBar.inAction;
+        return hud.actionBar.inAction;
     }
 
     /// <summary>
@@ -122,9 +122,9 @@ public class PlayerManager : MonoBehaviour
             _huggingTeddy = false;
         }
 
-        if (actionBar.inAction)
+        if (hud.actionBar.inAction)
         {
-            actionBar.ActionInterrupted();
+            hud.actionBar.ActionInterrupted();
         }
     }
 
@@ -237,8 +237,6 @@ public class PlayerManager : MonoBehaviour
     public Lamp lamp;
     // The body which will turn
     public GameObject body;
-    // The action bar to display when the player is doing an action
-    public ActionBar actionBar;
     // The hud where everything will be displayed
     public HUD hud;
     // Inventory

@@ -14,7 +14,7 @@ public class Door : MonoBehaviour
     {
         if (!needAKey || player.inventory.HaveKeyForDoor(this))
         {
-            Action action = player.actionBar.StartAction(timeToOpen);
+            Action action = player.hud.actionBar.StartAction(timeToOpen);
             yield return new WaitForSeconds(timeToOpen);
 
             if (!action.interrupted)

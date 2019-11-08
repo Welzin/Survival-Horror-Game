@@ -238,7 +238,7 @@ public class PlayerController : Listener
     /// </summary>
     private IEnumerator GrabObject(ItemObject item)
     {
-        Action action = _manager.actionBar.StartAction(item.timeToGrabItem);
+        Action action = _manager.hud.actionBar.StartAction(item.timeToGrabItem);
         yield return new WaitForSeconds(item.timeToGrabItem);
 
         if (!action.interrupted)
