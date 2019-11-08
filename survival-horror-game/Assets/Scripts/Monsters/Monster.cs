@@ -201,23 +201,25 @@ public class Monster : Listener
     {
         foreach(Noise noise in AllNoiseHeard())
         {
-            Vector2 dest = CalculatePoint(noise);
+            Vector2 dest = GetOrigin(noise);
+            SetTarget(dest);
 /*            if (!_hasTarget)
             {
                 SetTarget(dest);
             }
             else
             {
+                Debug.Log(Vector2.Distance(dest, transform.position));
+                Debug.Log(Vector2.Distance(dest, transform.position));
                 if (Vector2.Distance(dest, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
                 {
-                    SetTarget(dest);
                 }
             }*/
         }
-        if(AllNoiseHeard().Count == 0)
+/*        if(AllNoiseHeard().Count == 0)
         {
             ResetTarget();
-        }
+        }*/
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)

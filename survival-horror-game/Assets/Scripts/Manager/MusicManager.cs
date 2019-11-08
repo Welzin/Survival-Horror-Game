@@ -127,6 +127,7 @@ public class MusicManager : MonoBehaviour
         {
             _currentMusic.Stop();
         }
+        StopCoroutine("WaitForPlaying");
     }
 
     // Storage of all the game musics

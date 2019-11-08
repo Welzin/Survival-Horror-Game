@@ -32,13 +32,18 @@ public class Listener : MonoBehaviour
 
     protected virtual void Update()
     {
+        List<Noise> buffer = new List<Noise>();
         // Checks if there is any sound which is finished in the list. 
         foreach(Noise noise in _allNoisesHeard.Keys)
         {
-            if(noise.duration == 0)
+            if(noise.duration <= 0)
             {
-                _allNoisesHeard.Remove(noise);
+                buffer.Add(noise);
             }
+        }
+        foreach(Noise noise in buffer)
+        {
+            _allNoisesHeard.Remove(noise);
         }
     }
 
@@ -98,11 +103,9 @@ public class Listener : MonoBehaviour
         return allNoise;
     }
 
-    public Vector2 CalculatePoint(Noise noise)
+    public Vector2 GetOrigin(Noise noise)
     {
-        Debug.Log(IntensityFelt(noise));
-
-        return new Vector2();
+        return noise.origin;
     }
 
     /// <summary>
@@ -110,8 +113,10 @@ public class Listener : MonoBehaviour
     /// </summary>
     private float CalculateIntensity(float dist, float radius)
     {
+        if (_hearRange >= dist)
+            return 2 * radius;
         // distance - (radius + hearRange) => intersection of the 2 circles
-        return Mathf.Abs(dist - (radius + _hearRange));
+        return Mathf.Abs(dist - radius - _hearRange);
     }
 
 
