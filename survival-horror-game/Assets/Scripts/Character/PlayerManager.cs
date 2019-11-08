@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
         inventory = new Inventory(hud);
         cinematicManager = FindObjectOfType<CinematicManager>();
         controller = FindObjectOfType<PlayerController>();
+
+        _panicManager = gameObject.AddComponent<PanicManager>();
         _actualStress = 0;
         _huggingTeddy = false;
         _arrived = true;

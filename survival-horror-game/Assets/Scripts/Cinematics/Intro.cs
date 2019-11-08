@@ -14,15 +14,15 @@ public class Intro : Cinematic
         player.hud.transform.Find("Stress").gameObject.SetActive(false);
         player.hud.transform.Find("Battery").gameObject.SetActive(false);
         player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
-        //battery.gameObject.SetActive(false);
-        //keyToOpenTheRoom.gameObject.SetActive(false);
-        //teddy.gameObject.SetActive(false);
+        battery.gameObject.SetActive(false);
+        keyToOpenTheRoom.gameObject.SetActive(false);
+        teddy.gameObject.SetActive(false);
 
         // Start in the bed
         player.transform.position = initialPosition;
 
         // Thunder begin
-        /*yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
         player.hud.helper.DisplayInfo("Appuyer sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
         yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
         player.hud.helper.StopDisplayingInfo();
@@ -32,6 +32,7 @@ public class Intro : Cinematic
         // Some text
         yield return new WaitForSeconds(6);
         lightning.Strike();
+        yield return new WaitForSeconds(2);
         yield return StartCoroutine(SaySomething("Aaaah !"));
         yield return StartCoroutine(SaySomething("Qu'est ce que c'est ?"));
         yield return StartCoroutine(SaySomething("J'ai peur de l'orage !!!"));
@@ -69,7 +70,7 @@ public class Intro : Cinematic
         yield return new WaitForSeconds(3);
         yield return StartCoroutine(SaySomething("*Snif*"));
         yield return StartCoroutine(SaySomething("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !"));
-        */
+        
         StopCinematic();
         
         // Tutoriel

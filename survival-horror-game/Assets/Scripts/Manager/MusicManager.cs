@@ -50,8 +50,9 @@ public class MusicManager : MonoBehaviour
     public void PlayLoop(float delay, float loopDelay)
     {
         _currentMusic.PlayDelayed(delay);
-        _delay = loopDelay;
-        StartCoroutine(WaitForPlaying(_currentMusic.clip.length + _delay));
+        _currentMusic.loop = true;
+        //_delay = loopDelay;
+        //StartCoroutine(WaitForPlaying(_currentMusic.clip.length + _delay));
     }
 
     /// <summary>
@@ -68,6 +69,7 @@ public class MusicManager : MonoBehaviour
     public void PlayOnce(float delay)
     {
         _currentMusic.PlayDelayed(delay);
+        _currentMusic.loop = false;
     }
 
     /// <summary>
