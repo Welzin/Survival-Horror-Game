@@ -10,6 +10,7 @@ public enum SoundType
 {
     Footsteps,
     RunningSteps,
+    Custom,
 }
 
 [System.Serializable]

@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
         _huggingTeddy = false;
         _arrived = true;
         _emiter = GetComponent<SoundEmiter>();
+        _emiter.SetNoiseEmited(NoiseType.Player);
     }
 
     private void Update()

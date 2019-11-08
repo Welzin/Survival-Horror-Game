@@ -250,7 +250,7 @@ public class MovementHelper : MonoBehaviour
         }
         else
         {
-            return new Vector2(float.MaxValue, float.MaxValue);
+            return _target;
         }
     }
 

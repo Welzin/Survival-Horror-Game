@@ -34,10 +34,12 @@ public class Monster : Listener
         }
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         // Search if the player emits light every frame
         SearchForLight();
+        SearchForSound();
     }
     
     /// <summary>
@@ -195,27 +197,24 @@ public class Monster : Listener
         _move.RunTowardTarget(destination);
     }
 
-    public override void DetectSound(int floorSoundEmited)
+    private void SearchForSound()
     {
-        // Direction -> y axis
-        LayerMask layer = LayerMask.GetMask("Sound");
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, soundDetectionRange, new Vector2(0, 1), Mathf.Infinity, layer);
-        if (hit)
+        foreach(Noise noise in AllNoiseHeard())
         {
-            Vector2 soundPos = hit.transform.position;
-            if (!_hasTarget)
+            Vector2 dest = CalculatePoint(noise);
+/*            if (!_hasTarget)
             {
-                SetTarget(soundPos);
+                SetTarget(dest);
             }
             else
             {
-                if (Vector2.Distance(soundPos, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
+                if (Vector2.Distance(dest, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
                 {
-                    SetTarget(soundPos);
+                    SetTarget(dest);
                 }
-            }
+            }*/
         }
-        else
+        if(AllNoiseHeard().Count == 0)
         {
             ResetTarget();
         }

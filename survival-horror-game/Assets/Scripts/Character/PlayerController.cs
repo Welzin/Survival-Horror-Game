@@ -219,7 +219,7 @@ public class PlayerController : Listener
 
         // Generate sound
         float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
-        _manager.Emiter.EmitSoundWave(noise, _currentFloor, ListenNoise.Monster);
+        _manager.Emiter.EmitSoundWave(noise, _currentFloor, 1);
     }
 
     /// <summary>
@@ -249,12 +249,6 @@ public class PlayerController : Listener
             _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
             Destroy(item.gameObject);
         }
-    }
-    
-    // Called when a sound listened to is capted
-    public override void DetectSound(int floorSoundEmited)
-    {
-        base.DetectSound(floorSoundEmited);
     }
 
     // Player manager

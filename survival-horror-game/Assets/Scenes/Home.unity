@@ -3111,7 +3111,6 @@ GameObject:
   - component: {fileID: 1552701663}
   - component: {fileID: 1552701662}
   - component: {fileID: 1552701664}
-  - component: {fileID: 1552701665}
   - component: {fileID: 1552701666}
   m_Layer: 0
   m_Name: DontDestroy
@@ -3162,19 +3161,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e3d6727380b85f948947f5b515a1c6fc, type: 3}
   - {fileID: 8300000, guid: 096e83f98f0e2ec4e809731af31eb782, type: 3}
   - {fileID: 8300000, guid: 70c48aad494c8d043a1c38130a1a7fb8, type: 3}
---- !u!114 &1552701665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1552701661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3129b8ff35ff5047819661078abb4f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _sounds: []
 --- !u!114 &1552701666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3187,6 +3173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539d107b155c085479202da298008662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sounds:
+  - type: 0
+    audioClip: {fileID: 8300000, guid: ad7cbab4efe03744d8a214af766985e8, type: 3}
+  - type: 1
+    audioClip: {fileID: 8300000, guid: b84b58cf65787684b9ae6a9da00c0cdb, type: 3}
 --- !u!1 &1558860194
 GameObject:
   m_ObjectHideFlags: 0

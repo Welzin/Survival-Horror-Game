@@ -76,11 +76,38 @@ public class SoundEmiter : MonoBehaviour
     }
 
     /// <summary>
-    /// Interface for CreateSoundWave from sound manager
+    /// Interface for AlertListeners from sound manager
     /// </summary>
-    public void EmitSoundWave(float radius, int floor, ListenNoise emiter)
+    public void EmitSoundWave(float intensity, int floor, float duration)
     {
-        _soundManager.CreateSoundWave(gameObject.transform.position, radius, floor, emiter);
+        _soundManager.AlertListeners(new Noise(this, intensity, floor, _noiseEmited, duration));
+    }
+
+    /// <summary>
+    /// Sets the type of noise emited by the associated game object
+    /// </summary>
+    /// <param name="noise">Associated GameObject type</param>
+    public void SetNoiseEmited(NoiseType noise)
+    {
+        _noiseEmited = noise;
+    }
+
+    /// <summary>
+    /// Plays the custom clip
+    /// </summary>
+    public void PlayCustomClip(AudioClip clip)
+    {
+        if(_soundOrigin.isPlaying)
+        {
+            if (_currentPlayingSound != SoundType.Custom)
+            {
+                _currentPlayingSound = SoundType.Custom;
+                _soundOrigin.Stop();
+                _soundOrigin.clip = clip;
+            }
+        }
+        else
+            _soundOrigin.Play();
     }
     
     // Audiosource on which the class has to play the clip
@@ -89,4 +116,6 @@ public class SoundEmiter : MonoBehaviour
     private SoundType _currentPlayingSound;
     // Sound Manager, to directly emit sound shockwaves and to update the volume
     private SoundManager _soundManager;
+    // Noise emited by the associated game object
+    private NoiseType _noiseEmited;
 }

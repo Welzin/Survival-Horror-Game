@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    /// <summary>
+    /// Needs to be on awake because the lists need to be initialized when the game begins to avoid all nullreference errors
+    /// </summary>
     private void Awake()
     {
         _listeners = new List<Listener>();
         _soundEmiters = new List<SoundEmiter>();
     }
+
+    /// <summary>
+    /// Adds a listener to the list of objects to be notified when there is a sound
+    /// </summary>
     public void Subscribe(Listener listener)
     {
         _listeners.Add(listener);
     }
+
+    /// <summary>
+    /// Registers a SoundEmiter to the potential changements of volume
+    /// </summary>
     public void Register(SoundEmiter se)
     {
         _soundEmiters.Add(se);
@@ -20,40 +31,31 @@ public class SoundManager : MonoBehaviour
         se.ChangeVolume(_volume);
     }
 
-    public void CreateSoundWave(Vector2 center, float radius, int floor, ListenNoise emiter)
+    public void AlertListeners(Noise noise)
     {
-        GameObject go = CreateGO(center, radius);
         if(_listeners.Count != 0)
         {
             foreach (Listener listener in _listeners)
             {
-                if (listener.ListensTo(emiter)) { listener.DetectSound(floor); }
+                if (listener.ListensTo(noise.emiterType)) { listener.DetectSound(noise); }
             }
         }
-        // Delete sound wave
-        Destroy(go);
     }
 
+    /// <summary>
+    /// Call this function to update the volume of the sound effects
+    /// </summary>
+    /// <param name="value">New sound volume</param>
     public void UpdateSoundVolume(float value)
     {
+        if (value > 1) value = 1;
+        else if (value < 0) value = 0;
+
         _volume = value;
         foreach(SoundEmiter emiter in _soundEmiters)
         {
             emiter.ChangeVolume(_volume);
         }
-    }
-
-    private GameObject CreateGO(Vector2 center, float radius)
-    {
-        GameObject go = new GameObject();
-        go.transform.position = center;
-        CircleCollider2D sound = go.AddComponent<CircleCollider2D>(); 
-        sound.radius = radius;
-        sound.isTrigger = true;
-        // Sound layer
-        go.layer = LayerMask.NameToLayer("Sound");
-        go.name = "Soundwave";
-        return go;
     }
 
     /// <summary>
