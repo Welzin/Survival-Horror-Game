@@ -164,7 +164,7 @@ public class PlayerController : Listener
         if (x == 0 && y == 0)
         {
             _animator.SetInteger("Mouvement", 0);
-            _manager.emiter.StopEffect();
+            _manager.Emiter.StopEffect();
             return;
         }
         else
@@ -199,13 +199,13 @@ public class PlayerController : Listener
         // If the player is running, play running steps sounds
         if (isRunning)
         {
-            _manager.emiter.PlayEffect(SoundType.RunningSteps);
+            _manager.Emiter.PlayEffect(SoundType.RunningSteps);
         }
         // Else, check if the user is running. If he's running, stop the sound and play the footstep's one, otherwise
         // just check if it's playing.
         else
         {
-            _manager.emiter.PlayEffect(SoundType.Footsteps);
+            _manager.Emiter.PlayEffect(SoundType.Footsteps);
         }
         // Calculation of the new position
         Vector2 direction = new Vector2(x, y).normalized;
@@ -219,7 +219,7 @@ public class PlayerController : Listener
 
         // Generate sound
         float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
-        _manager.emiter.EmitSoundWave(noise, _currentFloor, ListenNoise.Monster);
+        _manager.Emiter.EmitSoundWave(noise, _currentFloor, ListenNoise.Monster);
     }
 
     /// <summary>

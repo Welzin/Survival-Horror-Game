@@ -13,6 +13,7 @@ public class PlayerManager : MonoBehaviour
         _actualStress = 0;
         _huggingTeddy = false;
         _arrived = true;
+        _emiter = GetComponent<SoundEmiter>();
     }
 
     private void Update()
@@ -265,11 +266,13 @@ public class PlayerManager : MonoBehaviour
     public float timeToReloadLamp = 2f;
     // Noise range propagation when walking
     public float walkingNoise = 2f;
-    // All sound emited
-    public SoundEmiter emiter;
 
     private float _actualStress;
     private bool _huggingTeddy;
     private bool _arrived;
     private Vector3 _destination;
+    // All sound emited
+    private SoundEmiter _emiter;
+
+    public SoundEmiter Emiter { get => _emiter; }
 }

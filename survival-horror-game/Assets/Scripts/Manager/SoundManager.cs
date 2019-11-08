@@ -56,6 +56,23 @@ public class SoundManager : MonoBehaviour
         return go;
     }
 
+    /// <summary>
+    /// Search the audio clip related to the type.
+    /// </summary>
+    /// <returns>AudioClip clip if it finds something. Null otherwise.</returns>
+    public AudioClip GetClipByType(SoundType type)
+    {
+        Sound search = _sounds.Find((Sound sound) => sound.type == type);
+        if (search != null)
+        {
+            return search.audioClip;
+        }
+        return null;
+    }
+
+    // Every sounds which the gameObject associated can access to.
+    [SerializeField]
+    private List<Sound> _sounds = new List<Sound>();
     // Every gameObject which listen to any sound of the environment / player / monster
     private List<Listener> _listeners;
     // All elements which can emit soundwaves

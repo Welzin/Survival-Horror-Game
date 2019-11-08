@@ -21,8 +21,8 @@ public class SoundEmiter : MonoBehaviour
         else
             _soundManager.Register(this);
         // Initialize the current sound to the first element of the list
-        _currentPlayingSound = _sounds[0].type;
-        _soundOrigin.clip = _sounds[0].audioClip;
+        _currentPlayingSound = SoundType.Footsteps;
+        _soundOrigin.clip = _soundManager.GetClipByType(_currentPlayingSound);
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class SoundEmiter : MonoBehaviour
             {
                 _currentPlayingSound = sound;
                 _soundOrigin.Stop();
-                AudioClip clip = GetClipByType(sound);
+                AudioClip clip = _soundManager.GetClipByType(sound);
                 if (clip != null) _soundOrigin.clip = clip;
             }
         }
@@ -82,24 +82,6 @@ public class SoundEmiter : MonoBehaviour
     {
         _soundManager.CreateSoundWave(gameObject.transform.position, radius, floor, emiter);
     }
-
-    /// <summary>
-    /// Search the audio clip related to the type.
-    /// </summary>
-    /// <returns>AudioClip clip if it finds something. Null otherwise.</returns>
-    private AudioClip GetClipByType(SoundType type)
-    {
-        Sound search = _sounds.Find((Sound sound) => sound.type == type);
-        if(search != null)
-        {
-            return search.audioClip;
-        }
-        return null;
-    }
-
-    // Every sounds which the gameObject associated can access to.
-    [SerializeField]
-    private List<Sound> _sounds = new List<Sound>();
     
     // Audiosource on which the class has to play the clip
     private AudioSource _soundOrigin;
