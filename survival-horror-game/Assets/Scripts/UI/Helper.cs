@@ -47,19 +47,19 @@ public class Helper : MonoBehaviour
         switch (type)
         {
             case Type.CatchItem:
-                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to get this item";
+                textZone.text = "Appuyer sur " + _dd.GetKey(Controls.Interact).Item1 + " pour récupérer l'objet";
                 break;
             case Type.OpenDoor:
-                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to open this door";
+                textZone.text = "Appuyer sur " + _dd.GetKey(Controls.Interact).Item1 + " pour ouvrir la porte";
                 break;
             case Type.CloseDoor:
-                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to close this door";
+                textZone.text = "Appuyer sur " + _dd.GetKey(Controls.Interact).Item1 + " pour fermer la porte";
                 break;
             case Type.DoorLocked:
-                textZone.text = "The door is locked";
+                textZone.text = "La porte est vérouillée";
                 break;
             case Type.InteractWithEnvironment:
-                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to interact";
+                textZone.text = "Appuyer sur " + _dd.GetKey(Controls.Interact).Item1;
                 break;
         }
 

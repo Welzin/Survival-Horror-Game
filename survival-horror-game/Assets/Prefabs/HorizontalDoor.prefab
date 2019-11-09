@@ -146,10 +146,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   eventTime: 2
+  textToHelp: 
+  victoryText: 
+  disableEventText: 
+  disableEvent: 0
   needAKey: 0
   lightObstacle: {fileID: 243944092}
-  doorLocked: {fileID: 8300000, guid: 14b733b85332d0c43a5039af45ee9564, type: 3}
-  doorUnlocked: {fileID: 8300000, guid: 14b733b85332d0c43a5039af45ee9564, type: 3}
+  doorLocked: {fileID: 0}
+  doorUnlocked: {fileID: 8300000, guid: a7eb3d821edc72141b4a806e4ba2e955, type: 3}
   doorOpening: {fileID: 8300000, guid: 473334ee9381e2a47b99e7b0251218dc, type: 3}
   doorClosing: {fileID: 8300000, guid: 64703aad583d55744add9135e1dcaa0b, type: 3}
 --- !u!212 &3796407886134492789

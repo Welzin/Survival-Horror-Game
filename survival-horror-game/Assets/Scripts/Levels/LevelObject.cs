@@ -107,7 +107,7 @@ public abstract class Mission : LevelObject
         }
     }
 
-    protected IEnumerator WaitForEvent(LevelEvent levelEvent)
+    protected IEnumerator WaitForEvent(TimedEvent levelEvent)
     {
         while (levelEvent != player.GetLastEvent())
         {
@@ -115,13 +115,13 @@ public abstract class Mission : LevelObject
         }
     }
 
-    protected IEnumerator WaitForOneEventBetween(List<LevelEvent> events)
+    protected IEnumerator WaitForOneEventBetween(List<TimedEvent> events)
     {
         bool eventDone = false;
 
         while (!eventDone)
         {
-            foreach (LevelEvent levelEvent in events)
+            foreach (TimedEvent levelEvent in events)
             {
                 if (player.GetLastEvent() == levelEvent)
                 {
@@ -134,13 +134,13 @@ public abstract class Mission : LevelObject
         }
     }
 
-    protected IEnumerator WaitForMultipleEvents(List<LevelEvent> events)
+    protected IEnumerator WaitForMultipleEvents(List<TimedEvent> events)
     {
-        List<LevelEvent> copy = events;
+        List<TimedEvent> copy = events;
 
         while (events.Count != 0)
         {
-            foreach (LevelEvent levelEvent in copy)
+            foreach (TimedEvent levelEvent in copy)
             {
                 if (player.GetLastEvent() == levelEvent)
                 {

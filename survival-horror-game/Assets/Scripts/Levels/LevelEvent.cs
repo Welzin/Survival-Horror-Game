@@ -19,11 +19,13 @@ public class LevelEvent : TimedEvent
     {
         player.inventory.ItemUsed(nameItemToHave);
 
-        if (victoryText != "")
-            player.Speak(victoryText);
-
         if (itemGet != null)
             player.inventory.AddItem(itemGet.item);
+
+        if (soundMakeAfter != null)
+            _emiter.PlayCustomClip(soundMakeAfter);
+        else
+            _emiter.StopEffect();
 
         cannotDoEventAnymore = true;
     }
@@ -38,8 +40,6 @@ public class LevelEvent : TimedEvent
 
     protected override void WhatToDoIfConditionNotRespected()
     {
-        if (textToHelp != "")
-            player.Speak(textToHelp);
     }
 
     protected override void WhatToDoOnEventInterruption()
@@ -48,6 +48,7 @@ public class LevelEvent : TimedEvent
     }
 
     public AudioClip soundMake;
+    public AudioClip soundMakeAfter;
     private SoundEmiter _emiter;
     public string nameItemToHave;
     public ItemObject itemGet;

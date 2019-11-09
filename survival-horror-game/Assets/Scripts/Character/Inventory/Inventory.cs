@@ -51,7 +51,7 @@ public class Inventory
             _hud.DisplayItems(itemToDisplay);
         }
 
-        _hud.helper.DisplayInfo("You catch an item : " + item.name, 5);
+        _hud.helper.DisplayInfo("Vous avez attrapper un item : " + item.name, 5);
     }
 
     public bool HaveBattery()
@@ -108,6 +108,7 @@ public class Inventory
             if (key.doorToOpen == door)
             {
                 _keys.Remove(key);
+                _hud.DisplayKeys(_keys);
                 return;
             }
         }
@@ -120,6 +121,17 @@ public class Inventory
             if (item.name == name)
             {
                 _items.Remove(item);
+
+                List<Utility> itemToDisplay = new List<Utility>();
+                if (_teddy != null)
+                {
+                    itemToDisplay.Add(_teddy);
+                }
+                itemToDisplay.AddRange(_items);
+
+                _hud.DisplayItems(itemToDisplay);
+                _hud.DisplayItems(_items);
+
                 return;
             }
         }

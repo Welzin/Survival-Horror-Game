@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1027360709257217995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2375, y: 0.225, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7652962273933631680}
   m_Father: {fileID: 0}
@@ -50,9 +50,10 @@ MonoBehaviour:
   textToHelp: 
   victoryText: 
   disableEventText: 
+  disableEvent: 0
   itemType: 0
-  itemName: Carnet
-  sprite: {fileID: 21300000, guid: 33fbd1446809d8c4dac8bed2ecac4cd5, type: 3}
+  itemName: Seau d'eau
+  sprite: {fileID: 21300000, guid: 81a2141be66816e4c9179d84d17a0d57, type: 3}
   doorForTheKey: {fileID: 0}
 --- !u!61 &7392641634366503698
 BoxCollider2D:
@@ -67,7 +68,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0022294521, y: -0.02006483}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -78,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.32672453, y: 0.21971416}
   m_EdgeRadius: 0
 --- !u!1 &7652962273933631707
 GameObject:
@@ -149,7 +150,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 450
+  m_SortingOrder: 750
   m_Sprite: {fileID: -5270785090687209720, guid: 585216f93b410be428b82ebc6e1b160d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

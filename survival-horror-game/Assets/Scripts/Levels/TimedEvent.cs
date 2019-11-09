@@ -12,7 +12,7 @@ public abstract class TimedEvent : Event
 
     public override void PlayEvent()
     {
-        if (ConditionsToRespect())
+        if (!cannotDoEventAnymore && ConditionsToRespect())
         {
             WhatToDoBeforeEvent();
             StartCoroutine(StartTimedEvent());
@@ -49,6 +49,9 @@ public abstract class TimedEvent : Event
 
             player.SetLastEvent(this);
             WhatToDoAfterEvent();
+
+            if (disableEvent)
+                gameObject.SetActive(false);
         }
         else
         {
@@ -60,6 +63,7 @@ public abstract class TimedEvent : Event
     public string textToHelp;
     public string victoryText;
     public string disableEventText;
+    public bool disableEvent;
 
     protected bool cannotDoEventAnymore;
 }
