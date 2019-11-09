@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CinematicManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     private void Start()
     {

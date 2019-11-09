@@ -28,9 +28,11 @@ public class PlayerController : Listener
         }
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (_manager.cinematicManager.CinematicStarted())
+        base.Update();
+
+        if (_manager.levelManager.CinematicStarted())
         {
             if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2) && _manager.IsSpeaking())
             {

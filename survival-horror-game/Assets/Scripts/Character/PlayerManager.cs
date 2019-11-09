@@ -8,7 +8,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         inventory = new Inventory(hud);
-        cinematicManager = FindObjectOfType<CinematicManager>();
+        levelManager = FindObjectOfType<LevelManager>();
         controller = FindObjectOfType<PlayerController>();
 
         _panicManager = gameObject.AddComponent<PanicManager>();
@@ -23,7 +23,7 @@ public class PlayerManager : MonoBehaviour
     {
         Move();
         
-        if (cinematicManager.CinematicStarted())
+        if (levelManager.CinematicStarted())
         {
             return;
         }
@@ -268,7 +268,8 @@ public class PlayerManager : MonoBehaviour
     public Inventory inventory;
     // PlayerController for movement
     public PlayerController controller;
-    public CinematicManager cinematicManager;
+    // This instance will manage everything about level
+    public LevelManager levelManager;
     // The speed of the character
     public float speed = 3.0f;
     // The speed of the character
