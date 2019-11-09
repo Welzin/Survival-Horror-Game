@@ -32,6 +32,7 @@ public class MovementHelper : MonoBehaviour
         _floorManagers.Sort((el1, el2) => (el1.floorNumber.CompareTo(el2.floorNumber)));
         _lastDoor = null;
         _isOpeningDoor = false;
+        _animator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -72,6 +73,7 @@ public class MovementHelper : MonoBehaviour
                 // If there isn't any enqueued node, we inform that the movement is finished
                 else
                 {
+                    _animator.SetInteger("Mouvement", 0);
                     _isMovementFinished = true;
                 }
             }
@@ -79,6 +81,7 @@ public class MovementHelper : MonoBehaviour
             {
                 if(!_isOpeningDoor)
                 {
+                    _animator.SetInteger("Mouvement", 1);
                     // If the gameObject isn't near, we move it
                     Move();
                 }
@@ -88,7 +91,12 @@ public class MovementHelper : MonoBehaviour
         {
             if(!IsNear(transform.position, _target))
             {
+                _animator.SetInteger("Mouvement", 1);
                 Move(_target);
+            }
+            else
+            {
+                _animator.SetInteger("Mouvement", 0);
             }
         }
     }
@@ -250,6 +258,7 @@ public class MovementHelper : MonoBehaviour
     {
         Vector2 pos = transform.position;
         Vector2 direction = (goal - pos).normalized;
+        SetAnimator(direction);
         pos += direction * _speed * Time.deltaTime;
         transform.position = pos;
     }
@@ -281,12 +290,41 @@ public class MovementHelper : MonoBehaviour
 
     private IEnumerator ChangeDoorState(Door door, bool predicate)
     {
+        _animator.SetInteger("Mouvement", 0);
         _isOpeningDoor = true;
         if (predicate)
             door.OpenForMonster();
 
         yield return new WaitForSeconds(door.eventTime);
         _isOpeningDoor = false;
+    }
+
+    private void SetAnimator(Vector2 direction)
+    {
+        float x = direction.x;
+        float y = direction.y;
+        if (Mathf.Abs(x) >= Mathf.Abs(y))
+        {
+            if (x < 0)
+            {
+                _animator.SetInteger("Direction", 1);
+            }
+            else if (x > 0)
+            {
+                _animator.SetInteger("Direction", 3);
+            }
+        }
+        else
+        {
+            if (y < 0)
+            {
+                _animator.SetInteger("Direction", 0);
+            }
+            else if (y > 0)
+            {
+                _animator.SetInteger("Direction", 2);
+            }
+        }
     }
 
     // All nodes in the pathfinder network
@@ -311,4 +349,6 @@ public class MovementHelper : MonoBehaviour
     private Door _lastDoor;
     // Wait for door animation
     private bool _isOpeningDoor;
+    // Get all the animations
+    private Animator _animator;
 }

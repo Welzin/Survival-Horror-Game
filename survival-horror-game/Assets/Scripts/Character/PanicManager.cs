@@ -45,7 +45,13 @@ public class PanicManager : MonoBehaviour
     {
         _panic = true;
         StartCoroutine(CountDown(10));
-        if (!_player.lamp.Active)
+        
+        if(!_player.inventory.HaveLamp())
+        {
+            MakePlayerRun();
+            Invoke("StopMovement", 4);
+        }
+        else if (!_player.lamp.Active)
         {
             if (_player.lamp.actualBattery > 0)
             {
