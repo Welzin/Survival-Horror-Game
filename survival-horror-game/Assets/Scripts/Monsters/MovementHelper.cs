@@ -30,6 +30,8 @@ public class MovementHelper : MonoBehaviour
         _floorManagers = new List<FloorManager>();
         _floorManagers.AddRange(FindObjectsOfType<FloorManager>());
         _floorManagers.Sort((el1, el2) => (el1.floorNumber.CompareTo(el2.floorNumber)));
+        _lastDoor = null;
+        _isOpeningDoor = false;
     }
 
     /// <summary>
@@ -44,6 +46,28 @@ public class MovementHelper : MonoBehaviour
             {
                 if (_currentPath.Count > 0)
                 {
+                    // If it opened a door on the last node, close it
+                    if(_lastDoor != null)
+                    {
+                        StartCoroutine(ChangeDoorState(_lastDoor, !_lastDoor.IsClosed()));
+                        _lastDoor = null;
+                        Debug.Log("Closing door...");
+                    }
+                    // Check if a door exists between the current and next node
+                    Door door = _currentDestination.DoorBetweenNodes(_currentPath.Peek());
+                    // If there is a door, checks if it can be opened without key
+                    if(door != null)
+                    {
+                        if (door.needAKey)
+                        {
+                            _currentPath.Clear();
+                            return;
+                        }
+                        // If it doesn't need a key, open the door
+                        StartCoroutine(ChangeDoorState(door, door.IsClosed()));
+                        _lastDoor = door;
+                        Debug.Log("Opening door...");
+                    }
                     _currentDestination = _currentPath.Dequeue();
                     CheckFloor();
                 }
@@ -55,8 +79,11 @@ public class MovementHelper : MonoBehaviour
             }
             else
             {
-                // If the gameObject isn't near, we move it
-                Move();
+                if(!_isOpeningDoor)
+                {
+                    // If the gameObject isn't near, we move it
+                    Move();
+                }
             }
         }
         if(_currentDestination == null && (_target.x != float.MaxValue || _target.y != float.MaxValue))
@@ -148,7 +175,7 @@ public class MovementHelper : MonoBehaviour
             StartMovement(NearestNode(transform.position, _mainScript.currentFloor), node);
             // Wait until movement is finished, then forcefully run towards target
             _target = target;
-            StartCoroutine(WaitNonBlocking(isMovementFinished, ()=>_currentDestination = null));
+            StartCoroutine(WaitNonBlocking(IsMovementFinished, ()=>_currentDestination = null));
         }
     }
 
@@ -233,7 +260,7 @@ public class MovementHelper : MonoBehaviour
     /// Call this function to know if the current movement has ended or not
     /// </summary>
     /// <returns>Current state of _isMovementFinished</returns>
-    public bool isMovementFinished()
+    public bool IsMovementFinished()
     {
         return _isMovementFinished;
     }
@@ -254,6 +281,16 @@ public class MovementHelper : MonoBehaviour
         }
     }
 
+    private IEnumerator ChangeDoorState(Door door, bool predicate)
+    {
+        _isOpeningDoor = true;
+        if (predicate)
+            door.OpenForMonster();
+
+        yield return new WaitForSeconds(door.eventTime);
+        _isOpeningDoor = false;
+    }
+
     // All nodes in the pathfinder network
     private Node[] _allNodes;
     // Current path is saved here
@@ -272,4 +309,8 @@ public class MovementHelper : MonoBehaviour
     private List<FloorManager> _floorManagers;
     // Associated Monster script
     private Monster _mainScript;
+    // Last door opened 
+    private Door _lastDoor;
+    // Wait for door animation
+    private bool _isOpeningDoor;
 }

@@ -33,11 +33,9 @@ public class Node : MonoBehaviour
         Door door = null;
         Vector2 distance = other.Position() - Position();
 
-        RaycastHit2D hit = Physics2D.Raycast(Position(), distance.normalized, distance.magnitude, LayerMask.GetMask("Door"));
+        RaycastHit2D hit = Physics2D.Raycast(Position(), distance.normalized, distance.magnitude, LayerMask.GetMask("Event"));
         if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
-        {
             door = hit.collider.gameObject.GetComponent<Door>();
-        }
 
         return door;
     }

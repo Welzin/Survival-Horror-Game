@@ -50,7 +50,7 @@ public class Monster : Listener
         // Start movement of the gameObject
         _move.StartMovement(transform.position, cond.destination);
         // Wait until the movement has ended
-        StartCoroutine(_move.WaitNonBlocking(_move.isMovementFinished, CheckForPlayer));
+        StartCoroutine(_move.WaitNonBlocking(_move.IsMovementFinished, CheckForPlayer));
     }
 
     /// <summary>
@@ -91,7 +91,8 @@ public class Monster : Listener
             Pattern toDo = _pattern.Dequeue();
             _move.StartMovement(transform.position, toDo.goTo);
             _pattern.Enqueue(toDo);
-            Invoke("ExecutePattern", toDo.intervalUntilNextAction);
+            // Wait until the movement is finished, and call ExecutePattern again after the given time.
+            StartCoroutine(_move.WaitNonBlocking(_move.IsMovementFinished, () => Invoke("ExecutePattern", toDo.intervalUntilNextAction)));
         }
         else
         {
@@ -197,27 +198,11 @@ public class Monster : Listener
 
     private void SearchForSound()
     {
-        foreach(Noise noise in AllNoiseHeard())
+        foreach (Noise noise in AllNoiseHeard())
         {
             Vector2 dest = GetOrigin(noise);
             SetTarget(dest);
-/*            if (!_hasTarget)
-            {
-                SetTarget(dest);
-            }
-            else
-            {
-                Debug.Log(Vector2.Distance(dest, transform.position));
-                Debug.Log(Vector2.Distance(dest, transform.position));
-                if (Vector2.Distance(dest, transform.position) < Vector2.Distance(_move.Destination(), transform.position))
-                {
-                }
-            }*/
         }
-/*        if(AllNoiseHeard().Count == 0)
-        {
-            ResetTarget();
-        }*/
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
