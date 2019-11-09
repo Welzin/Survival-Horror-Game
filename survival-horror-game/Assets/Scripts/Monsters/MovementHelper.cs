@@ -250,7 +250,6 @@ public class MovementHelper : MonoBehaviour
         }
         else
         {
-            Debug.Log(_target);
             return _target;
         }
     }

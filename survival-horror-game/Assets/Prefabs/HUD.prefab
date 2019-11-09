@@ -613,11 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textZone: {fileID: 3481340436119917274}
-<<<<<<< Updated upstream
   infoZone: {fileID: 0}
-=======
-  timeTextIsDisplay: 3
->>>>>>> Stashed changes
 --- !u!222 &3481340436119917285
 CanvasRenderer:
   m_ObjectHideFlags: 0

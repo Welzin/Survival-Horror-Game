@@ -90,8 +90,6 @@ public class Monster : Listener
         {
             Pattern toDo = _pattern.Dequeue();
             _move.StartMovement(transform.position, toDo.goTo);
-            Debug.Log("Executing pattern...");
-            Debug.Log(toDo.goTo.name);
             _pattern.Enqueue(toDo);
             Invoke("ExecutePattern", toDo.intervalUntilNextAction);
         }
