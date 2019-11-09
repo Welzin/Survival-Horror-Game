@@ -49,7 +49,7 @@ public class Intro : Cinematic
         yield return new WaitForSeconds(3);
 
         // The light is winking
-        StartCoroutine(bedsideLamp.StartWink(10, 50, 0, 1, true));
+        StartCoroutine(bedsideLamp.StartWink(10, 15, 50, 0, 1, true));
         yield return StartCoroutine(SaySomething("QU'EST CE QUE..."));
 
         // The light is shutting down

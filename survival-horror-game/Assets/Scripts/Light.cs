@@ -5,7 +5,7 @@ using Light2D;
 
 public class Light : MonoBehaviour
 {
-    void Awake()
+    protected void Start()
     {
         _isWinking = false;
         _winkingLoop = false;
@@ -25,26 +25,15 @@ public class Light : MonoBehaviour
         transform.localScale = new Vector2(radius * 2f, radius * 2f);
     }
 
-    public IEnumerator StartWink(float frequency, int numberOfWink, float minValue = 0f, float maxValue = 1f, bool lightShutDown = false)
+    public IEnumerator StartWink(float minFrequency, float maxFrequency, int numberOfWink, float minValue = 0f, float maxValue = 1f, bool lightShutDown = false)
     {
         _isWinking = true;
         bool intensify = true;
         float intensityAtBegin = intensity;
 
-        for (int i = 0; i <= numberOfWink; i++)
+        for (int i = 0; i <= numberOfWink && _isWinking; i++)
         {
-            if (i == numberOfWink)
-            {
-                if (lightShutDown)
-                {
-                    SetIntensity(0);
-                }
-                else
-                {
-                    SetIntensity(intensityAtBegin);
-                }
-            }
-            else if (intensify)
+            if (intensify)
             {
                 SetIntensity(Random.Range(intensity, maxValue));
             }
@@ -54,7 +43,16 @@ public class Light : MonoBehaviour
             }
 
             intensify = !intensify;
-            yield return new WaitForSeconds(1f / frequency);
+            yield return new WaitForSeconds(1f / Random.Range(minFrequency, maxFrequency));
+        }
+
+        if (lightShutDown)
+        {
+            SetIntensity(0);
+        }
+        else
+        {
+            SetIntensity(intensityAtBegin);
         }
 
         _isWinking = false;
@@ -82,6 +80,6 @@ public class Light : MonoBehaviour
     // The number of materials applies (YOU HAVE TO APPLY THEM YOURSELF ON THE MESH RENDERER)
     public int strength = 1;
 
-    private bool _isWinking;
+    protected bool _isWinking;
     private bool _winkingLoop;
 }

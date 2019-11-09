@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
         _cinematics = GetComponentsInChildren<Cinematic>();
         _missions = GetComponentsInChildren<Mission>();
         _playerManager = FindObjectOfType<PlayerManager>();
-        //StartCoroutine(ManageLevelOverTime());
+        StartCoroutine(ManageLevelOverTime());
     }
 
     public bool CinematicStarted()
@@ -75,10 +75,7 @@ public class LevelManager : MonoBehaviour
         //StartCinematic("Intro");
         yield return WaitEndCinematic();
 
-        m.UpdateMusic(2);
-        m.PlayLoop(2);
-
-        //StartMission("Tutorial");
+        StartMission("Tutorial");
         yield return WaitEndMission("Tutorial");
         StartMission("First mission");
     }

@@ -32,7 +32,7 @@ public class Thunder : Light
     private IEnumerator NewStrike()
     {
         int random = Random.Range(1, 6);
-        StartCoroutine(StartWink(10, 25));
+        StartCoroutine(StartWink(10, 15, 25));
         yield return new WaitForSeconds(Random.Range(1, 3));
 
         _emiter.PlayCustomClip(Resources.Load<AudioClip>("Effects/Thunder/tonnerre" + random));

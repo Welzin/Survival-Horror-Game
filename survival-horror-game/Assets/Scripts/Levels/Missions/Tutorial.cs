@@ -85,6 +85,10 @@ public class Tutorial : Mission
         greenLight.SetIntensity(1f);
         player.AddStress(player.maxStress);
 
+        MusicManager m = FindObjectOfType<MusicManager>();
+        m.UpdateMusic(2);
+        m.PlayLoop();
+
         StartCoroutine(SaySomething("Aaaaaaaah !"));
 
         yield return new WaitForSeconds(3);
@@ -160,8 +164,6 @@ public class Tutorial : Mission
     private IEnumerator DontLoseStress()
     {
         Key key = (Key)keyToOpenTheRoom.item;
-        Debug.Log(key);
-        Debug.Log(key.doorToOpen);
 
         while (key.doorToOpen.IsClosed())
         {
