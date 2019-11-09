@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 2277624283623221295}
   - component: {fileID: 2105399054}
   - component: {fileID: 135501123}
+  - component: {fileID: 3995444050356238666}
   m_Layer: 12
   m_Name: Character
   m_TagString: Player
@@ -392,7 +393,7 @@ MonoBehaviour:
   body: {fileID: 4428997502161421888}
   hud: {fileID: 0}
   controller: {fileID: 160503261046944929}
-  cinematicManager: {fileID: 0}
+  levelManager: {fileID: 0}
   speed: 1
   maxStress: 100
   stressInTheDark: 2
@@ -435,6 +436,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3129b8ff35ff5047819661078abb4f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!81 &3995444050356238666
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160503261046944934}
+  m_Enabled: 1
 --- !u!1 &1875382473949530328
 GameObject:
   m_ObjectHideFlags: 0

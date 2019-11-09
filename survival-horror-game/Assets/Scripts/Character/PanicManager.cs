@@ -47,8 +47,11 @@ public class PanicManager : MonoBehaviour
         StartCoroutine(CountDown(10));
         if (!_player.lamp.Active)
         {
-            if (_player.lamp.actualBattery > 100f)
+            if (_player.lamp.actualBattery > 0)
+            {
                 _player.ToggleLamp();
+                Invoke("ResetPanic", 2);
+            }
             else
             {
                 if (_player.inventory.HaveBattery())

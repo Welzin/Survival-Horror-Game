@@ -98,8 +98,7 @@ public class SoundEmiter : MonoBehaviour
     public void PlayCustomClip(AudioClip clip)
     {
         _currentPlayingSound = SoundType.Custom;
-        _soundOrigin.clip = clip;
-        _soundOrigin.Play();
+        AudioSource.PlayClipAtPoint(clip, transform.position);
     }
     
     // Audiosource on which the class has to play the clip
