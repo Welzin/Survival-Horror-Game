@@ -50,7 +50,7 @@ public class CinematicManager : MonoBehaviour
         s.UpdateSoundVolume(0.1f);
 
         yield return null;
-        StartCinematic("Intro");
+        //StartCinematic("Intro");
 
         while (CinematicStarted())
         {

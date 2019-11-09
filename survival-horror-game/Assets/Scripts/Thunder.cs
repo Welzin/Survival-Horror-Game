@@ -8,6 +8,9 @@ public class Thunder : Light
     {
         _emiter = gameObject.AddComponent<SoundEmiter>();
         _loop = false;
+
+        if (loopOnStart)
+            StartLoopStrike(intervalMinimum, intervalMaximum);
     }
 
     public void Strike()
@@ -46,4 +49,8 @@ public class Thunder : Light
 
     private SoundEmiter _emiter;
     private bool _loop;
+
+    public bool loopOnStart;
+    public float intervalMinimum;
+    public float intervalMaximum;
 }
