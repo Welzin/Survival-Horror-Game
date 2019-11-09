@@ -2,39 +2,54 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : TimedEvent
 {
-    private void Start()
+    protected void Start()
     {
-        _player = FindObjectOfType<PlayerManager>();
+        base.Start();
         _animator = GetComponent<Animator>();
+        _emiter = gameObject.AddComponent<SoundEmiter>();
     }
 
-    public IEnumerator OpenTheDoor()
+    protected override bool ConditionsToRespect()
     {
-        if (!needAKey || _player.inventory.HaveKeyForDoor(this))
-        {
-            Action action = _player.hud.actionBar.StartAction(timeToOpen);
-            yield return new WaitForSeconds(timeToOpen);
+        return !needAKey || player.inventory.HaveKeyForDoor(this);
+    }
 
-            if (!action.interrupted)
+    protected override void WhatToDoIfConditionNotRespected()
+    {
+        player.hud.helper.DisplayHelp(Helper.Type.DoorLocked, 3);
+        _emiter.PlayCustomClip(doorLocked);
+    }
+
+    protected override void WhatToDoBeforeEvent()
+    {
+    }
+
+    protected override void WhatToDoAfterEvent()
+    {
+        if (IsClosed())
+        {
+            DoorOpening();
+            if (needAKey)
             {
-                if (IsClosed())
-                {
-                    _player.inventory.UsedKeyForDoor(this);
-                    needAKey = false;
-                    DoorOpening();
-                }
-                else
-                {
-                    DoorClosing();
-                }
+                player.inventory.UsedKeyForDoor(this);
+                needAKey = false;
+                _emiter.PlayCustomClip(doorUnlocked);
+            }
+            else
+            {
+                _emiter.PlayCustomClip(doorOpening);
             }
         }
         else
         {
-            _player.hud.helper.DisplayHelp(Helper.Type.DoorLocked, 3);
+            DoorClosing();
         }
+    }
+
+    protected override void WhatToDoOnEventInterruption()
+    {
     }
 
     public bool IsClosed()
@@ -54,12 +69,16 @@ public class Door : MonoBehaviour
         GetComponent<BoxCollider2D>().isTrigger = false;
         lightObstacle.SetActive(true);
         _animator.SetBool("Closing", true);
+        _emiter.PlayCustomClip(doorClosing);
     }
 
     public bool needAKey;
-    public float timeToOpen;
     public GameObject lightObstacle;
+    public AudioClip doorLocked;
+    public AudioClip doorUnlocked;
+    public AudioClip doorOpening;
+    public AudioClip doorClosing;
 
     private Animator _animator;
-    private PlayerManager _player;
+    private SoundEmiter _emiter;
 }

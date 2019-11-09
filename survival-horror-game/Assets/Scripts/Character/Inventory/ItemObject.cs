@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemObject : MonoBehaviour
+public class ItemObject : TimedEvent
 {
     public enum Type
     {
@@ -15,7 +15,7 @@ public class ItemObject : MonoBehaviour
 
     private void Awake()
     {
-        switch (type)
+        switch (itemType)
         {
             case Type.Utility:
                 item = new Utility(sprite, itemName);
@@ -34,10 +34,35 @@ public class ItemObject : MonoBehaviour
                 break;
         }
     }
-    
+
+    protected override bool ConditionsToRespect()
+    {
+        return true;
+    }
+
+    protected override void WhatToDoIfConditionNotRespected()
+    {
+    }
+
+    protected override void WhatToDoBeforeEvent()
+    {
+    }
+
+    protected override void WhatToDoAfterEvent()
+    {
+        player.inventory.AddItem(item);
+
+        // The object will be destroy and controller.eventInRange equal to null, the helper will not stop display, so, we stop displaying help here
+        player.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
+        Destroy(gameObject);
+    }
+
+    protected override void WhatToDoOnEventInterruption()
+    {
+    }
+
     public Item item;
-    public Type type;
-    public float timeToGrabItem = 2f;
+    public Type itemType;
     public string itemName = "";
     public Sprite sprite;
     public Door doorForTheKey;

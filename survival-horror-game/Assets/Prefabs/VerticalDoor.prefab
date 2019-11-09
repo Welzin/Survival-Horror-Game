@@ -144,9 +144,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9e87006a17f0a4d8f333d54727a472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needAKey: 0
-  timeToOpen: 2
+  type: 1
+  eventTime: 2
+  needAKey: 1
   lightObstacle: {fileID: 1391401650}
+  doorLocked: {fileID: 8300000, guid: 14b733b85332d0c43a5039af45ee9564, type: 3}
+  doorUnlocked: {fileID: 8300000, guid: 14b733b85332d0c43a5039af45ee9564, type: 3}
+  doorOpening: {fileID: 8300000, guid: 473334ee9381e2a47b99e7b0251218dc, type: 3}
+  doorClosing: {fileID: 8300000, guid: 64703aad583d55744add9135e1dcaa0b, type: 3}
 --- !u!212 &8064677849716028359
 SpriteRenderer:
   m_ObjectHideFlags: 0

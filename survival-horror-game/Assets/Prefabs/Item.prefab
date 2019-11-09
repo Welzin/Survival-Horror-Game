@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3402419482227718965}
   - component: {fileID: 474340141538900190}
   - component: {fileID: 7392641634366503698}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38b459a866aa2e428111c1e3491f5ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
-  timeToGrabItem: 2
+  type: 1
+  eventTime: 2
+  itemType: 3
   itemName: 
-  sprite: {fileID: 21300000, guid: facd3a5a23eb2e44da59fd8251d4092d, type: 3}
+  sprite: {fileID: 21300000, guid: 33fbd1446809d8c4dac8bed2ecac4cd5, type: 3}
   doorForTheKey: {fileID: 0}
 --- !u!61 &7392641634366503698
 BoxCollider2D:
@@ -87,7 +88,7 @@ GameObject:
   - component: {fileID: 7652962273933631680}
   - component: {fileID: 7652962273933631711}
   - component: {fileID: 7652962273933631710}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: Sparkle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

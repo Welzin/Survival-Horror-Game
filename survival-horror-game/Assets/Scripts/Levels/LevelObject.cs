@@ -29,10 +29,11 @@ public abstract class LevelObject : MonoBehaviour
 
     protected IEnumerator SaySomething(string text)
     {
-        while (player.IsSpeaking())
+        if (player.IsSpeaking())
         {
             player.PassDialog();
         }
+
         player.Speak(text);
 
         while (player.IsSpeaking())

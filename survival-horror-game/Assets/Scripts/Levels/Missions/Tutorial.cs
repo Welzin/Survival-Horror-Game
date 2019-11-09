@@ -10,7 +10,7 @@ public class Tutorial : Mission
         player.hud.transform.Find("Battery").gameObject.SetActive(false);
         player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
         battery.gameObject.SetActive(false);
-        keyToOpenTheRoom.gameObject.SetActive(false);
+        //keyToOpenTheRoom.gameObject.SetActive(false);
         teddy.gameObject.SetActive(false);
     }
 
@@ -153,6 +153,8 @@ public class Tutorial : Mission
         player.hud.helper.StopDisplayingInfo();
         yield return StartCoroutine(SaySomething("La porte est ouverte"));
         yield return StartCoroutine(SaySomething("Bon, faut que je fasse attention quand même..."));
+
+        Stop();
     }
 
     private IEnumerator DontLoseStress()

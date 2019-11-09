@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 243944093}
   - component: {fileID: 243944094}
   - component: {fileID: 243944095}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: Light Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 3796407886134492789}
   - component: {fileID: 3796407886134492791}
   - component: {fileID: 3796407886134492790}
-  m_Layer: 15
+  m_Layer: 16
   m_Name: HorizontalDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,9 +144,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9e87006a17f0a4d8f333d54727a472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
+  eventTime: 2
   needAKey: 0
-  timeToOpen: 2
   lightObstacle: {fileID: 243944092}
+  doorLocked: {fileID: 8300000, guid: 14b733b85332d0c43a5039af45ee9564, type: 3}
+  doorUnlocked: {fileID: 8300000, guid: 14b733b85332d0c43a5039af45ee9564, type: 3}
+  doorOpening: {fileID: 8300000, guid: 473334ee9381e2a47b99e7b0251218dc, type: 3}
+  doorClosing: {fileID: 8300000, guid: 64703aad583d55744add9135e1dcaa0b, type: 3}
 --- !u!212 &3796407886134492789
 SpriteRenderer:
   m_ObjectHideFlags: 0

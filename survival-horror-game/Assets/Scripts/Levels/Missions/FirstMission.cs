@@ -6,6 +6,10 @@ public class FirstMission : Mission
 {
     protected override IEnumerator StartLevelObject()
     {
-        throw new System.NotImplementedException();
+        mainDoor.AddSomethingToSayWhenConditionNotRespected("La porte est fermée, les clés doivent se trouver dans le coffre de la salle de jeu, je devrais aller vérifier !");
+
+        yield return StartCoroutine(SaySomething("Il faut que j'aille au rez de chaussée pour sortir !"));
     }
+
+    public Door mainDoor;
 }

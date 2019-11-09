@@ -13,8 +13,7 @@ public class PlayerController : Listener
         _animator = GetComponent<Animator>();
         _audio = GetComponent<AudioSource>();
 
-        _itemInRange = null;
-        _doorInRange = null;
+        _eventInRange = null;
         _currentFloor = 2;
 
         if (_dd == null)
@@ -42,38 +41,7 @@ public class PlayerController : Listener
             return;
         }
 
-        // Search for an item and a door
-        // The detection is done with the body because the gameObject doesn't move when the character is moving (because this is just the sprite which change)
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Items"));
-        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Door"));
-        
-        if (hit.collider != null && hit.collider.gameObject.GetComponent<ItemObject>())
-        {
-            if (_itemInRange == null)
-            {
-                _itemInRange = hit.collider.gameObject.GetComponent<ItemObject>();
-                _manager.hud.helper.DisplayHelp(Helper.Type.CatchItem);
-            }
-        }
-        else if (_itemInRange != null)
-        {
-            _itemInRange = null;
-            _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
-        }
-
-        if (hit2.collider != null && hit2.collider.gameObject.GetComponent<Door>())
-        {
-            if (_doorInRange == null)
-            {
-                _doorInRange = hit2.collider.gameObject.GetComponent<Door>();
-                _manager.hud.helper.DisplayHelp(Helper.Type.OpenDoor);
-            }
-        }
-        else if (_doorInRange != null)
-        {
-            _doorInRange = null;
-            _manager.hud.helper.StopDisplayingHelp(Helper.Type.OpenDoor);
-        }
+        SearchEventInRange();
 
         float x = 0;
         float y = 0;
@@ -116,15 +84,10 @@ public class PlayerController : Listener
             {
                 _manager.PassDialog();
             }
-            else if (_itemInRange != null)
+            else if (_eventInRange != null)
             {
                 _manager.StopAction();
-                StartCoroutine(GrabObject(_itemInRange));
-            }
-            else if (_doorInRange != null)
-            {
-                _manager.StopAction();
-                StartCoroutine(_doorInRange.OpenTheDoor());
+                _eventInRange.PlayEvent();
             }
         }
         if (Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item2))
@@ -225,6 +188,77 @@ public class PlayerController : Listener
     }
 
     /// <summary>
+    /// Search an event
+    /// </summary>
+    void SearchEventInRange()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _manager.body.transform.up, _manager.catchDistance, LayerMask.GetMask("Event"));
+        Event hitEvent = null;
+
+        if (hit.collider != null)
+            hitEvent = hit.collider.gameObject.GetComponent<Event>();
+
+        if (hitEvent != null && hitEvent.type == Event.EventType.OnClick)
+        {
+            Debug.Log("item in range");
+            // The new event is nearest than the older
+            if (_eventInRange != null && _eventInRange != hitEvent && (_eventInRange.transform.position - transform.position).magnitude < (hitEvent.transform.position - transform.position).magnitude)
+            {
+                NoMoreItemInRange();
+            }
+
+            // If their is no actual event in range, the new one is this one
+            if (_eventInRange == null)
+            {
+                _eventInRange = hit.collider.gameObject.GetComponent<Event>();
+
+                if (_eventInRange is ItemObject)
+                {
+                    _manager.hud.helper.DisplayHelp(Helper.Type.CatchItem);
+                }
+                else if (_eventInRange is Door)
+                {
+                    Door door = (Door)_eventInRange;
+                    if (door.IsClosed())
+                    {
+                        _manager.hud.helper.DisplayHelp(Helper.Type.OpenDoor);
+                    }
+                    else
+                    {
+                        _manager.hud.helper.DisplayHelp(Helper.Type.CloseDoor);
+                    }
+                }
+            }
+        }
+        else
+        {
+            NoMoreItemInRange();
+        }
+    }
+
+    void NoMoreItemInRange()
+    {
+        if (_eventInRange is ItemObject)
+        {
+            _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
+        }
+        else if (_eventInRange is Door)
+        {
+            Door door = (Door)_eventInRange;
+            if (door.IsClosed())
+            {
+                _manager.hud.helper.StopDisplayingHelp(Helper.Type.OpenDoor);
+            }
+            else
+            {
+                _manager.hud.helper.StopDisplayingHelp(Helper.Type.CloseDoor);
+            }
+        }
+
+        _eventInRange = null;
+    }
+
+    /// <summary>
     /// The player look at the mouse position
     /// </summary>
     void LampRotation()
@@ -233,24 +267,6 @@ public class PlayerController : Listener
         v3 = Camera.main.ScreenToWorldPoint(v3);
         v3.z = transform.position.z;
         _manager.lamp.transform.up = v3 - _manager.lamp.transform.position;
-    }
-
-    /// <summary>
-    /// Grab the item in range and put it into the inventory
-    /// </summary>
-    private IEnumerator GrabObject(ItemObject item)
-    {
-        Action action = _manager.hud.actionBar.StartAction(item.timeToGrabItem);
-        yield return new WaitForSeconds(item.timeToGrabItem);
-
-        if (!action.interrupted)
-        {
-            _manager.inventory.AddItem(item.item);
-
-            // The object will be destroy and _itemInRange equal to null, the helper will not stop display, so, we stop displaying help here
-            _manager.hud.helper.StopDisplayingHelp(Helper.Type.CatchItem);
-            Destroy(item.gameObject);
-        }
     }
 
     // Player manager
@@ -263,6 +279,5 @@ public class PlayerController : Listener
     private AudioSource _audio;
     private int _currentFloor;
 
-    private ItemObject _itemInRange;
-    private Door _doorInRange;
+    private Event _eventInRange;
 }

@@ -73,12 +73,14 @@ public class LevelManager : MonoBehaviour
         // We play the intro cinematic
         yield return null;
         //StartCinematic("Intro");
-        yield return StartCoroutine(WaitEndCinematic());
+        yield return WaitEndCinematic();
 
         m.UpdateMusic(2);
         m.PlayLoop(2);
 
         StartMission("Tutorial");
+        yield return WaitEndMission("Tutorial");
+        StartMission("First mission");
     }
 
     private IEnumerator WaitEndCinematic()
@@ -86,6 +88,22 @@ public class LevelManager : MonoBehaviour
         while (CinematicStarted())
         {
             yield return null;
+        }
+    }
+
+    private IEnumerator WaitEndMission(string name)
+    {
+        foreach (Mission mission in _missions)
+        {
+            if (mission.levelObjectName == name)
+            {
+                while (mission.isLaunched)
+                {
+                    yield return null;
+                }
+
+                break;
+            }
         }
     }
 
