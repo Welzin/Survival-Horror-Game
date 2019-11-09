@@ -51,7 +51,6 @@ public class MovementHelper : MonoBehaviour
                     {
                         StartCoroutine(ChangeDoorState(_lastDoor, !_lastDoor.IsClosed()));
                         _lastDoor = null;
-                        Debug.Log("Closing door...");
                     }
                     // Check if a door exists between the current and next node
                     Door door = _currentDestination.DoorBetweenNodes(_currentPath.Peek());
@@ -66,7 +65,6 @@ public class MovementHelper : MonoBehaviour
                         // If it doesn't need a key, open the door
                         StartCoroutine(ChangeDoorState(door, door.IsClosed()));
                         _lastDoor = door;
-                        Debug.Log("Opening door...");
                     }
                     _currentDestination = _currentPath.Dequeue();
                     CheckFloor();

@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
         _arrived = true;
         _emiter = GetComponent<SoundEmiter>();
         _emiter.SetNoiseEmited(NoiseType.Player);
+        _currentFloor = 2;
     }
 
     private void Update()
@@ -268,6 +269,12 @@ public class PlayerManager : MonoBehaviour
         return _lastEvent;
     }
 
+    public void StopMoving()
+    {
+        controller.Movement(0, 0, false);
+        _arrived = true;
+    }
+
     // The lamp handle
     public Lamp lamp;
     // The body which will turn
@@ -309,8 +316,10 @@ public class PlayerManager : MonoBehaviour
     private Vector3 _destination;
     private PanicManager _panicManager;
     private TimedEvent _lastEvent;
+    private int _currentFloor;
     // All sound emited
     private SoundEmiter _emiter;
 
     public SoundEmiter Emiter { get => _emiter; }
+    public int CurrentFloor { get => _currentFloor; set => _currentFloor = value; }
 }

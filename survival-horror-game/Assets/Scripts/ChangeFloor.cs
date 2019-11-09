@@ -19,6 +19,12 @@ public class ChangeFloor : MonoBehaviour
             {
                 go.SetActive(false);
             }
+            PlayerManager pm = col.gameObject.GetComponent<PlayerManager>();
+            if(pm)
+            {
+                if (pm.CurrentFloor == 2) pm.CurrentFloor = 1;
+                else pm.CurrentFloor = 2;
+            }
         }
     }
 }
