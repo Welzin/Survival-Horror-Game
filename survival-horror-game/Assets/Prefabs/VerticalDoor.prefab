@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   needAKey: 0
   timeToOpen: 2
+  lightObstacle: {fileID: 1391401650}
 --- !u!212 &8064677849716028359
 SpriteRenderer:
   m_ObjectHideFlags: 0

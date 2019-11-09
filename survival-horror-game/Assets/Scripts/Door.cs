@@ -19,9 +19,16 @@ public class Door : MonoBehaviour
 
             if (!action.interrupted)
             {
-                _player.inventory.UsedKeyForDoor(this);
-                needAKey = false;
-                DoorOpening();
+                if (IsClosed())
+                {
+                    _player.inventory.UsedKeyForDoor(this);
+                    needAKey = false;
+                    DoorOpening();
+                }
+                else
+                {
+                    DoorClosing();
+                }
             }
         }
         else
@@ -37,18 +44,21 @@ public class Door : MonoBehaviour
 
     private void DoorOpening()
     {
-        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<BoxCollider2D>().isTrigger = true;
+        lightObstacle.SetActive(false);
         _animator.SetBool("Closing", false);
     }
 
     private void DoorClosing()
     {
-        GetComponent<BoxCollider2D>().enabled = true;
+        GetComponent<BoxCollider2D>().isTrigger = false;
+        lightObstacle.SetActive(true);
         _animator.SetBool("Closing", true);
     }
 
     public bool needAKey;
     public float timeToOpen;
+    public GameObject lightObstacle;
 
     private Animator _animator;
     private PlayerManager _player;

@@ -144,8 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9e87006a17f0a4d8f333d54727a472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needAKey: 1
+  needAKey: 0
   timeToOpen: 2
+  lightObstacle: {fileID: 243944092}
 --- !u!212 &3796407886134492789
 SpriteRenderer:
   m_ObjectHideFlags: 0
