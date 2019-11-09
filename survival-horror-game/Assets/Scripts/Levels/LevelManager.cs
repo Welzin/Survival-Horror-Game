@@ -75,7 +75,7 @@ public class LevelManager : MonoBehaviour
         //StartCinematic("Intro");
         yield return WaitEndCinematic();
 
-        StartMission("Tutorial");
+        //StartMission("Tutorial");
         yield return WaitEndMission("Tutorial");
         StartMission("First mission");
     }

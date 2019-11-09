@@ -6,9 +6,6 @@ public class Tutorial : Mission
 {
     void Start()
     {
-        player.hud.transform.Find("Stress").gameObject.SetActive(false);
-        player.hud.transform.Find("Battery").gameObject.SetActive(false);
-        player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
         battery.gameObject.SetActive(false);
         //keyToOpenTheRoom.gameObject.SetActive(false);
         teddy.gameObject.SetActive(false);
@@ -16,6 +13,10 @@ public class Tutorial : Mission
 
     protected override IEnumerator StartLevelObject()
     {
+        /*player.hud.transform.Find("Stress").gameObject.SetActive(false);
+        player.hud.transform.Find("Battery").gameObject.SetActive(false);
+        player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);*/
+
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
 
         StartCoroutine(DontLoseStress());
@@ -163,9 +164,7 @@ public class Tutorial : Mission
 
     private IEnumerator DontLoseStress()
     {
-        Key key = (Key)keyToOpenTheRoom.item;
-
-        while (key.doorToOpen.IsClosed())
+        while (greenLight.intensity < 1f)
         {
             player.AddStress(-100);
             yield return null;
