@@ -10,7 +10,6 @@ public class MusicManager : MonoBehaviour
     private void Start()
     {
         _currentMusic = gameObject.AddComponent<AudioSource>();
-        _delay = 5;
         // Plays first music of the manager when starting
         UpdateMusic(0);
         PlayLoop();
@@ -30,7 +29,7 @@ public class MusicManager : MonoBehaviour
     /// </summary>
     public void PlayLoop()
     {
-        PlayLoop(0, _delay);
+        PlayLoop(0);
     }
 
     /// <summary>
@@ -39,19 +38,11 @@ public class MusicManager : MonoBehaviour
     /// <param name="delay">Time to wait before playing music</param>
     public void PlayLoop(float delay)
     {
-        PlayLoop(delay, _delay);
-    }
-
-    /// <summary>
-    /// Call this function to play the music in loop
-    /// </summary>
-    /// <param name="delay">Time to wait before playing music</param>
-    /// <param name="loopDelay">Time to wait after the music ends to restart</param>
-    public void PlayLoop(float delay, float loopDelay)
-    {
-        _currentMusic.PlayDelayed(delay);
-        _delay = loopDelay;
-        StartCoroutine(WaitForPlaying(_currentMusic.clip.length + _delay));
+        if (!_currentMusic.isPlaying)
+        {
+            _currentMusic.PlayDelayed(delay);
+            _currentMusic.loop = true;
+        }
     }
 
     /// <summary>
@@ -67,7 +58,11 @@ public class MusicManager : MonoBehaviour
     /// </summary>
     public void PlayOnce(float delay)
     {
-        _currentMusic.PlayDelayed(delay);
+        if (!_currentMusic.isPlaying)
+        {
+            _currentMusic.PlayDelayed(delay);
+            _currentMusic.loop = false;
+        }
     }
 
     /// <summary>
@@ -92,28 +87,11 @@ public class MusicManager : MonoBehaviour
         if(pause)
         {
             _currentMusic.Pause();
-            StopCoroutine("WaitForPlaying");
         }
         else
         {
             _currentMusic.UnPause();
-            StartCoroutine(WaitForPlaying(_timeStaying));
         }
-    }
-
-    /// <summary>
-    /// Waits and restart the music clip
-    /// </summary>
-    /// <param name="musicLength">Lenght of the wait</param>
-    private IEnumerator WaitForPlaying(float musicLength)
-    {
-        _timeStaying = musicLength;
-        while(_timeStaying > 0)
-        {
-            yield return new WaitForSeconds(1);
-            _timeStaying -= 1;
-        }
-        PlayLoop();
     }
 
     /// <summary>
@@ -125,7 +103,6 @@ public class MusicManager : MonoBehaviour
         {
             _currentMusic.Stop();
         }
-        StopCoroutine("WaitForPlaying");
     }
 
     // Storage of all the game musics
@@ -134,8 +111,4 @@ public class MusicManager : MonoBehaviour
     private AudioSource _currentMusic;
     // Music clips volume
     private float _volume;
-    // Delay between the music played
-    private float _delay;
-    // Time staying until the end of the clip (recorded if pause is called)
-    private float _timeStaying;
 }
