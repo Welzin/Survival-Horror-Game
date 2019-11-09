@@ -1,0 +1,2575 @@
+fileFormatVersion: 2
+guid: acb32259773a93a48af460fe900c8b1c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -9153685356108789044
+    second: 899-walking-sprites-character-icons_0
+  - first:
+      213: -6340646202860980710
+    second: 899-walking-sprites-character-icons_1
+  - first:
+      213: -7198061475412906234
+    second: 899-walking-sprites-character-icons_2
+  - first:
+      213: -3588361994555779205
+    second: 899-walking-sprites-character-icons_3
+  - first:
+      213: 193162093446709078
+    second: 899-walking-sprites-character-icons_4
+  - first:
+      213: 6445918178983257299
+    second: 899-walking-sprites-character-icons_5
+  - first:
+      213: 1092192275962476169
+    second: 899-walking-sprites-character-icons_6
+  - first:
+      213: 1206615005800558874
+    second: 899-walking-sprites-character-icons_7
+  - first:
+      213: 3970494020292985741
+    second: 899-walking-sprites-character-icons_8
+  - first:
+      213: 3236954074537401319
+    second: 899-walking-sprites-character-icons_9
+  - first:
+      213: -7392654029427942910
+    second: 899-walking-sprites-character-icons_10
+  - first:
+      213: -2733821527729983465
+    second: 899-walking-sprites-character-icons_11
+  - first:
+      213: -8115075125882598166
+    second: 899-walking-sprites-character-icons_12
+  - first:
+      213: 8008605858346411436
+    second: 899-walking-sprites-character-icons_13
+  - first:
+      213: -5226790786826805586
+    second: 899-walking-sprites-character-icons_14
+  - first:
+      213: 1852451257267148292
+    second: 899-walking-sprites-character-icons_15
+  - first:
+      213: 4823590923061741275
+    second: 899-walking-sprites-character-icons_16
+  - first:
+      213: 2587633826871038638
+    second: 899-walking-sprites-character-icons_17
+  - first:
+      213: -7957087470148714478
+    second: 899-walking-sprites-character-icons_18
+  - first:
+      213: 7503747215534121652
+    second: 899-walking-sprites-character-icons_19
+  - first:
+      213: 1913353731051794533
+    second: 899-walking-sprites-character-icons_20
+  - first:
+      213: -1829619559501970486
+    second: 899-walking-sprites-character-icons_21
+  - first:
+      213: -5604738989411144626
+    second: 899-walking-sprites-character-icons_22
+  - first:
+      213: -5549471749507562524
+    second: 899-walking-sprites-character-icons_23
+  - first:
+      213: 2681442824166277154
+    second: 899-walking-sprites-character-icons_24
+  - first:
+      213: 431693300749268803
+    second: 899-walking-sprites-character-icons_25
+  - first:
+      213: -5230724831604240787
+    second: 899-walking-sprites-character-icons_26
+  - first:
+      213: -4924442369820642330
+    second: 899-walking-sprites-character-icons_27
+  - first:
+      213: -3541532628661807076
+    second: 899-walking-sprites-character-icons_28
+  - first:
+      213: -1182709039885086290
+    second: 899-walking-sprites-character-icons_29
+  - first:
+      213: -5733984547489629294
+    second: 899-walking-sprites-character-icons_30
+  - first:
+      213: -1890943505726893840
+    second: 899-walking-sprites-character-icons_31
+  - first:
+      213: -8572908973591045274
+    second: 899-walking-sprites-character-icons_32
+  - first:
+      213: 8818129187931342252
+    second: 899-walking-sprites-character-icons_33
+  - first:
+      213: -4967954065141004145
+    second: 899-walking-sprites-character-icons_34
+  - first:
+      213: 1248588582790753189
+    second: 899-walking-sprites-character-icons_35
+  - first:
+      213: -5697460817626387436
+    second: 899-walking-sprites-character-icons_36
+  - first:
+      213: 1313131889380030140
+    second: 899-walking-sprites-character-icons_37
+  - first:
+      213: -3167081652162214978
+    second: 899-walking-sprites-character-icons_38
+  - first:
+      213: -6707711754889578882
+    second: 899-walking-sprites-character-icons_39
+  - first:
+      213: 7638921074208902515
+    second: 899-walking-sprites-character-icons_40
+  - first:
+      213: -5881588041947851728
+    second: 899-walking-sprites-character-icons_41
+  - first:
+      213: 8236608189666021933
+    second: 899-walking-sprites-character-icons_42
+  - first:
+      213: 4166678953165803860
+    second: 899-walking-sprites-character-icons_43
+  - first:
+      213: -3588353870515136717
+    second: 899-walking-sprites-character-icons_44
+  - first:
+      213: -3295594653070890957
+    second: 899-walking-sprites-character-icons_45
+  - first:
+      213: -1417904293570462024
+    second: 899-walking-sprites-character-icons_46
+  - first:
+      213: 6409952038155718053
+    second: 899-walking-sprites-character-icons_47
+  - first:
+      213: 5292359605645394820
+    second: 899-walking-sprites-character-icons_48
+  - first:
+      213: -2571095724316826206
+    second: 899-walking-sprites-character-icons_49
+  - first:
+      213: -7684581819943918410
+    second: 899-walking-sprites-character-icons_50
+  - first:
+      213: -8183596579676956542
+    second: 899-walking-sprites-character-icons_51
+  - first:
+      213: 828622030031672721
+    second: 899-walking-sprites-character-icons_52
+  - first:
+      213: 7493315045637165291
+    second: 899-walking-sprites-character-icons_53
+  - first:
+      213: 485062582886669845
+    second: 899-walking-sprites-character-icons_54
+  - first:
+      213: 1179683590747654432
+    second: 899-walking-sprites-character-icons_55
+  - first:
+      213: -3725130043945936232
+    second: 899-walking-sprites-character-icons_56
+  - first:
+      213: -4387488095928463525
+    second: 899-walking-sprites-character-icons_57
+  - first:
+      213: -8546418195506462204
+    second: 899-walking-sprites-character-icons_58
+  - first:
+      213: 6923266407494644235
+    second: 899-walking-sprites-character-icons_59
+  - first:
+      213: -967368155855338841
+    second: 899-walking-sprites-character-icons_60
+  - first:
+      213: 3013708801710137667
+    second: 899-walking-sprites-character-icons_61
+  - first:
+      213: 1659497125109164933
+    second: 899-walking-sprites-character-icons_62
+  - first:
+      213: -3346581153024983789
+    second: 899-walking-sprites-character-icons_63
+  - first:
+      213: 2667236686098700400
+    second: 899-walking-sprites-character-icons_64
+  - first:
+      213: -4794196380754158845
+    second: 899-walking-sprites-character-icons_65
+  - first:
+      213: -246944237213175814
+    second: 899-walking-sprites-character-icons_66
+  - first:
+      213: -341339724594850637
+    second: 899-walking-sprites-character-icons_67
+  - first:
+      213: -5222940728531769379
+    second: 899-walking-sprites-character-icons_68
+  - first:
+      213: 2345958743317001715
+    second: 899-walking-sprites-character-icons_69
+  - first:
+      213: 2293276790518877258
+    second: 899-walking-sprites-character-icons_70
+  - first:
+      213: -7864135392015734223
+    second: 899-walking-sprites-character-icons_71
+  - first:
+      213: 8521169052436412723
+    second: 899-walking-sprites-character-icons_72
+  - first:
+      213: 7843290232408143409
+    second: 899-walking-sprites-character-icons_73
+  - first:
+      213: -899014756011720583
+    second: 899-walking-sprites-character-icons_74
+  - first:
+      213: 6211128322282951507
+    second: 899-walking-sprites-character-icons_75
+  - first:
+      213: -7327278724112289852
+    second: 899-walking-sprites-character-icons_76
+  - first:
+      213: -8916759468470516441
+    second: 899-walking-sprites-character-icons_77
+  - first:
+      213: -8894053005902871125
+    second: 899-walking-sprites-character-icons_78
+  - first:
+      213: 7471532516962994099
+    second: 899-walking-sprites-character-icons_79
+  - first:
+      213: -7231817470025458
+    second: 899-walking-sprites-character-icons_80
+  - first:
+      213: 2599057930822781315
+    second: 899-walking-sprites-character-icons_81
+  - first:
+      213: -7052152444209443271
+    second: 899-walking-sprites-character-icons_82
+  - first:
+      213: 2949837821317127603
+    second: 899-walking-sprites-character-icons_83
+  - first:
+      213: -4379550514038799394
+    second: 899-walking-sprites-character-icons_84
+  - first:
+      213: -7700250094476107632
+    second: 899-walking-sprites-character-icons_85
+  - first:
+      213: 6061637224033985493
+    second: 899-walking-sprites-character-icons_86
+  - first:
+      213: 5956121856375882539
+    second: 899-walking-sprites-character-icons_87
+  - first:
+      213: 6566156248518682718
+    second: 899-walking-sprites-character-icons_88
+  - first:
+      213: -3803670772861024768
+    second: 899-walking-sprites-character-icons_89
+  - first:
+      213: 7509092046360610233
+    second: 899-walking-sprites-character-icons_90
+  - first:
+      213: -3168406247083923291
+    second: 899-walking-sprites-character-icons_91
+  - first:
+      213: 4472438032516920768
+    second: 899-walking-sprites-character-icons_92
+  - first:
+      213: -652682629163679300
+    second: 899-walking-sprites-character-icons_93
+  - first:
+      213: 8791113501351565699
+    second: 899-walking-sprites-character-icons_94
+  - first:
+      213: -8716725275981708929
+    second: 899-walking-sprites-character-icons_95
+  - first:
+      213: 7892015086590302574
+    second: 899-walking-sprites-character-icons_96
+  - first:
+      213: -6581804736745932040
+    second: 899-walking-sprites-character-icons_97
+  - first:
+      213: -2969306437824117079
+    second: 899-walking-sprites-character-icons_98
+  - first:
+      213: 6737234881758817128
+    second: 899-walking-sprites-character-icons_99
+  - first:
+      213: -427630665009214246
+    second: 899-walking-sprites-character-icons_100
+  - first:
+      213: 9211539660566040458
+    second: 899-walking-sprites-character-icons_101
+  - first:
+      213: -8185787722454418678
+    second: 899-walking-sprites-character-icons_102
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 629
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bc3b13389eb4434eba25509691f01c8
+      internalID: -9153685356108789044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_1
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 629
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba4664ccbd305584b9727bef1408d7f5
+      internalID: -6340646202860980710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_2
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 629
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 801d9e996c4d8294991ba6562944e759
+      internalID: -7198061475412906234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_3
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 629
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 800b9b6f71249524da57dc7c0bfec5a7
+      internalID: -3588361994555779205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_4
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 629
+        width: 36
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21528bf7a4c3d90479a53972f2e84cbf
+      internalID: 193162093446709078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_5
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 629
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eced8252ff80b5446a9fd18494131d7a
+      internalID: 6445918178983257299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_6
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 629
+        width: 30
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75baf07e4aaf647468ffca4d52368298
+      internalID: 1092192275962476169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_7
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 629
+        width: 36
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fc94eb65ac2184395edaf309193744
+      internalID: 1206615005800558874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_8
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 629
+        width: 30
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 770f284a153080040bd72d39555def4b
+      internalID: 3970494020292985741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_9
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 629
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c4bbdb1a2936cc478679c4dd6d0a223
+      internalID: 3236954074537401319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_10
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 629
+        width: 38
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e47b3e66c88f3d4bb15781ecbcf7858
+      internalID: -7392654029427942910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_11
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 629
+        width: 38
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0e5b89ca8e20194499606fad8a45114
+      internalID: -2733821527729983465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_12
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 555
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bbb7c691d2444f4f97639be8391cf96
+      internalID: -8115075125882598166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_13
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 555
+        width: 30
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f564738ec6d77e41a4b68810f4b43dd
+      internalID: 8008605858346411436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_14
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 555
+        width: 30
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10ef1edc3b361a3429902f1b4448e667
+      internalID: -5226790786826805586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_15
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 555
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0ae01c795fbcf448904cfb4d6d8fa30
+      internalID: 1852451257267148292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_16
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 555
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 040901c2a8fd19f4c918e1014d1bf542
+      internalID: 4823590923061741275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_17
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 555
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0dd75ad5135c2546b9380fe62291315
+      internalID: 2587633826871038638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_18
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 555
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26e359eed94015c42b982321f8a2daa3
+      internalID: -7957087470148714478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_19
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 555
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49fb5e2c5c7281b4fba43dff978fb72e
+      internalID: 7503747215534121652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_20
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 555
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4a4db3518fca314c90fac088d0c8b83
+      internalID: 1913353731051794533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_21
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 555
+        width: 34
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d748cfd0b63cf4e926c40dff494b12
+      internalID: -1829619559501970486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_22
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 555
+        width: 34
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b6ca627eb31904faac68de883f12d9
+      internalID: -5604738989411144626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_23
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 555
+        width: 34
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcb5ad3d23b48884fa82977688ac7f6a
+      internalID: -5549471749507562524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_24
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 481
+        width: 30
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0b825903d9b17b4da3301494f990356
+      internalID: 2681442824166277154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_25
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 481
+        width: 30
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a113ce52b4d823440bb1df571ac88c43
+      internalID: 431693300749268803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_26
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 481
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0aa5c0a912b74c4b9de4326bfd3d885
+      internalID: -5230724831604240787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_27
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 481
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a138328e63cd4014cbd39cc94a123907
+      internalID: -4924442369820642330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_28
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 481
+        width: 32
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d02473e071446b44ca643ada9057bf12
+      internalID: -3541532628661807076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_29
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 481
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75f72a0d05ec1254ba47f4fe8e9631c5
+      internalID: -1182709039885086290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_30
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 481
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d565811d8dca9404b9d80ad06524b032
+      internalID: -5733984547489629294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_31
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 481
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3665e6feff477d2468b5dd8b6caa4ddf
+      internalID: -1890943505726893840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_32
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 481
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56948813703586242a4b4408561bb05f
+      internalID: -8572908973591045274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_33
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 481
+        width: 34
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a233b31615a9c7a478d43c3a9747873a
+      internalID: 8818129187931342252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_34
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 481
+        width: 34
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef7b7d2380a1f14c9c5a6317bb3e1e7
+      internalID: -4967954065141004145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_35
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 481
+        width: 34
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fdfa83b244ad1a4096797bf787535cf
+      internalID: 1248588582790753189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_36
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 407
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b639d6ef7ebb2dd4cafc8a13368e6d2b
+      internalID: -5697460817626387436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_37
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 407
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be67ee451c302d24c99900bbff1abe39
+      internalID: 1313131889380030140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_38
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 407
+        width: 28
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ada1d5268c0f913478a3f66de7524480
+      internalID: -3167081652162214978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_39
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 407
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8e85a4e21c6f7241b38827b173730ec
+      internalID: -6707711754889578882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_40
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 407
+        width: 34
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32f497461dd88ab46b35b02615d1b200
+      internalID: 7638921074208902515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_41
+      rect:
+        serializedVersion: 2
+        x: 254
+        y: 407
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99b6745158de5b54bb486e4f49f4180f
+      internalID: -5881588041947851728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_42
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 407
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc2e38e6df5ab04da255a42b90f1612
+      internalID: 8236608189666021933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_43
+      rect:
+        serializedVersion: 2
+        x: 338
+        y: 407
+        width: 36
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af5737f6d35789f4ba78533a782da2e4
+      internalID: 4166678953165803860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_44
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 407
+        width: 32
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d578a9d66c10954ea7f587825693ecd
+      internalID: -3588353870515136717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_45
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 407
+        width: 36
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d35b2f9645dfad42b595856c562ed88
+      internalID: -3295594653070890957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_46
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 407
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ceaa7eb2089a349bd6d60ebe570c6f
+      internalID: -1417904293570462024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_47
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 407
+        width: 36
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3b1e9c9028e330458a06e216584419a
+      internalID: 6409952038155718053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_48
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 333
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0687e355e4a5e244c92742306127829d
+      internalID: 5292359605645394820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_49
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 333
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16fa4084ac5550a4c8ed71afc36ef188
+      internalID: -2571095724316826206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_50
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 333
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3367855652c963c469b31dce07f2048d
+      internalID: -7684581819943918410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_51
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 333
+        width: 264
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff36587c95b4733419b9dde778490b3a
+      internalID: -8183596579676956542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_52
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 333
+        width: 28
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 025eadd5af425d244ada9d30305c27bb
+      internalID: 828622030031672721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_53
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 333
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa01ed7647e806f4ea450847807689e2
+      internalID: 7493315045637165291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_54
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 333
+        width: 28
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2726261d72f86784a99e32d202d75218
+      internalID: 485062582886669845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_55
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 337
+        width: 34
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 495742cf53db78440a7f8b16d4b7779f
+      internalID: 1179683590747654432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_56
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 337
+        width: 34
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 463d8cbef744ed7488ae6703b11d4706
+      internalID: -3725130043945936232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_57
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 337
+        width: 34
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22bbf84ef6df1b7488b3e0a00e1251bf
+      internalID: -4387488095928463525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_58
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 259
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 865eae7dcfd503543ab9372e4805315b
+      internalID: -8546418195506462204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_59
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 259
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81acd70e128ab424da9172c0cfaf7712
+      internalID: 6923266407494644235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_60
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 259
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf72e09187f9e8a4db2a2309e9ddb00a
+      internalID: -967368155855338841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_61
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 259
+        width: 132
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82a51e9162cac24d982bb588d09ae64
+      internalID: 3013708801710137667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_62
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 259
+        width: 38
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 036a39c0e245ae34b86788bbdff9e69b
+      internalID: 1659497125109164933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_63
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 259
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 916e26fbbb441df4ab2af687af597a5c
+      internalID: -3346581153024983789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_64
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 259
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06704f92ff21ff047a66f64851422fbf
+      internalID: 2667236686098700400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_65
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 259
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d57c7d863337a114a81a5d78b96044d1
+      internalID: -4794196380754158845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_66
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 259
+        width: 40
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2aa77142445d524a8ffb6469967a65a
+      internalID: -246944237213175814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_67
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 259
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeea0c62726ddac4da049f49fb905574
+      internalID: -341339724594850637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_68
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 263
+        width: 34
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91ad1ba45a838d2448d9af7d22d9a6ac
+      internalID: -5222940728531769379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_69
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 263
+        width: 34
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41f7f2a8e2744b64aab9ee7374885fca
+      internalID: 2345958743317001715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_70
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 263
+        width: 34
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73e39b695a1b71b47881742903e3325c
+      internalID: 2293276790518877258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_71
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 185
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b032d712cfdb6a24b945bb10055b8927
+      internalID: -7864135392015734223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_72
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 185
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b79211c17fb9f1f4eb457a606c99be7e
+      internalID: 8521169052436412723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_73
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 185
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b090590afb747ad49bd8e409ccfbb2e6
+      internalID: 7843290232408143409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_74
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 185
+        width: 132
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6d0af7a29e006b4fa54f3da50244468
+      internalID: -899014756011720583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_75
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 185
+        width: 34
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bc849b5d3a5a7942bc0c599e374e483
+      internalID: 6211128322282951507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_76
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 185
+        width: 32
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5e7cb9bcf20e024ba6d0df22ba50bc2
+      internalID: -7327278724112289852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_77
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 185
+        width: 38
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cbf35b2fe14e914e8738546a0abcd1f
+      internalID: -8916759468470516441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_78
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 185
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf11e853aa9299448b6dad4ea2237a6c
+      internalID: -8894053005902871125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_79
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 185
+        width: 40
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05c49f54a9f747148ba1f9a9f4510c8b
+      internalID: 7471532516962994099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_80
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 185
+        width: 40
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb66dc94ec0d0124280021326dff664b
+      internalID: -7231817470025458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_81
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 189
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 343aeddd9d58ad44fbd0586f8f7e3152
+      internalID: 2599057930822781315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_82
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 189
+        width: 36
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93a9cb5aa8c761a44be1a0f367573357
+      internalID: -7052152444209443271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_83
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 189
+        width: 36
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8adbd51535095b44c8f6491217b25f00
+      internalID: 2949837821317127603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_84
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 111
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdcfeb0f8fa1d5b4181ca47ef920c1bd
+      internalID: -4379550514038799394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_85
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 111
+        width: 36
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 438ba185cadbc5947bd28842744f7778
+      internalID: -7700250094476107632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_86
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 111
+        width: 36
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c2e70e1be44f4f4da1927eba51d5a66
+      internalID: 6061637224033985493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_87
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 111
+        width: 264
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cd72a2093e6ae446880ba6155bb0bc1
+      internalID: 5956121856375882539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_88
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 111
+        width: 28
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ccb61c979fef04fbb977472c808ff5
+      internalID: 6566156248518682718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_89
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 111
+        width: 32
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70877afca4326a84587d43f1deb59d85
+      internalID: -3803670772861024768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_90
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 111
+        width: 28
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1447c249f0d672849bf73cda957df6c0
+      internalID: 7509092046360610233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_91
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 115
+        width: 34
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 111c85a42800d4d4ebdac23a5fc6e503
+      internalID: -3168406247083923291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_92
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 115
+        width: 34
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b8837ac60ea18b4898934c404fb1cc3
+      internalID: 4472438032516920768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_93
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 115
+        width: 56
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 782bc26e6ca025a49bc4da065eab302f
+      internalID: -652682629163679300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_94
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 31
+        width: 50
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b6d1fff1b573084180819989b5989d2
+      internalID: 8791113501351565699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_95
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 25
+        width: 54
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66df599625a012641a8131a0a984ba9e
+      internalID: -8716725275981708929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_96
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 25
+        width: 52
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f663a6c18af4c8944a408114b52658ec
+      internalID: 7892015086590302574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_97
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 25
+        width: 54
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1cc862b86861d247b0c06e53f24b3dd
+      internalID: -6581804736745932040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_98
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 25
+        width: 50
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcf527d0703608241b6f5aac5ae1395f
+      internalID: -2969306437824117079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_99
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 25
+        width: 54
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1eb482027daa5a469c354854e65fea4
+      internalID: 6737234881758817128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_100
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 25
+        width: 62
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0aad85e485e42e4c93fd8b2607adc73
+      internalID: -427630665009214246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_101
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 25
+        width: 120
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd69c7f0e6b3c594180b2e335a43da02
+      internalID: 9211539660566040458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 899-walking-sprites-character-icons_102
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 25
+        width: 50
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61a408b0741ab7f4581885441e11d868
+      internalID: -8185787722454418678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d0bbc3cbada617c4694ffd6761cac22e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
