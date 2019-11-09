@@ -52,7 +52,11 @@ public class PanicManager : MonoBehaviour
             else
             {
                 if (_player.inventory.HaveBattery())
+                {
                     _player.ReloadLamp();
+                    _player.ToggleLamp();
+                    Invoke("ResetPanic", 2);
+                }
                 else
                 {
                     MakePlayerRun();
