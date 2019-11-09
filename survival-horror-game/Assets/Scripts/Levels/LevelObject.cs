@@ -99,5 +99,57 @@ public abstract class Cinematic : LevelObject
 
 public abstract class Mission : LevelObject
 {
+    protected IEnumerator WaitForItemInInventory(string name)
+    {
+        while (!player.inventory.HaveItem(name))
+        {
+            yield return null;
+        }
+    }
 
+    protected IEnumerator WaitForEvent(LevelEvent levelEvent)
+    {
+        while (levelEvent != player.GetLastEvent())
+        {
+            yield return null;
+        }
+    }
+
+    protected IEnumerator WaitForOneEventBetween(List<LevelEvent> events)
+    {
+        bool eventDone = false;
+
+        while (!eventDone)
+        {
+            foreach (LevelEvent levelEvent in events)
+            {
+                if (player.GetLastEvent() == levelEvent)
+                {
+                    eventDone = true;
+                    break;
+                }
+            }
+
+            yield return null;
+        }
+    }
+
+    protected IEnumerator WaitForMultipleEvents(List<LevelEvent> events)
+    {
+        List<LevelEvent> copy = events;
+
+        while (events.Count != 0)
+        {
+            foreach (LevelEvent levelEvent in copy)
+            {
+                if (player.GetLastEvent() == levelEvent)
+                {
+                    events.Remove(levelEvent);
+                    break;
+                }
+            }
+
+            yield return null;
+        }
+    }
 }

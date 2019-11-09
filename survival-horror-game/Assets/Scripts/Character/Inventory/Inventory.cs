@@ -69,6 +69,19 @@ public class Inventory
         return _teddy != null;
     }
 
+    public bool HaveItem(string name)
+    {
+        foreach (Utility item in _items)
+        {
+            if (item.name == name)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public bool HaveKeyForDoor(Door door)
     {
         foreach (Key key in _keys)
@@ -95,6 +108,18 @@ public class Inventory
             if (key.doorToOpen == door)
             {
                 _keys.Remove(key);
+                return;
+            }
+        }
+    }
+
+    public void ItemUsed(string name)
+    {
+        foreach (Utility item in _items)
+        {
+            if (item.name == name)
+            {
+                _items.Remove(item);
                 return;
             }
         }

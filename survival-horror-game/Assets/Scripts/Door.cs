@@ -10,6 +10,18 @@ public class Door : TimedEvent
         _animator = GetComponent<Animator>();
         _emiter = gameObject.AddComponent<SoundEmiter>();
     }
+    
+    public void OpenForMonster()
+    {
+        if (IsClosed())
+        {
+            DoorOpening();
+        }
+        else
+        {
+            DoorClosing();
+        }
+    }
 
     protected override bool ConditionsToRespect()
     {
@@ -31,6 +43,9 @@ public class Door : TimedEvent
         if (IsClosed())
         {
             DoorOpening();
+            player.hud.helper.DisplayHelp(Helper.Type.CloseDoor);
+            player.hud.helper.StopDisplayingHelp(Helper.Type.OpenDoor);
+
             if (needAKey)
             {
                 player.inventory.UsedKeyForDoor(this);
@@ -45,6 +60,8 @@ public class Door : TimedEvent
         else
         {
             DoorClosing();
+            player.hud.helper.DisplayHelp(Helper.Type.OpenDoor);
+            player.hud.helper.StopDisplayingHelp(Helper.Type.CloseDoor);
         }
     }
 

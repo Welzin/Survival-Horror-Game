@@ -27,7 +27,8 @@ public class Helper : MonoBehaviour
         CatchItem,
         OpenDoor,
         CloseDoor,
-        DoorLocked
+        DoorLocked,
+        InteractWithEnvironment
     };
 
     public void DisplayInfo(string info, float time = 0f)
@@ -56,6 +57,9 @@ public class Helper : MonoBehaviour
                 break;
             case Type.DoorLocked:
                 textZone.text = "The door is locked";
+                break;
+            case Type.InteractWithEnvironment:
+                textZone.text = "Press " + _dd.GetKey(Controls.Interact).Item1 + " to interact";
                 break;
         }
 

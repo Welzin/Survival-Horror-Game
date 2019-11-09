@@ -200,7 +200,6 @@ public class PlayerController : Listener
 
         if (hitEvent != null && hitEvent.type == Event.EventType.OnClick)
         {
-            Debug.Log("item in range");
             // The new event is nearest than the older
             if (_eventInRange != null && _eventInRange != hitEvent && (_eventInRange.transform.position - transform.position).magnitude < (hitEvent.transform.position - transform.position).magnitude)
             {
@@ -228,6 +227,10 @@ public class PlayerController : Listener
                         _manager.hud.helper.DisplayHelp(Helper.Type.CloseDoor);
                     }
                 }
+                else if (_eventInRange is LevelEvent)
+                {
+                    _manager.hud.helper.DisplayHelp(Helper.Type.InteractWithEnvironment);
+                }
             }
         }
         else
@@ -253,6 +256,10 @@ public class PlayerController : Listener
             {
                 _manager.hud.helper.StopDisplayingHelp(Helper.Type.CloseDoor);
             }
+        }
+        else if (_eventInRange is LevelEvent)
+        {
+            _manager.hud.helper.StopDisplayingHelp(Helper.Type.InteractWithEnvironment);
         }
 
         _eventInRange = null;

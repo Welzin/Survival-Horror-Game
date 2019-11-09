@@ -258,6 +258,16 @@ public class PlayerManager : MonoBehaviour
         return !hud.dialog.FinishSpeaking();
     }
 
+    public void SetLastEvent(TimedEvent newEvent)
+    {
+        _lastEvent = newEvent;
+    }
+
+    public TimedEvent GetLastEvent()
+    {
+        return _lastEvent;
+    }
+
     // The lamp handle
     public Lamp lamp;
     // The body which will turn
@@ -298,6 +308,7 @@ public class PlayerManager : MonoBehaviour
     private bool _shouldRun;
     private Vector3 _destination;
     private PanicManager _panicManager;
+    private TimedEvent _lastEvent;
     // All sound emited
     private SoundEmiter _emiter;
 

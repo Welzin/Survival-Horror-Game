@@ -4,14 +4,10 @@ using UnityEngine;
 
 public abstract class TimedEvent : Event
 {
-    public void AddSomethingToSayWhenConditionNotRespected(string text)
+    protected void Start()
     {
-        _textToSayWhenConditionIsNotRespected = text;
-    }
-
-    public void AddSomethingToSayWhenEventIsDone(string text)
-    {
-        _textToSayWhenActionIsDone = text;
+        base.Start();
+        cannotDoEventAnymore = false;
     }
 
     public override void PlayEvent()
@@ -21,10 +17,17 @@ public abstract class TimedEvent : Event
             WhatToDoBeforeEvent();
             StartCoroutine(StartTimedEvent());
         }
+        else if(!cannotDoEventAnymore)
+        {
+            if (textToHelp != "")
+                player.Speak(textToHelp);
+
+            WhatToDoIfConditionNotRespected();
+        }
         else
         {
-            player.Speak(_textToSayWhenConditionIsNotRespected);
-            WhatToDoIfConditionNotRespected();
+            if (disableEventText != "")
+                player.Speak(disableEventText);
         }
     }
     
@@ -41,7 +44,10 @@ public abstract class TimedEvent : Event
 
         if (!action.interrupted)
         {
-            player.Speak(_textToSayWhenActionIsDone);
+            if (victoryText != "")
+                player.Speak(victoryText);
+
+            player.SetLastEvent(this);
             WhatToDoAfterEvent();
         }
         else
@@ -51,6 +57,9 @@ public abstract class TimedEvent : Event
     }
 
     public float eventTime;
-    private string _textToSayWhenConditionIsNotRespected;
-    private string _textToSayWhenActionIsDone;
+    public string textToHelp;
+    public string victoryText;
+    public string disableEventText;
+
+    protected bool cannotDoEventAnymore;
 }
