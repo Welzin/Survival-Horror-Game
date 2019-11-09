@@ -13,7 +13,7 @@ public class ItemObject : MonoBehaviour
         Teddy
     };
 
-    private void Start()
+    private void Awake()
     {
         switch (type)
         {

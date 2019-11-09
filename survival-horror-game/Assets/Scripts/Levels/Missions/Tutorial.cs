@@ -2,90 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Intro : Cinematic
+public class Tutorial : Mission
 {
-    private void Update()
+    void Start()
     {
-    }
-
-    protected override IEnumerator StartCinematic()
-    {
-        DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
         player.hud.transform.Find("Stress").gameObject.SetActive(false);
         player.hud.transform.Find("Battery").gameObject.SetActive(false);
         player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
         battery.gameObject.SetActive(false);
         keyToOpenTheRoom.gameObject.SetActive(false);
         teddy.gameObject.SetActive(false);
+    }
 
-        // Start in the bed
-        player.transform.position = initialPosition;
+    protected override IEnumerator StartLevelObject()
+    {
+        DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
 
-        // Thunder begin
-        yield return new WaitForSeconds(1);
-        player.hud.helper.DisplayInfo("Appuyer sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
-        yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
-        player.hud.helper.StopDisplayingInfo();
-        yield return new WaitForSeconds(3);
-        lightning.Strike();
+        StartCoroutine(DontLoseStress());
 
-        // Some text
-        yield return new WaitForSeconds(6);
-        lightning.Strike();
-        yield return new WaitForSeconds(2);
-        yield return StartCoroutine(SaySomething("Aaaah !"));
-        yield return StartCoroutine(SaySomething("Qu'est ce que c'est ?"));
-        yield return StartCoroutine(SaySomething("J'ai peur de l'orage !!!"));
-
-        lightning.StartLoopStrike(8, 12);
-
-        // Turn on the light
-        yield return StartCoroutine(MoveTo(lampTurnOnPosition, LookAt.RIGHT));
-        yield return new WaitForSeconds(0.5f);
-        bedsideLamp.SetIntensity(1f);
-        yield return new WaitForSeconds(0.5f);
-
-        // Return at bed
-        yield return StartCoroutine(MoveTo(initialPosition, LookAt.DOWN));
-        yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir... Maintenant"));
-        yield return StartCoroutine(SaySomething("Je ne sais pas quoi faire"));
-        yield return StartCoroutine(SaySomething("..."));
-        yield return new WaitForSeconds(3);
-        yield return StartCoroutine(SaySomething("Surtout ne pas pleurer"));
-        yield return new WaitForSeconds(3);
-
-        // The light is winking
-        StartCoroutine(bedsideLamp.StartWink(10, 50, 0, 1, true));
-        yield return StartCoroutine(SaySomething("QU'EST CE QUE..."));
-
-        // The light is shutting down
-        while (bedsideLamp.IsWinking())
-        {
-            yield return null;
-        }
-
-        yield return StartCoroutine(SaySomething("QU'EST CE QUI SE PASSE"));
-        yield return StartCoroutine(SaySomething("J'AI PEUUUUUR"));
-        yield return StartCoroutine(SaySomething("Papa : OH TU LA BOUCLE ET TU DORS !"));
-        yield return new WaitForSeconds(3);
-        yield return StartCoroutine(SaySomething("*Snif*"));
-        yield return StartCoroutine(SaySomething("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !"));
-        
-        StopCinematic();
-        
         // Tutoriel
         player.hud.helper.DisplayInfo("Appuyer sur "
             + dd.GetKey(Controls.Up).Item1 + " "
             + dd.GetKey(Controls.Left).Item1 + " "
             + dd.GetKey(Controls.Down).Item1 + " "
             + dd.GetKey(Controls.Right).Item1 + " pour bouger.\n");
-        
+
         yield return new WaitForSeconds(3);
 
         // Search lamp
         player.hud.helper.DisplayInfo("Pur récupérer un objet, appuyer sur " + dd.GetKey(Controls.Interact).Item1 + ". " +
             "Les objets sont identifiables grâce à leur petit symbole tourbillonant. Attention, ils sont presque invisibles sans lampes, " +
-            "de plus, il prennent du temps à être ramassé, toute autre action annule la ramassage." + 
+            "de plus, il prennent du temps à être ramassé, toute autre action annule la ramassage." +
             "\n\nAllez jusqu'à la bibliothèque pour récupérer la lampe !");
 
         while (!player.inventory.HaveLamp())
@@ -114,7 +61,7 @@ public class Intro : Cinematic
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Trouver des piles permet de recharger votre lampe");
         battery.gameObject.SetActive(true);
-        
+
         while (!player.inventory.HaveBattery())
         {
             yield return null;
@@ -139,7 +86,7 @@ public class Intro : Cinematic
         player.AddStress(player.maxStress);
 
         StartCoroutine(SaySomething("Aaaaaaaah !"));
-        
+
         yield return new WaitForSeconds(3);
         player.hud.helper.DisplayInfo("Le stress est un élément essentiel, vous pouvez voir votre barre actuelle de stress en haut à droite de l'écran, en rouge." +
             " Lorsque cette jauge atteint un seuil critique, votre personnage panique et devient hors de contrôle !" +
@@ -164,14 +111,14 @@ public class Intro : Cinematic
         yield return StartCoroutine(SaySomething("Oui ! Mon Teddy !"));
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Pour serrer Teddy contre vous, appuyer sur " + dd.GetKey(Controls.HugTeddy).Item1 + ".");
-        
+
         while (player.Stress() == player.maxStress)
         {
             yield return null;
         }
 
         player.hud.helper.StopDisplayingInfo();
-        player.hud.helper.DisplayInfo("Remarquez que serrer Teddy prend du temps et empêche toute autre action ! Soyez vigilant avant de l'utiliser !" + 
+        player.hud.helper.DisplayInfo("Remarquez que serrer Teddy prend du temps et empêche toute autre action ! Soyez vigilant avant de l'utiliser !" +
             "\n\nUtiliser Teddy pour redevenir complètement calme !");
 
         while (player.Stress() > 0)
@@ -208,12 +155,21 @@ public class Intro : Cinematic
         yield return StartCoroutine(SaySomething("Bon, faut que je fasse attention quand même..."));
     }
 
-    public Light bedsideLamp;
-    public Thunder lightning;
+    private IEnumerator DontLoseStress()
+    {
+        Key key = (Key)keyToOpenTheRoom.item;
+        Debug.Log(key);
+        Debug.Log(key.doorToOpen);
+
+        while (key.doorToOpen.IsClosed())
+        {
+            player.AddStress(-100);
+            yield return null;
+        }
+    }
+
     public Light greenLight;
     public ItemObject keyToOpenTheRoom;
     public ItemObject battery;
     public ItemObject teddy;
-    public Vector3 initialPosition;
-    public Vector3 lampTurnOnPosition;
 }
