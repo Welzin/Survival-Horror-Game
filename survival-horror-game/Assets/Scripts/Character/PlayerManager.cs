@@ -175,13 +175,16 @@ public class PlayerManager : MonoBehaviour
     {
         foreach (Noise noise in controller.AllNoiseHeard())
         {
+            if(noise.duration == Noise.OneFrame())
+                controller.DeleteNoise(noise);
             switch (noise.emiterType)
             {
                 case NoiseType.Lightning:
                     AddStress(4f * Time.deltaTime);
                     break;
                 case NoiseType.Monster:
-                    AddStress(10f * Time.deltaTime);
+                    if(noise.floor == _currentFloor)
+                        AddStress(10f * Time.deltaTime);
                     break;
                 case NoiseType.Ouaf:
                     AddStress(10f * Time.deltaTime);

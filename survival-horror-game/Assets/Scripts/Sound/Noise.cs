@@ -20,8 +20,8 @@ public class Noise
         _floor = floor;
         _emiter = emiter;
         _duration = duration;
-
-        source.StartCoroutine(UpdateDuration());
+        if(duration != _oneFrame)
+            source.StartCoroutine(UpdateDuration());
     }
 
     /// <summary>
@@ -36,12 +36,18 @@ public class Noise
         }
     }
 
+    public static float OneFrame()
+    {
+        return _oneFrame;
+    }
+
 
     private readonly SoundEmiter _source;
     private readonly float _intensity;
     private readonly int _floor;
     private readonly NoiseType _emiter;
     private float _duration;
+    private static readonly float _oneFrame = 0.05f;
 
     public NoiseType emiterType => _emiter;
     public int floor => _floor;

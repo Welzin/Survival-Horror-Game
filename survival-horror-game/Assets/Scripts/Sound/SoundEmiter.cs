@@ -39,7 +39,7 @@ public class SoundEmiter : MonoBehaviour
     /// <summary>
     /// Play the audio clip referenced by the given sound type
     /// </summary>
-    public void PlayEffect(SoundType sound)
+    public void PlayEffect(SoundType sound, float intensity = 5)
     {
         if (_soundOrigin.isPlaying)
         {
@@ -49,10 +49,19 @@ public class SoundEmiter : MonoBehaviour
                 _soundOrigin.Stop();
                 AudioClip clip = _soundManager.GetClipByType(sound);
                 if (clip != null) _soundOrigin.clip = clip;
+                _soundOrigin.maxDistance = intensity;
             }
         }
         else
+        {
+            if(_currentPlayingSound != sound)
+            {
+                AudioClip clip = _soundManager.GetClipByType(sound);
+                if (clip != null) _soundOrigin.clip = clip;
+            }
+            _soundOrigin.maxDistance = intensity;
             _soundOrigin.Play();
+        }
     }
 
     /// <summary>
@@ -113,6 +122,11 @@ public class SoundEmiter : MonoBehaviour
         _soundOrigin.clip = clip;
         _soundOrigin.maxDistance = intensity;
         _soundOrigin.Play();
+    }
+
+    public bool IsPlaying()
+    {
+        return _soundOrigin.isPlaying;
     }
     
     // Audiosource on which the class has to play the clip

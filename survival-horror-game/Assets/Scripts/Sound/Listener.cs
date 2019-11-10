@@ -125,6 +125,11 @@ public class Listener : MonoBehaviour
         return Mathf.Abs(dist - radius - _hearRange);
     }
 
+    public void DeleteNoise(Noise noise)
+    {
+        _allNoisesHeard.Remove(noise);
+    }
+
 
     // Types of noises listened
     [SerializeField]

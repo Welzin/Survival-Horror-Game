@@ -34,6 +34,11 @@ public class MovementHelper : MonoBehaviour
         _lastDoor = null;
         _isOpeningDoor = false;
         _animator = GetComponent<Animator>();
+        if(!gameObject.GetComponent<SoundEmiter>())
+        {
+            _sound = gameObject.AddComponent<SoundEmiter>();
+            _sound.SetNoiseEmited(NoiseType.Monster);
+        }
     }
 
     /// <summary>
@@ -272,6 +277,12 @@ public class MovementHelper : MonoBehaviour
         SetAnimator(direction);
         pos += direction * _speed * Time.deltaTime;
         transform.position = pos;
+
+        if(!_sound.IsPlaying())
+        {
+            _sound.EmitSoundWave(2, _mainScript.currentFloor, Noise.OneFrame());
+            _sound.PlayEffect(SoundType.Footsteps);
+        }
     }
 
     /// <summary>
@@ -372,4 +383,6 @@ public class MovementHelper : MonoBehaviour
     private bool _isOpeningDoor;
     // Get all the animations
     private Animator _animator;
+
+    private SoundEmiter _sound;
 }
