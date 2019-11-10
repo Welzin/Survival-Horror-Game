@@ -20,7 +20,10 @@ public class LevelManager : MonoBehaviour
                 return true;
         }
 
-        elementsToHideOnCinematic.SetActive(true);
+        foreach (GameObject go in elementsToHideOnCinematic)
+        {
+            go.SetActive(true);
+        }
 
         return false;
     }
@@ -38,7 +41,10 @@ public class LevelManager : MonoBehaviour
             if (cinematic.levelObjectName == name)
             {
                 cinematic.Launch();
-                elementsToHideOnCinematic.SetActive(false);
+                foreach(GameObject go in elementsToHideOnCinematic)
+                {
+                    go.SetActive(false);
+                }
                 return;
             }
         }
@@ -79,7 +85,7 @@ public class LevelManager : MonoBehaviour
 
         if (!dd.TutorialDone)
         {
-            StartCinematic("Intro");
+            //StartCinematic("Intro");
             yield return WaitEndCinematic();
 
             StartMission("Tutorial");
@@ -124,5 +130,5 @@ public class LevelManager : MonoBehaviour
     private PlayerManager _playerManager;
 
     public Vector3 initialPosition;
-    public GameObject elementsToHideOnCinematic;
+    public List<GameObject> elementsToHideOnCinematic;
 }

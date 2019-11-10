@@ -13,9 +13,9 @@ public class Tutorial : Mission
 
     protected override IEnumerator StartLevelObject()
     {
-        player.hud.transform.Find("HideOnCinematic/Stress").gameObject.SetActive(false);
-        player.hud.transform.Find("HideOnCinematic/Battery").gameObject.SetActive(false);
-        player.hud.transform.Find("HideOnCinematic/BatteryItem").gameObject.SetActive(false);
+        player.hud.transform.Find("Stress").gameObject.SetActive(false);
+        player.hud.transform.Find("Battery").gameObject.SetActive(false);
+        player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
 
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
 
@@ -28,7 +28,7 @@ public class Tutorial : Mission
             + dd.GetKey(Controls.Down).Item1 + " "
             + dd.GetKey(Controls.Right).Item1 + " pour bouger.\n");
 
-        //yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3);
 
         // Search lamp
         player.hud.helper.DisplayInfo("Pour récupérer un objet, appuyer sur " + dd.GetKey(Controls.Interact).Item1 + ". " +
@@ -47,11 +47,11 @@ public class Tutorial : Mission
             yield return null;
         }
 
-        player.hud.transform.Find("HideOnCinematic/Battery").gameObject.SetActive(true);
+        player.hud.transform.Find("Battery").gameObject.SetActive(true);
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Attention, utiliser la lampe use des piles. Une fois la jauge de la lampe complètement perdue, " +
             "la lampe ne pourra plus s'allumer. Cette jauge est visible en haut à droite de l'écran, en jaune.");
-        //yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(6);
         yield return StartCoroutine(SaySomething("Il n'y a plus beaucoup de piles dans cette lampe, il doit y en avoir une dans mon coffre à jouer !"));
 
         // Search battery
@@ -64,7 +64,7 @@ public class Tutorial : Mission
             yield return null;
         }
 
-        player.hud.transform.Find("HideOnCinematic/BatteryItem").gameObject.SetActive(true);
+        player.hud.transform.Find("BatteryItem").gameObject.SetActive(true);
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Les batteries que vous trouvez sont également affichée sur l'écran." +
             " Pour recharger votre lampe, appuyez sur " + dd.GetKey(Controls.Reload).Item1 + ". Recharger la lampe consomme une pile.");
@@ -75,10 +75,10 @@ public class Tutorial : Mission
         }
 
         player.hud.helper.StopDisplayingInfo();
-        //yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3);
 
         // Apparition of the green light
-        player.hud.transform.Find("HideOnCinematic/Stress").gameObject.SetActive(true);
+        player.hud.transform.Find("Stress").gameObject.SetActive(true);
         greenLight.SetIntensity(1f);
         SoundEmiter emiter = greenLight.gameObject.AddComponent<SoundEmiter>();
         yield return null;

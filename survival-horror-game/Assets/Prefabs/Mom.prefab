@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5657ef00f598947b4814299e6d6448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _allNoiseListened: 00000000
+  _allNoiseListened: 00000000040000000300000005000000
   _hearRange: 1
   lightDetectionRange: 1
   movementPattern:
@@ -145,7 +145,7 @@ MonoBehaviour:
     intervalUntilNextAction: 1
   - goTo: {fileID: 0}
     intervalUntilNextAction: 1
-  speed: 3
+  speed: 1.5
   targetBehaviour: 0
   cond:
     condition: 1
