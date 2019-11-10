@@ -25,6 +25,7 @@ public class MovementHelper : MonoBehaviour
         {
             _speed = _mainScript.speed;
         }
+        _currentDestination = null;
         // Uncertainty depends on the speed
         _errorPercentage = _speed / 50;
         _floorManagers = new List<FloorManager>();
@@ -96,6 +97,7 @@ public class MovementHelper : MonoBehaviour
             }
             else
             {
+                _isMovementFinished = true;
                 _animator.SetInteger("Mouvement", 0);
             }
         }
@@ -151,8 +153,12 @@ public class MovementHelper : MonoBehaviour
         }
         else
         {
+            Node lastDest = _currentDestination;
             // Stores the first destination
-            _currentDestination = _currentPath.Dequeue();
+            while (_currentDestination == lastDest)
+            {
+                _currentDestination = _currentPath.Dequeue();
+            } 
             // Begins the movement
             _isMovementFinished = false;
         }
@@ -178,10 +184,13 @@ public class MovementHelper : MonoBehaviour
         // Else, we redo the path and wait for the end of the movement
         else
         {
-            StartMovement(NearestNode(transform.position, _mainScript.currentFloor), node);
-            // Wait until movement is finished, then forcefully run towards target
-            _target = target;
-            StartCoroutine(WaitNonBlocking(IsMovementFinished, ()=>_currentDestination = null));
+            if(_isMovementFinished)
+            {
+                StartMovement(NearestNode(transform.position, _mainScript.currentFloor), node);
+                // Wait until movement is finished, then forcefully run towards target
+                _target = target;
+                StartCoroutine(WaitNonBlocking(IsMovementFinished, () => _currentDestination = null));
+            }
         }
     }
 
@@ -190,6 +199,8 @@ public class MovementHelper : MonoBehaviour
     /// </summary>
     public void TargetLost()
     {
+        _animator.SetInteger("Mouvement", 0);
+        _isMovementFinished = true;
         _target = new Vector2(float.MaxValue, float.MaxValue);
     }
 

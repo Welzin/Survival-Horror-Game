@@ -63,12 +63,10 @@ public class Monster : Listener
         {
             if (!cond.rectangle.Contains(player.gameObject.transform.position))
             {
-                Debug.Log(gameObject.name + " Not Found.");
                 Invoke("ExecutePattern", 1);
             }
             else
             {
-                Debug.Log(gameObject.name + " Found.");
                 // Game Over
             }
         }
@@ -121,22 +119,19 @@ public class Monster : Listener
             Vector2 pos = transform.position;
             // Distance between lamp and monster
             float dist = Vector2.Distance(pos, lampPos);
-            if (dist <= lightDetectionRange)
+            if (dist <= lightDetectionRange + lamp.radius)
             {
                 bool obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("Obstacle"));
                 if (!obstrusion)
-                {
                     SetTarget(lamp.transform.position);
-                }
                 else
-                {
                     ResetTarget();
-                }
             }
-            else
-            {
+        }
+        else
+        {
+            if (_move.IsNear(transform.position, _move.Target()))
                 ResetTarget();
-            }
         }
     }
 
@@ -148,7 +143,6 @@ public class Monster : Listener
             _move.TargetLost();
             // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
             Invoke("ExecutePattern", 10);
-            Debug.Log("invoking..");
         }
     }
 
@@ -214,7 +208,7 @@ public class Monster : Listener
         }
         else
         {
-            if (_move.IsNear(transform.position, _move.Target()))
+            if (_hasTarget && _move.IsNear(transform.position, _move.Target()))
                 ResetTarget();
         }
     }
