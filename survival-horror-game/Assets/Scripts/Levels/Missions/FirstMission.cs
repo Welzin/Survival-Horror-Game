@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class FirstMission : Mission
 {
+    private void Start()
+    {
+        _dog = niche.AddComponent<SoundEmiter>();
+        _dog.SetNoiseEmited(NoiseType.Ouaf);
+    }
+
     protected override IEnumerator StartLevelObject()
     {
         brokenChest.gameObject.SetActive(false);
         seau.gameObject.SetActive(false);
 
         yield return SaySomething("Il faut que j'aille au rez de chaussée pour sortir !");
+
+        StartCoroutine(ManageDog());
 
         // On attend que le joueur est coupé le courant
         yield return WaitForEvent(poweroff);
@@ -42,6 +50,31 @@ public class FirstMission : Mission
         yield return WaitForEvent(mainDoor);
         Stop();
     }
+
+    private IEnumerator ManageDog()
+    {
+        _alreadyInside = false;
+
+        while (player.GetLastEvent() != dogEat)
+        {
+            Debug.Log((player.transform.position - niche.transform.position).magnitude);
+            if (!_alreadyInside && (player.transform.position - niche.transform.position).magnitude < 5f)
+            {
+                _alreadyInside = true;
+                _dog.PlayCustomClip(aboiement, 20);
+                _dog.EmitSoundWave(20, 1, 4);
+                StartCoroutine(WaitDog());
+            }
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator WaitDog()
+    {
+        yield return new WaitForSecondsRealtime(4f);
+        _alreadyInside = false;
+    }
     
     public Door mainDoor;
     public Door parentRoomDoor;
@@ -49,7 +82,13 @@ public class FirstMission : Mission
     public LevelEvent brokenChest;
     public LevelEvent generator;
     public LevelEvent poweroff;
+    public LevelEvent dogEat;
     public ItemObject code;
     public ItemObject seau;
     public DialogEvent tele;
+    public GameObject niche;
+    public AudioClip aboiement;
+
+    private SoundEmiter _dog;
+    private bool _alreadyInside;
 }

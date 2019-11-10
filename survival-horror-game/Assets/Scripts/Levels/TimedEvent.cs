@@ -40,7 +40,13 @@ public abstract class TimedEvent : Event
     private IEnumerator StartTimedEvent()
     {
         Action action = player.hud.actionBar.StartAction(eventTime);
-        yield return new WaitForSeconds(eventTime);
+        float time = 0f;
+
+        while (!action.interrupted && time < eventTime)
+        {
+            yield return new WaitForSecondsRealtime(0.5f);
+            time += 0.5f;
+        }
 
         if (!action.interrupted)
         {

@@ -52,10 +52,6 @@ public class Door : TimedEvent
                 needAKey = false;
                 _emiter.PlayCustomClip(doorUnlocked);
             }
-            else
-            {
-                _emiter.PlayCustomClip(doorOpening);
-            }
         }
         else
         {
@@ -79,6 +75,7 @@ public class Door : TimedEvent
         GetComponent<BoxCollider2D>().isTrigger = true;
         lightObstacle.SetActive(false);
         _animator.SetBool("Closing", false);
+        _emiter.PlayCustomClip(doorOpening);
     }
 
     private void DoorClosing()
