@@ -51,15 +51,18 @@ public class Monster : Listener
         {
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
+            GameObject lightObs = transform.GetChild(0).gameObject;
             if (player.CurrentFloor == currentFloor)
             {
                 if(!sr.enabled) sr.enabled = true;
                 if (!collider.enabled) collider.enabled = true;
+                if (!lightObs.activeSelf) lightObs.SetActive(true);
             }
             else
             {
                 if (sr.enabled) sr.enabled = false;
                 if (collider.enabled) collider.enabled = false;
+                if (lightObs.activeSelf) lightObs.SetActive(false);
             }
         }
     }
