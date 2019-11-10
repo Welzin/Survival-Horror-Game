@@ -85,7 +85,7 @@ public class LevelManager : MonoBehaviour
 
         if (!dd.TutorialDone)
         {
-            //StartCinematic("Intro");
+            StartCinematic("Intro");
             yield return WaitEndCinematic();
 
             StartMission("Tutorial");
