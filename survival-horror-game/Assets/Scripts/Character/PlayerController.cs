@@ -51,10 +51,8 @@ public class PlayerController : Listener
             {
                 _manager.StopHuggingTeddy();
             }
-            else
-            {
-                return;
-            }
+
+            return;
         }
 
         // If you are in action, or in cinematic, you cannot move the lamp

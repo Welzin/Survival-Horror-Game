@@ -31,7 +31,7 @@ public class Tutorial : Mission
         yield return new WaitForSeconds(3);
 
         // Search lamp
-        player.hud.helper.DisplayInfo("Pur récupérer un objet, appuyer sur " + dd.GetKey(Controls.Interact).Item1 + ". " +
+        player.hud.helper.DisplayInfo("Pour récupérer un objet, appuyer sur " + dd.GetKey(Controls.Interact).Item1 + ". " +
             "Attention, récupérer un objet peut faire du bruit !" + "\n\nAller jusqu'à la bibliothèque pour récupérer la lampe, c'est une petite étoile tourbillonante.");
 
         while (!player.inventory.HaveLamp())
@@ -86,14 +86,10 @@ public class Tutorial : Mission
         m.UpdateMusic(2);
         m.PlayLoop();
 
-        StartCoroutine(SaySomething("Aaaaaaaah !"));
-
-        yield return new WaitForSeconds(3);
         player.hud.helper.DisplayInfo("Le stress est un élément essentiel, vous pouvez voir votre barre actuelle de stress en haut à droite de l'écran, en rouge." +
             " Lorsque cette jauge atteint un seuil critique, votre personnage panique et devient hors de contrôle pendant quelques secondes !" +
-            "\n\n/!\\ Rester paniquer plus de 10 secondes et c'est le game over !");
-
-        yield return new WaitForSeconds(7);
+            "\n\n/!\\ Rester paniqué plus de 10 secondes et c'est le game over !");
+        yield return StartCoroutine(SaySomething("Aaaaaaaah !"));
         yield return StartCoroutine(SaySomething("QU'EST CE QUE C'EST QUE CA ???"));
         yield return StartCoroutine(SaySomething("J'ai besoin de mon Teddy, où est mon Teddy ?"));
 
@@ -120,7 +116,8 @@ public class Tutorial : Mission
 
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Remarquez que serrer Teddy prend du temps et empêche toute autre action ! Soyez vigilant avant de l'utiliser !" +
-            "\n\nUtiliser Teddy pour redevenir complètement calme !");
+            " Pour arrêter le câlin, appuyer de nouveau sur " + dd.GetKey(Controls.HugTeddy).Item1 + "." +
+            "\n\nUtiliser Teddy pour redevenir complètement calme");
 
         while (player.Stress() > 0)
         {
@@ -155,6 +152,9 @@ public class Tutorial : Mission
         yield return StartCoroutine(SaySomething("La porte est ouverte"));
         yield return StartCoroutine(SaySomething("Bon, faut que je fasse attention quand même..."));
 
+        player.hud.helper.DisplayInfo("Bienvenue dans l'aventure ! Rappelez vous de ne pas faire de bruit au risque de vous faire attraper, vous pouvez courir en utilisant " +
+            dd.GetKey(Controls.Run).Item1 + " mais attention, courir produit beaucoup plus de bruit !", 6);
+
         Stop();
     }
 
@@ -162,7 +162,7 @@ public class Tutorial : Mission
     {
         while (greenLight.intensity < 1f)
         {
-            player.AddStress(-100);
+            player.AddStress(-player.maxStress);
             yield return null;
         }
     }

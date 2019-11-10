@@ -10,19 +10,6 @@ public class Lamp : Light
         Active = false;
     }
 
-    private void Update()
-    {
-        if (_active)
-        {
-            _actualBattery -= consommationBySec * Time.deltaTime;
-            if (_actualBattery <= 0)
-            {
-                _actualBattery = 0;
-                Active = false;
-            }
-        }
-    }
-
     public void Reload()
     {
         _actualBattery = Mathf.Min(_actualBattery + batteryGainOnReload, maxBattery); 
@@ -47,7 +34,7 @@ public class Lamp : Light
         }
     }
 
-    public float actualBattery {  get { return _actualBattery; } }
+    public float actualBattery {  get { return _actualBattery; } set { _actualBattery = value; } }
 
     public float maxBattery = 100f;
     public float consommationBySec = 10f;

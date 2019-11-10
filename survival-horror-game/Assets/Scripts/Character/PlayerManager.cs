@@ -31,11 +31,24 @@ public class PlayerManager : MonoBehaviour
             return;
         }
 
+        if (IsHuggingTeddy() && _actualStress == 0)
+        {
+            StopHuggingTeddy();
+        }
+
         ManageStress();
 
         // HUD change according to the lamp's battery value
         if (inventory.HaveLamp() && lamp.Active)
         {
+            lamp.actualBattery -= lamp.consommationBySec * Time.deltaTime;
+
+            if (lamp.actualBattery <= 0)
+            {
+                lamp.actualBattery = 0;
+                lamp.Active = false;
+            }
+
             hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
         }
     }
@@ -104,17 +117,24 @@ public class PlayerManager : MonoBehaviour
     {
         if (inventory.HaveTeddy())
         {
-            Action action = hud.actionBar.StartAction(timeToHugTeddy);
-            yield return new WaitForSeconds(timeToHugTeddy);
-
-            if (!action.interrupted)
+            if (_actualStress > 0)
             {
-                _huggingTeddy = true;
+                Action action = hud.actionBar.StartAction(timeToHugTeddy);
+                yield return new WaitForSeconds(timeToHugTeddy);
+
+                if (!action.interrupted)
+                {
+                    _huggingTeddy = true;
+                }
+            }
+            else
+            {
+                Speak("Je n'ai pas besoin de te serrer contre moi, je suis calme.");
             }
         }
         else
         {
-            hud.helper.DisplayInfo("Vous ne pouvez pas faire de câlin à Teddy, il est perdu !", 5);
+            Speak("J'aimerais bien faire un câlin à mon Teddy, mais il est perdu :'(");
         }
     }
 

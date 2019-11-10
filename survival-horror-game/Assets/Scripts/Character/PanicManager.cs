@@ -203,8 +203,16 @@ public class PanicManager : MonoBehaviour
         int timer = 0;
         while(timer != time && _panic)
         {
-            yield return new WaitForSecondsRealtime(1);
-            timer += 1;
+            // If the player speak, the stress cannot go down/up. So, if the player is speaking, it's like a pause
+            if (!_player.IsSpeaking())
+            {
+                yield return new WaitForSecondsRealtime(1);
+                timer += 1;
+            }
+            else
+            {
+                yield return null;
+            }
         }
         if(timer == time)
         {

@@ -82,13 +82,18 @@ public class LevelManager : MonoBehaviour
 
         if (!dd.TutorialDone)
         {
-            //StartCinematic("Intro");
+            StartCinematic("Intro");
             yield return WaitEndCinematic();
 
             StartMission("Tutorial");
             yield return WaitEndMission("Tutorial");
             dd.TutorialDone = true;
         }
+
+        // Reset all to begin values
+        _playerManager.AddStress(-_playerManager.maxStress);
+        _playerManager.lamp.actualBattery = _playerManager.lamp.maxBattery;
+        _playerManager.hud.batteryBar.ChangeBatteryPercentage(100);
 
         StartMission("First mission");
     }
