@@ -7,15 +7,15 @@ public class Tutorial : Mission
     void Start()
     {
         battery.gameObject.SetActive(false);
-        //keyToOpenTheRoom.gameObject.SetActive(false);
+        keyToOpenTheRoom.gameObject.SetActive(false);
         teddy.gameObject.SetActive(false);
     }
 
     protected override IEnumerator StartLevelObject()
     {
-        /*player.hud.transform.Find("Stress").gameObject.SetActive(false);
-        player.hud.transform.Find("Battery").gameObject.SetActive(false);
-        player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);*/
+        player.hud.transform.Find("HideOnCinematic/Stress").gameObject.SetActive(false);
+        player.hud.transform.Find("HideOnCinematic/Battery").gameObject.SetActive(false);
+        player.hud.transform.Find("HideOnCinematic/BatteryItem").gameObject.SetActive(false);
 
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
 
@@ -32,9 +32,7 @@ public class Tutorial : Mission
 
         // Search lamp
         player.hud.helper.DisplayInfo("Pur récupérer un objet, appuyer sur " + dd.GetKey(Controls.Interact).Item1 + ". " +
-            "Les objets sont identifiables grâce à leur petit symbole tourbillonant. Attention, ils sont presque invisibles sans lampes, " +
-            "de plus, il prennent du temps à être ramassé, toute autre action annule la ramassage." +
-            "\n\nAllez jusqu'à la bibliothèque pour récupérer la lampe !");
+            "Attention, récupérer un objet peut faire du bruit !" + "\n\nAller jusqu'à la bibliothèque pour récupérer la lampe, c'est une petite étoile tourbillonante.");
 
         while (!player.inventory.HaveLamp())
         {
@@ -44,14 +42,12 @@ public class Tutorial : Mission
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Appuyer sur " + dd.GetKey(Controls.Lamp).Item1 + " pour allumer la lampe ou l'éteindre.");
 
-        StartCoroutine(SaySomething("Oh la voilà"));
-
         while (!player.lamp.Active)
         {
             yield return null;
         }
 
-        player.hud.transform.Find("Battery").gameObject.SetActive(true);
+        player.hud.transform.Find("HideOnCinematic/Battery").gameObject.SetActive(true);
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Attention, utiliser la lampe use des piles. Une fois la jauge de la lampe complètement perdue, " +
             "la lampe ne pourra plus s'allumer. Cette jauge est visible en haut à droite de l'écran, en jaune.");
@@ -68,7 +64,7 @@ public class Tutorial : Mission
             yield return null;
         }
 
-        player.hud.transform.Find("BatteryItem").gameObject.SetActive(true);
+        player.hud.transform.Find("HideOnCinematic/BatteryItem").gameObject.SetActive(true);
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Les batteries que vous trouvez sont également affichée sur l'écran." +
             " Pour recharger votre lampe, appuyez sur " + dd.GetKey(Controls.Reload).Item1 + ". Recharger la lampe consomme une pile.");
@@ -82,7 +78,7 @@ public class Tutorial : Mission
         yield return new WaitForSeconds(3);
 
         // Apparition of the green light
-        player.hud.transform.Find("Stress").gameObject.SetActive(true);
+        player.hud.transform.Find("HideOnCinematic/Stress").gameObject.SetActive(true);
         greenLight.SetIntensity(1f);
         player.AddStress(player.maxStress);
 
@@ -94,8 +90,8 @@ public class Tutorial : Mission
 
         yield return new WaitForSeconds(3);
         player.hud.helper.DisplayInfo("Le stress est un élément essentiel, vous pouvez voir votre barre actuelle de stress en haut à droite de l'écran, en rouge." +
-            " Lorsque cette jauge atteint un seuil critique, votre personnage panique et devient hors de contrôle !" +
-            " Heureusement pour cette fois, la batterie n'est pas complètement utilisée, donc la lampe s'allume automatiquement.");
+            " Lorsque cette jauge atteint un seuil critique, votre personnage panique et devient hors de contrôle pendant quelques secondes !" +
+            "\n\n/!\\ Rester paniquer plus de 10 secondes et c'est le game over !");
 
         yield return new WaitForSeconds(7);
         yield return StartCoroutine(SaySomething("QU'EST CE QUE C'EST QUE CA ???"));
@@ -105,7 +101,7 @@ public class Tutorial : Mission
         teddy.gameObject.SetActive(true);
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Des événements peuvent considérablement augmenter votre stress. Rester dans le noir provoque également la peur." +
-            " Il y a plusieurs façon de faire descendre le stress, le premier étant de se trouver dans une zone lumineuse où d'allumer la lampe." +
+            " Il y a plusieurs façon de faire descendre le stress, le premier étant de se trouver dans une zone lumineuse ou d'allumer la lampe." +
             " La seconde est de serrer bien fort Teddy contre vous. Aller le récupérer dans le lit !");
 
         while (!player.inventory.HaveTeddy())
@@ -117,7 +113,7 @@ public class Tutorial : Mission
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Pour serrer Teddy contre vous, appuyer sur " + dd.GetKey(Controls.HugTeddy).Item1 + ".");
 
-        while (player.Stress() == player.maxStress)
+        while (!player.IsHuggingTeddy())
         {
             yield return null;
         }

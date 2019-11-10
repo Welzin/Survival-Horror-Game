@@ -9,7 +9,7 @@ public abstract class LevelObject : MonoBehaviour
         player = FindObjectOfType<PlayerManager>();
     }
 
-    public void Launch()
+    public virtual void Launch()
     {
         _isLaunched = true;
         StartCoroutine(StartLevelObject());
@@ -94,7 +94,13 @@ public abstract class LevelObject : MonoBehaviour
 
 public abstract class Cinematic : LevelObject
 {
+    public override void Launch()
+    {
+        player.transform.position = whereToBegin;
+        base.Launch();
+    }
 
+    public Vector2 whereToBegin;
 }
 
 public abstract class Mission : LevelObject

@@ -37,7 +37,7 @@ public class Intro : Cinematic
         yield return new WaitForSeconds(0.5f);
 
         // Return at bed
-        yield return StartCoroutine(MoveTo(bedPosition, LookAt.DOWN));
+        yield return StartCoroutine(MoveTo(whereToBegin, LookAt.DOWN));
         yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir... Maintenant"));
         yield return StartCoroutine(SaySomething("Je ne sais pas quoi faire"));
         yield return StartCoroutine(SaySomething("..."));
@@ -67,6 +67,5 @@ public class Intro : Cinematic
 
     public Light bedsideLamp;
     public Thunder lightning;
-    public Vector3 bedPosition;
-    public Vector3 lampTurnOnPosition;
+    public Vector2 lampTurnOnPosition;
 }

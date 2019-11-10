@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         MusicManager m = FindObjectOfType<MusicManager>();
-        m.UpdateMusic(0);
+        m.UpdateMusic(1);
         m.PlayLoop();
     }
 

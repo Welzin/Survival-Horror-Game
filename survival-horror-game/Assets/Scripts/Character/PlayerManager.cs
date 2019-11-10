@@ -25,7 +25,8 @@ public class PlayerManager : MonoBehaviour
     {
         Move();
         
-        if (levelManager.CinematicStarted())
+        // If we are in a cinematic or te player is speaking, he cannot have more stress (because he cannot move)
+        if (levelManager.CinematicStarted() || IsSpeaking())
         {
             return;
         }
@@ -59,7 +60,7 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            hud.helper.DisplayInfo("You cannot turn on the light, you don't have it :(", 5);
+            hud.helper.DisplayInfo("Vous ne pouvez pas allumer de lampe, vous ne l'avez pas", 5);
         }
     }
 
@@ -87,12 +88,12 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                hud.helper.DisplayInfo("You cannot hug reload your lamp without battery :(", 5);
+                hud.helper.DisplayInfo("Vous ne pouvez pas recharger sans batteries !", 5);
             }
         }
         else
         {
-            hud.helper.DisplayInfo("You don't have your lamp :(", 5);
+            hud.helper.DisplayInfo("Vous n'avez pas de lampe, impossible de recharger.", 5);
         }
     }
 
@@ -113,8 +114,18 @@ public class PlayerManager : MonoBehaviour
         }
         else
         {
-            hud.helper.DisplayInfo("You cannot hug Teddy because he is lost :(", 5);
+            hud.helper.DisplayInfo("Vous ne pouvez pas faire de câlin à Teddy, il est perdu !", 5);
         }
+    }
+
+    public bool IsHuggingTeddy()
+    {
+        return _huggingTeddy;
+    }
+
+    public void StopHuggingTeddy()
+    {
+        _huggingTeddy = false;
     }
 
     /// <summary>
@@ -131,11 +142,6 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     public void StopAction()
     {
-        if (_huggingTeddy)
-        {
-            _huggingTeddy = false;
-        }
-
         if (hud.actionBar.inAction)
         {
             hud.actionBar.ActionInterrupted();
@@ -256,6 +262,7 @@ public class PlayerManager : MonoBehaviour
 
     public void Speak(string newText)
     {
+        controller.Movement(0, 0, false);
         hud.dialog.AddDialog(newText);
     }
 

@@ -30,18 +30,40 @@ public class PlayerController : Listener
     protected override void Update()
     {
         base.Update();
-
-        if (_manager.levelManager.CinematicStarted())
+        
+        // In all case, we can pass dialogs
+        if ((Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2)) && _manager.IsSpeaking())
         {
-            if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2) && _manager.IsSpeaking())
-            {
-                _manager.PassDialog();
-            }
-
+            _manager.PassDialog();
             return;
         }
 
-        if (!_manager.InPanic())
+        // If we are in a cinematic, in panic or speaking, the player have no control
+        if (_manager.levelManager.CinematicStarted())
+        {
+            return;
+        }
+
+        // If the player is hugging, he can stop hugging but cannot move
+        if (_manager.IsHuggingTeddy())
+        {
+            if (Input.GetKeyDown(_dd.GetKey(Controls.HugTeddy).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.HugTeddy).Item2))
+            {
+                _manager.StopHuggingTeddy();
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        // If you are in action, or in cinematic, you cannot move the lamp
+        if (!_manager.DoingAnAction())
+        {
+            LampRotation();
+        }
+
+        if (!_manager.InPanic() && !_manager.IsSpeaking())
         {
             SearchEventInRange();
 
@@ -80,17 +102,10 @@ public class PlayerController : Listener
             {
                 isRunning = true;
             }
-            if (Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2))
+            if ((Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2)) && _eventInRange != null)
             {
-                if (_manager.IsSpeaking())
-                {
-                    _manager.PassDialog();
-                }
-                else if (_eventInRange != null)
-                {
-                    _manager.StopAction();
-                    _eventInRange.PlayEvent();
-                }
+                _manager.StopAction();
+                _eventInRange.PlayEvent();
             }
             if (Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Reload).Item2))
             {
@@ -104,12 +119,6 @@ public class PlayerController : Listener
             }
 
             Movement(x, y, isRunning);
-        }
-
-        // If you are in action, you cannot move the lamp
-        if (!_manager.DoingAnAction())
-        {
-            LampRotation();
         }
     }
 
