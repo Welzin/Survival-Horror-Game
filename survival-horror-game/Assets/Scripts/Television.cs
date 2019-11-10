@@ -9,6 +9,7 @@ public class Television : Light
     {
         _emiter = gameObject.AddComponent<SoundEmiter>();
         radius = 5;
+        _isWinking = false;
     }
 
     private void Update()

@@ -78,17 +78,17 @@ public class LevelManager : MonoBehaviour
         m.PlayLoop(2);
 
         // Start in the bed
-        _playerManager.transform.position = initialPosition;
+        //_playerManager.transform.position = initialPosition;
 
         // We play the intro cinematic
         yield return null;
 
         if (!dd.TutorialDone)
         {
-            StartCinematic("Intro");
+            //StartCinematic("Intro");
             yield return WaitEndCinematic();
 
-            StartMission("Tutorial");
+            //StartMission("Tutorial");
             yield return WaitEndMission("Tutorial");
             dd.TutorialDone = true;
         }
