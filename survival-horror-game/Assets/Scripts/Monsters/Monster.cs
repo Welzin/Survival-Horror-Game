@@ -188,7 +188,7 @@ public class Monster : Listener
         }
         _hasTarget = true;
         CancelInvoke("ExecutePattern");
-        _move.RunTowardTarget(destination);
+        _move.RunTowardTarget(destination, currentFloor);
     }
 
     private void SearchForSound()
@@ -241,10 +241,10 @@ public class Monster : Listener
     /// <summary>
     /// Moves to the specified position. Stops all other actions
     /// </summary>
-    public void MoveTo(Vector2 position)
+    public void MoveTo(Vector2 position, int floor)
     {
         StopActions();
-        _move.RunTowardTarget(position);
+        _move.RunTowardTarget(position, floor);
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
