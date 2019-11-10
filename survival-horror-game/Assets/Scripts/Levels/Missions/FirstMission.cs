@@ -8,6 +8,8 @@ public class FirstMission : Mission
     {
         _dog = niche.AddComponent<SoundEmiter>();
         _dog.SetNoiseEmited(NoiseType.Ouaf);
+        
+        _passDoor = false;
 
         StartCoroutine(BeginPattern());
     }
@@ -15,38 +17,21 @@ public class FirstMission : Mission
     private IEnumerator BeginPattern()
     {
         yield return new WaitForSeconds(1);
-        dad.MoveTo(televisionPosition);
-        //mom.PlayPattern();
+        mom.StopActions();
+        dad.StopActions();
     }
 
     protected override IEnumerator StartLevelObject()
     {
+        dad.MoveTo(televisionPosition, 2);
+        mom.PlayPattern();
         brokenChest.gameObject.SetActive(false);
         seau.gameObject.SetActive(false);
 
         yield return SaySomething("Il faut que j'aille au rez de chaussée pour sortir !");
 
         StartCoroutine(ManageDog());
-
-        // On attend que le joueur est coupé le courant
-        yield return WaitForEvent(poweroff);
-        tele.gameObject.SetActive(false);
-        dad.MoveTo(poweroff.transform.position);
-        
-        yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
-
-        while (dad.MovementHelper().IsMovementFinished())
-        {
-            yield return null;
-        }
-
-        yield return new WaitForSeconds(4);
-        yield return SaySomething("Papa : C'est bon le courant est revenu !");
-        dad.PlayPattern();
-
-        // On attend que le joueur ait passé la porte de la chambre des parents
-        yield return WaitForEvent(parentRoomDoor);
-        yield return SaySomething("Le carnet doit se situer quelque part ici, il faut que je cherche !");
+        StartCoroutine(PowerOff());
 
         // Une fois qu'il a récupéré le carnet
         yield return WaitForItemInInventory("Carnet");
@@ -59,7 +44,7 @@ public class FirstMission : Mission
         player.inventory.ItemUsed("Carnet");
         chest.textToHelp = "Pourquoi le code ne marche pas ?";
 
-        StartCoroutine();
+        StartCoroutine(ManageParent());
 
         // Le seau était disable pour éviter de faire le generator avant le reste
         seau.gameObject.SetActive(true);
@@ -99,6 +84,52 @@ public class FirstMission : Mission
         _alreadyInside = false;
     }
 
+    private IEnumerator PassDoor()
+    {
+        yield return WaitForEvent(parentRoomDoor);
+        yield return SaySomething("Le carnet doit se situer quelque part ici, il faut que je cherche !");
+        _passDoor = false;
+    }
+
+    private IEnumerator PowerOff()
+    {
+        StartCoroutine(PassDoor());
+
+        // On attend que le joueur ait passé la porte de la chambre des parents
+        while (!_passDoor)
+        {
+            // On attend que le joueur est coupé le courant
+            yield return WaitForEvent(poweroff);
+            player.SetLastEvent(null);
+            tele.gameObject.SetActive(false);
+
+            yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
+            dad.MoveTo(poweroff.transform.position, 1);
+
+            while (!dad.MovementHelper().IsMovementFinished())
+            {
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(4);
+            yield return SaySomething("Papa : C'est bon le courant est revenu !");
+            poweroff.cannotDoEventAnymore = false;
+            dad.MoveTo(televisionPosition, 2);
+
+            while (!dad.MovementHelper().IsMovementFinished())
+            {
+                yield return null;
+            }
+
+            if (!_passDoor)
+            {
+                tele.gameObject.SetActive(true);
+            }
+        }
+
+        dad.PlayPattern();
+    }
+
     private IEnumerator ManageParent()
     {
         while (player.GetLastEvent() != chest)
@@ -106,10 +137,10 @@ public class FirstMission : Mission
             yield return null;
         }
         
-        dad.MoveTo(chest.transform.position);
-        mom.MoveTo(chest.transform.position);
+        dad.MoveTo(chest.transform.position, 1);
+        mom.MoveTo(chest.transform.position, 1);
 
-        while (dad.MovementHelper().IsMovementFinished() ||mom.MovementHelper().IsMovementFinished())
+        while (!dad.MovementHelper().IsMovementFinished() || !mom.MovementHelper().IsMovementFinished())
         {
             yield return null;
         }
@@ -142,4 +173,5 @@ public class FirstMission : Mission
 
     private SoundEmiter _dog;
     private bool _alreadyInside;
+    private bool _passDoor;
 }
