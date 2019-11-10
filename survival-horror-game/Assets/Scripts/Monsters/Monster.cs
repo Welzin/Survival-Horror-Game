@@ -40,7 +40,28 @@ public class Monster : Listener
         base.Update();
         // Search if the player emits light every frame
         SearchForLight();
-        SearchForSound();
+        SearchForSound(); 
+        ChangeStateDependingOnPlayer();
+    }
+
+    private void ChangeStateDependingOnPlayer()
+    {
+        PlayerManager player = FindObjectOfType<PlayerManager>();
+        if(player != null)
+        {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            BoxCollider2D collider = GetComponent<BoxCollider2D>();
+            if (player.CurrentFloor == currentFloor)
+            {
+                if(!sr.enabled) sr.enabled = true;
+                if (!collider.enabled) collider.enabled = true;
+            }
+            else
+            {
+                if (sr.enabled) sr.enabled = false;
+                if (collider.enabled) collider.enabled = false;
+            }
+        }
     }
     
     /// <summary>
@@ -201,7 +222,11 @@ public class Monster : Listener
             if (noise.floor != currentFloor)
                 dest += new Vector2(15, 15);
             if(Vector2.Distance(transform.position, dest) < Vector2.Distance(transform.position, _move.Target()))
+            {
+                if (noise.floor != currentFloor)
+                    dest -= new Vector2(15, 15);
                 newTarget = dest;
+            }
         }
         if(newTarget.x != float.MaxValue && newTarget.y != float.MaxValue)
         {
