@@ -52,7 +52,6 @@ public class PanicManager : MonoBehaviour
         if(!_player.inventory.HaveLamp())
         {
             MakePlayerRun();
-            Invoke("StopMovement", 4);
         }
         else if (!_player.lamp.Active)
         {
@@ -65,7 +64,7 @@ public class PanicManager : MonoBehaviour
                     _player.ReloadLamp();
                     _player.ToggleLamp();
                 }
-                else
+                else 
                     MakePlayerRun();
             }
         }
@@ -97,6 +96,7 @@ public class PanicManager : MonoBehaviour
         //Debug.Log(destination);
         if (destination != null)
             MoveToward(destination);
+        Invoke("StopMovement", 4);
     }
 
     private Vector2 CheckForSound(List<Noise> noiseHeard)
@@ -184,7 +184,6 @@ public class PanicManager : MonoBehaviour
         if(_player.inventory.HaveTeddy())
         {
             StartCoroutine(_player.HugTeddy());
-            Invoke("ResetPanic", _player.timeToHugTeddy + 1);
         }
     }
 

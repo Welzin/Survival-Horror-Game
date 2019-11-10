@@ -198,17 +198,29 @@ public class Monster : Listener
 
     private void SearchForSound()
     {
+        Vector2 newTarget = new Vector2(float.MaxValue, float.MaxValue);
         foreach (Noise noise in AllNoiseHeard())
         {
             Vector2 dest = GetOrigin(noise);
-            SetTarget(dest);
+            // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
+            if (noise.floor != currentFloor)
+                dest += new Vector2(15, 15);
+            if(Vector2.Distance(transform.position, dest) < Vector2.Distance(transform.position, _move.Target()))
+                newTarget = dest;
+        }
+        if(newTarget.x != float.MaxValue && newTarget.y != float.MaxValue)
+        {
+            SetTarget(newTarget);
+        }
+        else
+        {
+            if (_move.IsNear(transform.position, _move.Target()))
+                ResetTarget();
         }
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
     public float lightDetectionRange = 1f;
-    // Draws a circle and checks if the monster hears a sound (not limited by sight)
-    public float soundDetectionRange = 1f;
     // Patterns of the monster when there are no target
     public List<Pattern> movementPattern;
     public float speed = 1f;

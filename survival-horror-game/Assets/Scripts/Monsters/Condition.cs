@@ -53,7 +53,8 @@ public class MonsterEditor : Editor
     {
         serializedObject.Update();
         EditorGUILayout.PropertyField(serializedObject.FindProperty("lightDetectionRange"), new GUIContent("Range of light detection"), true);
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("soundDetectionRange"), new GUIContent("Range of sound detection"), true);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("
+        "), new GUIContent("Range of sound detection"), true);
         EditorGUILayout.HelpBox("The field 'Interval Until Next Action' will be called after the end of the current movement", MessageType.Info);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("movementPattern"), new GUIContent("Patterns"), true);
         EditorGUILayout.PropertyField(serializedObject.FindProperty("speed"), new GUIContent("Monster's speed"), true);

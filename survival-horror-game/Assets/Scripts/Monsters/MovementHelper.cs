@@ -237,7 +237,7 @@ public class MovementHelper : MonoBehaviour
     /// <param name="position">Position to check</param>
     /// <param name="goal">Goal to check</param>
     /// <returns>True if the position and node are near</returns>
-    private bool IsNear(Vector2 position, Vector2 goal)
+    public bool IsNear(Vector2 position, Vector2 goal)
     {
         return Mathf.Abs(goal.x - position.x) <= _errorPercentage && Mathf.Abs(goal.y - position.y) <= _errorPercentage;
     }
@@ -271,6 +271,8 @@ public class MovementHelper : MonoBehaviour
     {
         return _isMovementFinished;
     }
+
+    public Vector2 Target() => _target;
 
     /// <summary>
     /// Call this function to get the current destination
