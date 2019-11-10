@@ -23354,8 +23354,6 @@ Transform:
   m_Father: {fileID: 107684471}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!43 &613324638
 Mesh:
   m_ObjectHideFlags: 0
@@ -38856,7 +38854,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
->>>>>>> Ajouts
 --- !u!1001 &941840563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47078,11 +47075,7 @@ Mesh:
     offset: 0
     size: 0
     path: 
-<<<<<<< HEAD
 --- !u!43 &1224688298
-=======
---- !u!43 &1228570794
->>>>>>> Ajouts
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47099,13 +47092,8 @@ Mesh:
     firstVertex: 0
     vertexCount: 4
     localAABB:
-<<<<<<< HEAD
       m_Center: {x: -0.002888918, y: 1.122, z: 0}
       m_Extent: {x: 0.64, y: 1.28, z: 0}
-=======
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0.64, y: 0.64, z: 0}
->>>>>>> Ajouts
   m_Shapes:
     vertices: []
     shapes: []
@@ -47184,11 +47172,7 @@ Mesh:
       format: 0
       dimension: 0
     m_DataSize: 240
-<<<<<<< HEAD
     _typelessdata: 5e9424bfc0ca21be000000000000803f0000000000000000000000003f87543f6b5e143e6b5e143e0000003f00000000000000000000000000000000b619233fc0ca21be000000000000803f0000000000000000000000003f87543f6b5e143e6b5e143e0000003f0000803f0000000000000000000000005e9424bf5eba1940000000000000803f0000000000000000000000003f87543f6b5e143e6b5e143e0000003f000000000000803f0000000000000000b619233f5eba1940000000000000803f0000000000000000000000003f87543f6b5e143e6b5e143e0000003f0000803f0000803f0000000000000000
-=======
-    _typelessdata: 0ad723bf0ad723bf000000000000803f000000000000000000000000b8b24f3fc5dd4a3ffa3e353f0000003f000000000000000000000000000000000ad7233f0ad723bf000000000000803f000000000000000000000000b8b24f3fc5dd4a3ffa3e353f0000003f0000803f0000000000000000000000000ad723bf0ad7233f000000000000803f000000000000000000000000b8b24f3fc5dd4a3ffa3e353f0000003f000000000000803f00000000000000000ad7233f0ad7233f000000000000803f000000000000000000000000b8b24f3fc5dd4a3ffa3e353f0000003f0000803f0000803f0000000000000000
->>>>>>> Ajouts
   m_CompressedMesh:
     m_Vertices:
       m_NumItems: 0
@@ -47242,13 +47226,8 @@ Mesh:
       m_BitSize: 0
     m_UVInfo: 0
   m_LocalAABB:
-<<<<<<< HEAD
     m_Center: {x: -0.002888918, y: 1.122, z: 0}
     m_Extent: {x: 0.64, y: 1.28, z: 0}
-=======
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.64, y: 0.64, z: 0}
->>>>>>> Ajouts
   m_MeshUsageFlags: 0
   m_BakedConvexCollisionMesh: 
   m_BakedTriangleCollisionMesh: 
@@ -48115,11 +48094,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272808946}
-<<<<<<< HEAD
   m_Mesh: {fileID: 220891903}
-=======
-  m_Mesh: {fileID: 1584980101}
->>>>>>> Ajouts
 --- !u!23 &1272808950
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -48137,11 +48112,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-<<<<<<< HEAD
   - {fileID: 877706622}
-=======
-  - {fileID: 1844548403}
->>>>>>> Ajouts
   - {fileID: 1750699262}
   - {fileID: 1750699262}
   m_StaticBatchInfo:
@@ -48574,11 +48545,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1284512688}
-<<<<<<< HEAD
   m_Mesh: {fileID: 445340894}
-=======
-  m_Mesh: {fileID: 119058246}
->>>>>>> Ajouts
 --- !u!23 &1284512691
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -48596,11 +48563,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-<<<<<<< HEAD
   - {fileID: 877706622}
-=======
-  - {fileID: 1844548403}
->>>>>>> Ajouts
   - {fileID: 1750699262}
   - {fileID: 1750699262}
   m_StaticBatchInfo:
@@ -53094,7 +53057,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-<<<<<<< HEAD
 --- !u!1 &1440077562
 GameObject:
   m_ObjectHideFlags: 0
@@ -53220,8 +53182,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
-=======
->>>>>>> Ajouts
 --- !u!1 &1449550284
 GameObject:
   m_ObjectHideFlags: 0
@@ -54971,11 +54931,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522122337}
-<<<<<<< HEAD
   m_Mesh: {fileID: 1304715781}
-=======
-  m_Mesh: {fileID: 1206825129}
->>>>>>> Ajouts
 --- !u!23 &1522122341
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -54993,11 +54949,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-<<<<<<< HEAD
   - {fileID: 877706622}
-=======
-  - {fileID: 1844548403}
->>>>>>> Ajouts
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -55214,11 +55166,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540387771}
-<<<<<<< HEAD
   m_Mesh: {fileID: 805530876}
-=======
-  m_Mesh: {fileID: 2096370334}
->>>>>>> Ajouts
 --- !u!23 &1540387775
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -55236,11 +55184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-<<<<<<< HEAD
   - {fileID: 877706622}
-=======
-  - {fileID: 1844548403}
->>>>>>> Ajouts
   - {fileID: 1750699262}
   - {fileID: 1750699262}
   m_StaticBatchInfo:
@@ -56828,11 +56772,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587545084}
-<<<<<<< HEAD
   m_Mesh: {fileID: 1174052706}
-=======
-  m_Mesh: {fileID: 1666622011}
->>>>>>> Ajouts
 --- !u!23 &1587545088
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -56850,11 +56790,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-<<<<<<< HEAD
   - {fileID: 877706622}
-=======
-  - {fileID: 1844548403}
->>>>>>> Ajouts
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -58240,8 +58176,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
-<<<<<<< HEAD
-=======
 --- !u!21 &1660064291
 Material:
   serializedVersion: 6
@@ -58281,7 +58215,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Emission: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
->>>>>>> Ajouts
 --- !u!1001 &1661752975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85381,11 +85314,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755872207}
-<<<<<<< HEAD
   m_Mesh: {fileID: 924181997}
-=======
-  m_Mesh: {fileID: 191268542}
->>>>>>> Ajouts
 --- !u!23 &1755872210
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -85403,11 +85332,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-<<<<<<< HEAD
   - {fileID: 877706622}
-=======
-  - {fileID: 1844548403}
->>>>>>> Ajouts
   - {fileID: 1750699262}
   - {fileID: 1750699262}
   m_StaticBatchInfo:
@@ -92464,8 +92389,6 @@ Transform:
   m_Father: {fileID: 1694099100}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
-=======
 --- !u!43 &2058021914
 Mesh:
   m_ObjectHideFlags: 0
@@ -92629,7 +92552,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
->>>>>>> Ajouts
 --- !u!1001 &2059137739
 PrefabInstance:
   m_ObjectHideFlags: 0
