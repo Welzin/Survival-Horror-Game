@@ -41,7 +41,7 @@ public class Thunder : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(1, 3));
 
         _emiter.PlayCustomClip(Resources.Load<AudioClip>("Effects/Thunder/tonnerre" + random), 200);
-        _emiter.EmitSoundWave(200, 1, 4);
+        _emiter.EmitSoundWave(200, 1, 0.3f);
     }
 
     private IEnumerator NewLoopStrike(float intervalMin, float intervalMax)

@@ -173,6 +173,22 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void ManageStress()
     {
+        foreach (Noise noise in controller.AllNoiseHeard())
+        {
+            switch (noise.emiterType)
+            {
+                case NoiseType.Lightning:
+                    AddStress(4f * Time.deltaTime);
+                    break;
+                case NoiseType.Monster:
+                    AddStress(10f * Time.deltaTime);
+                    break;
+                case NoiseType.Ouaf:
+                    AddStress(10f * Time.deltaTime);
+                    break;
+            }
+        }
+
         float effectiveLight = 0;
 
         if (lamp.Active)
