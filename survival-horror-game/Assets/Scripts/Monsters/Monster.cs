@@ -271,6 +271,11 @@ public class Monster : Listener
         StopActions();
         _move.RunTowardTarget(position, floor);
     }
+    
+    public MovementHelper MovementHelper()
+    {
+        return _move;
+    }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
     public float lightDetectionRange = 1f;

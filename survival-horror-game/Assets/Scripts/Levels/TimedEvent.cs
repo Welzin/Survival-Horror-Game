@@ -26,6 +26,7 @@ public abstract class TimedEvent : Event
         }
         else
         {
+            Debug.Log("no");
             if (disableEventText != "")
                 player.Speak(disableEventText);
         }

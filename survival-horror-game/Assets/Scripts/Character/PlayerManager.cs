@@ -187,7 +187,7 @@ public class PlayerManager : MonoBehaviour
                         AddStress(10f * Time.deltaTime);
                     break;
                 case NoiseType.Ouaf:
-                    AddStress(10f * Time.deltaTime);
+                    AddStress(1f * Time.deltaTime);
                     break;
             }
         }
@@ -249,6 +249,7 @@ public class PlayerManager : MonoBehaviour
             // If the charachter start panicking
             if (!InPanic())
             {
+                StopAction();
                 StartCoroutine(_panicManager.StartPanicking());
             }
 
