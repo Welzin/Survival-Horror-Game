@@ -31,6 +31,7 @@ public class Monster : Listener
         else
         {
             // Do nothing atm
+            Invoke("PlayPattern", 1);
         }
     }
 
