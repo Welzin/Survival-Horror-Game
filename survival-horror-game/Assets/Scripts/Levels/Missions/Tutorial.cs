@@ -28,7 +28,7 @@ public class Tutorial : Mission
             + dd.GetKey(Controls.Down).Item1 + " "
             + dd.GetKey(Controls.Right).Item1 + " pour bouger.\n");
 
-        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(3);
 
         // Search lamp
         player.hud.helper.DisplayInfo("Pour récupérer un objet, appuyer sur " + dd.GetKey(Controls.Interact).Item1 + ". " +
@@ -51,7 +51,7 @@ public class Tutorial : Mission
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Attention, utiliser la lampe use des piles. Une fois la jauge de la lampe complètement perdue, " +
             "la lampe ne pourra plus s'allumer. Cette jauge est visible en haut à droite de l'écran, en jaune.");
-        yield return new WaitForSeconds(6);
+        //yield return new WaitForSeconds(6);
         yield return StartCoroutine(SaySomething("Il n'y a plus beaucoup de piles dans cette lampe, il doit y en avoir une dans mon coffre à jouer !"));
 
         // Search battery
@@ -75,11 +75,14 @@ public class Tutorial : Mission
         }
 
         player.hud.helper.StopDisplayingInfo();
-        yield return new WaitForSeconds(3);
+        //yield return new WaitForSeconds(3);
 
         // Apparition of the green light
         player.hud.transform.Find("HideOnCinematic/Stress").gameObject.SetActive(true);
         greenLight.SetIntensity(1f);
+        SoundEmiter emiter = greenLight.gameObject.AddComponent<SoundEmiter>();
+        yield return null;
+        emiter.PlayCustomClip(scream, 100);
         player.AddStress(player.maxStress);
 
         MusicManager m = FindObjectOfType<MusicManager>();
@@ -153,7 +156,7 @@ public class Tutorial : Mission
         yield return StartCoroutine(SaySomething("Bon, faut que je fasse attention quand même..."));
 
         player.hud.helper.DisplayInfo("Bienvenue dans l'aventure ! Rappelez vous de ne pas faire de bruit au risque de vous faire attraper, vous pouvez courir en utilisant " +
-            dd.GetKey(Controls.Run).Item1 + " mais attention, courir produit beaucoup plus de bruit !", 6);
+            dd.GetKey(Controls.Run).Item1 + " mais attention, courir produit beaucoup plus de bruit !", 10);
 
         Stop();
     }
@@ -171,4 +174,5 @@ public class Tutorial : Mission
     public ItemObject keyToOpenTheRoom;
     public ItemObject battery;
     public ItemObject teddy;
+    public AudioClip scream;
 }

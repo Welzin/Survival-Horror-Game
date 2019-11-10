@@ -8,7 +8,7 @@ public class Television : Light
     private void OnEnable()
     {
         _emiter = gameObject.AddComponent<SoundEmiter>();
-        radius = 10;
+        radius = 5;
     }
 
     private void Update()

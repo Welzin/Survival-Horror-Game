@@ -108,6 +108,7 @@ public class SoundEmiter : MonoBehaviour
     /// </summary>
     public void PlayCustomClip(AudioClip clip, float intensity = 5)
     {
+        Debug.Log(_soundOrigin);
         _currentPlayingSound = SoundType.Custom;
         _soundOrigin.clip = clip;
         _soundOrigin.maxDistance = intensity;

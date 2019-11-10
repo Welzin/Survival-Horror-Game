@@ -22,6 +22,8 @@ public class FirstMission : Mission
         // On attend que le joueur est coupé le courant
         yield return WaitForEvent(poweroff);
         tele.gameObject.SetActive(false);
+
+        StartCoroutine(ManagePoweroff());
         
         // On attend que le joueur ait passé la porte de la chambre des parents
         yield return WaitForEvent(parentRoomDoor);
@@ -73,6 +75,17 @@ public class FirstMission : Mission
     {
         yield return new WaitForSecondsRealtime(4f);
         _alreadyInside = false;
+    }
+
+    private IEnumerator ManagePoweroff()
+    {
+        while (player.GetLastEvent() != parentRoomDoor)
+        {
+            generator.cannotDoEventAnymore = false;
+            yield return null;
+        }
+
+        generator.cannotDoEventAnymore = true;
     }
     
     public Door mainDoor;

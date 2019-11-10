@@ -71,5 +71,5 @@ public abstract class TimedEvent : Event
     public string disableEventText;
     public bool disableEvent;
 
-    protected bool cannotDoEventAnymore;
+    public bool cannotDoEventAnymore;
 }

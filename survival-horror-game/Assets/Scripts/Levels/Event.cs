@@ -18,6 +18,14 @@ public abstract class Event : MonoBehaviour
             PlayEvent();
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (type == EventType.OnCollision && collision.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            PlayEvent();
+        }
+    }
     
     public EventType type;
 
