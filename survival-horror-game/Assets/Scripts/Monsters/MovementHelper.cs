@@ -168,9 +168,9 @@ public class MovementHelper : MonoBehaviour
     /// Goes towards the nearest node of the target, then pursue it.
     /// </summary>
     /// <param name="target"></param>
-    public void RunTowardTarget(Vector2 target)
+    public void RunTowardTarget(Vector2 target, int targetFloor)
     {
-        Node node = NearestNode(target, _mainScript.currentFloor);
+        Node node = NearestNode(target, targetFloor);
         float dist = Vector2.Distance(transform.position, target);
         // If the mob is closer than a node to the target, it can run on the target.
         // But if the mob is really close from the target, it will still run on the target and not stop.
