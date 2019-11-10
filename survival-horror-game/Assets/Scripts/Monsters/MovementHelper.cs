@@ -49,7 +49,7 @@ public class MovementHelper : MonoBehaviour
                 if (_currentPath.Count > 0)
                 {
                     // If it opened a door on the last node, close it
-                    if(_lastDoor != null)
+                    if (_lastDoor != null)
                     {
                         StartCoroutine(ChangeDoorState(_lastDoor, !_lastDoor.IsClosed()));
                         _lastDoor = null;
@@ -57,7 +57,7 @@ public class MovementHelper : MonoBehaviour
                     // Check if a door exists between the current and next node
                     Door door = _currentDestination.DoorBetweenNodes(_currentPath.Peek());
                     // If there is a door, checks if it can be opened without key
-                    if(door != null)
+                    if (door != null)
                     {
                         if (door.needAKey)
                         {
@@ -155,7 +155,7 @@ public class MovementHelper : MonoBehaviour
         {
             Node lastDest = _currentDestination;
             // Stores the first destination
-            while (_currentDestination == lastDest)
+            while (_currentDestination == lastDest && _currentPath.Count > 0)
             {
                 _currentDestination = _currentPath.Dequeue();
             } 

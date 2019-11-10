@@ -31,12 +31,19 @@ public class Node : MonoBehaviour
     public Door DoorBetweenNodes(Node other)
     {
         Door door = null;
-        Vector2 distance = other.Position() - Position();
-
-        RaycastHit2D hit = Physics2D.Raycast(Position(), distance.normalized, distance.magnitude, LayerMask.GetMask("Event"));
-        if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
-            door = hit.collider.gameObject.GetComponent<Door>();
-
+        //Vector2 distance = other.Position() - Position();
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.layerMask = LayerMask.GetMask("Event");
+        Physics2D.Linecast(Position(), other.Position(), filter, hits);
+        foreach(RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
+            {
+                door = hit.collider.gameObject.GetComponent<Door>();
+                break;
+            }
+        }
         return door;
     }
 }
