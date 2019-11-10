@@ -57,8 +57,7 @@ public class FirstMission : Mission
 
         while (player.GetLastEvent() != dogEat)
         {
-            Debug.Log((player.transform.position - niche.transform.position).magnitude);
-            if (!_alreadyInside && (player.transform.position - niche.transform.position).magnitude < 5f)
+            if (!_alreadyInside && player.CurrentFloor == 1 && (player.transform.position - niche.transform.position).magnitude < 5f)
             {
                 _alreadyInside = true;
                 _dog.PlayCustomClip(aboiement, 20);

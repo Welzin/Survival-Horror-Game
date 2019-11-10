@@ -130,7 +130,6 @@ public class Inventory
                 itemToDisplay.AddRange(_items);
 
                 _hud.DisplayItems(itemToDisplay);
-                _hud.DisplayItems(_items);
 
                 return;
             }
@@ -171,7 +170,7 @@ public class Utility : Item
 
 public class Key : Utility
 {
-    public Key(Sprite sprite, Door doorToOpen) : base(sprite, "a key")
+    public Key(Sprite sprite, Door doorToOpen) : base(sprite, "une clé")
     {
         _doorToOpen = doorToOpen;
     }
@@ -183,12 +182,12 @@ public class Key : Utility
 
 public class LampItem : Item
 {
-    public LampItem() : base("the lamp") {}
+    public LampItem() : base("la lampe") {}
 }
 
 public class Battery : Item
 {
-    public Battery() : base("a battery") {}
+    public Battery() : base("une batterie") {}
 }
 
 public class Teddy : Utility

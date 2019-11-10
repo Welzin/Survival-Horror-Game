@@ -11,6 +11,11 @@ public class Thunder : MonoBehaviour
         _loop = false;
 
         _allLightning = GetComponentsInChildren<Light>();
+
+        foreach (Light light in _allLightning)
+        {
+            light.SetIntensity(0);
+        }
     }
 
     public void Strike()

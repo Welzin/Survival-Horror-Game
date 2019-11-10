@@ -13,6 +13,7 @@ public enum NoiseType
     Lightning,
     Search,
     Ouaf,
+    Event,
 }
 
 /// <summary>

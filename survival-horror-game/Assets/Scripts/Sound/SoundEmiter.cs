@@ -60,7 +60,7 @@ public class SoundEmiter : MonoBehaviour
     /// </summary>
     public void StopEffect()
     {
-        if(_soundOrigin.isPlaying)
+        if (_soundOrigin.isPlaying)
         {
             _soundOrigin.Stop();
         }

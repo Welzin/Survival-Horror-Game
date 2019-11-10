@@ -33,6 +33,9 @@ public class ItemObject : TimedEvent
                 item = new Teddy();
                 break;
         }
+
+        _emiter = gameObject.AddComponent<SoundEmiter>();
+        _emiter.SetNoiseEmited(NoiseType.Search);
     }
 
     protected override bool ConditionsToRespect()
@@ -46,6 +49,11 @@ public class ItemObject : TimedEvent
 
     protected override void WhatToDoBeforeEvent()
     {
+        if (searchAudio != null)
+        {
+            _emiter.PlayCustomClip(searchAudio, intensitySoundMake);
+            _emiter.EmitSoundWave(intensitySoundMake, player.CurrentFloor, eventTime);
+        }
     }
 
     protected override void WhatToDoAfterEvent()
@@ -59,6 +67,7 @@ public class ItemObject : TimedEvent
 
     protected override void WhatToDoOnEventInterruption()
     {
+        _emiter.StopEffect();
     }
 
     public Item item;
@@ -66,4 +75,8 @@ public class ItemObject : TimedEvent
     public string itemName = "";
     public Sprite sprite;
     public Door doorForTheKey;
+    public AudioClip searchAudio;
+    public float intensitySoundMake;
+
+    private SoundEmiter _emiter;
 }
