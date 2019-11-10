@@ -24,6 +24,8 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         Move();
+
+        _emiter.EmitSoundWave(1, _currentFloor, 0.1f);
         
         // If we are in a cinematic or te player is speaking, he cannot have more stress (because he cannot move)
         if (levelManager.CinematicStarted() || IsSpeaking())
