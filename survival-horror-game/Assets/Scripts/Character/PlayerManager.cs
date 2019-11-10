@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -36,6 +37,15 @@ public class PlayerManager : MonoBehaviour
         {
             hud.batteryBar.ChangeBatteryPercentage(lamp.actualBattery / lamp.maxBattery * 100);
         }
+    }
+
+    /// <summary>
+    /// What happens on game over
+    /// </summary>
+    public void GameOver()
+    {
+        FindObjectOfType<MusicManager>().StopMusic();
+        SceneManager.LoadScene(gameOverScene);
     }
 
     /// <summary>
@@ -308,6 +318,7 @@ public class PlayerManager : MonoBehaviour
     // Noise range propagation when walking
     public float walkingNoise = 2f;
     public AudioSource heartbeat;
+    public string gameOverScene;
 
     private float _actualStress;
     private bool _huggingTeddy;

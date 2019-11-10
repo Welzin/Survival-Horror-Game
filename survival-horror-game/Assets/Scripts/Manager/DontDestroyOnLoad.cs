@@ -21,13 +21,14 @@ public class DontDestroyOnLoad : MonoBehaviour
         _soundPower = 1;
         _musicPower = 1;
         _allKeys = new Dictionary<Controls, (KeyCode, KeyCode)>();
+        _tutorialDone = false;
 
         AssignKey(Controls.Left, KeyCode.Q, KeyCode.LeftArrow);
         AssignKey(Controls.Right, KeyCode.D, KeyCode.RightArrow);
         AssignKey(Controls.Up, KeyCode.Z, KeyCode.UpArrow);
         AssignKey(Controls.Down, KeyCode.S, KeyCode.DownArrow);
         AssignKey(Controls.Lamp, KeyCode.A, KeyCode.Mouse0);
-        AssignKey(Controls.Run, KeyCode.LeftControl, KeyCode.None);
+        AssignKey(Controls.Run, KeyCode.LeftControl, KeyCode.LeftShift);
         AssignKey(Controls.Interact, KeyCode.E, KeyCode.Mouse1);
         AssignKey(Controls.Reload, KeyCode.R, KeyCode.None);
         AssignKey(Controls.HugTeddy, KeyCode.F, KeyCode.None);
@@ -62,7 +63,7 @@ public class DontDestroyOnLoad : MonoBehaviour
     public float GetMusicVolume()
     {
         return _musicPower;
-    }    
+    }   
     
     public void SetEffectsVolume(float volume)
     {
@@ -82,7 +83,10 @@ public class DontDestroyOnLoad : MonoBehaviour
         }
     }
 
+    public bool TutorialDone { get { return _tutorialDone; } set { _tutorialDone = value; } }
+
     private Dictionary<Controls, (KeyCode, KeyCode)> _allKeys;
     private float _soundPower;
     private float _musicPower;
+    private bool _tutorialDone;
 }

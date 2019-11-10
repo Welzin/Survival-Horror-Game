@@ -20,6 +20,8 @@ public class LevelManager : MonoBehaviour
                 return true;
         }
 
+        elementsToHideOnCinematic.SetActive(true);
+
         return false;
     }
 
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
             if (cinematic.levelObjectName == name)
             {
                 cinematic.Launch();
+                elementsToHideOnCinematic.SetActive(false);
                 return;
             }
         }
@@ -65,18 +68,28 @@ public class LevelManager : MonoBehaviour
     {
         MusicManager m = FindObjectOfType<MusicManager>();
         SoundManager s = FindObjectOfType<SoundManager>();
+        DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
         m.UpdateMusic(0);
         m.PlayLoop(2);
         m.ChangeVolume(0.1f);
         s.UpdateSoundVolume(0.1f);
 
+        // Start in the bed
+        _playerManager.transform.position = initialPosition;
+
         // We play the intro cinematic
         yield return null;
-        //StartCinematic("Intro");
-        yield return WaitEndCinematic();
 
-        //StartMission("Tutorial");
-        yield return WaitEndMission("Tutorial");
+        if (!dd.TutorialDone)
+        {
+            StartCinematic("Intro");
+            yield return WaitEndCinematic();
+
+            StartMission("Tutorial");
+            yield return WaitEndMission("Tutorial");
+            dd.TutorialDone = true;
+        }
+
         StartMission("First mission");
     }
 
@@ -107,4 +120,7 @@ public class LevelManager : MonoBehaviour
     private Cinematic[] _cinematics;
     private Mission[] _missions;
     private PlayerManager _playerManager;
+
+    public Vector3 initialPosition;
+    public GameObject elementsToHideOnCinematic;
 }

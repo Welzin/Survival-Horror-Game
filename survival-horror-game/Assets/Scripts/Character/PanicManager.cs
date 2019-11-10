@@ -196,10 +196,7 @@ public class PanicManager : MonoBehaviour
         }
         if(timer == time)
         {
-            Debug.Log("GameOver!!");
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#endif
+            _player.GameOver();
         }
     }
 

@@ -11,9 +11,6 @@ public abstract class LevelObject : MonoBehaviour
 
     public void Launch()
     {
-        if (this is Cinematic)
-            player.hud.gameObject.SetActive(false);
-
         _isLaunched = true;
         StartCoroutine(StartLevelObject());
     }
@@ -27,9 +24,6 @@ public abstract class LevelObject : MonoBehaviour
     protected abstract IEnumerator StartLevelObject();
     protected void Stop()
     {
-        if (this is Cinematic)
-            player.hud.gameObject.SetActive(true);
-
         _isLaunched = false;
     }
 

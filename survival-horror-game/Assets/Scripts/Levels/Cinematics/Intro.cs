@@ -12,9 +12,6 @@ public class Intro : Cinematic
     {
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
 
-        // Start in the bed
-        player.transform.position = initialPosition;
-
         // Thunder begin
         yield return new WaitForSeconds(1);
         player.hud.helper.DisplayInfo("Appuyer sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
@@ -40,7 +37,7 @@ public class Intro : Cinematic
         yield return new WaitForSeconds(0.5f);
 
         // Return at bed
-        yield return StartCoroutine(MoveTo(initialPosition, LookAt.DOWN));
+        yield return StartCoroutine(MoveTo(bedPosition, LookAt.DOWN));
         yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir... Maintenant"));
         yield return StartCoroutine(SaySomething("Je ne sais pas quoi faire"));
         yield return StartCoroutine(SaySomething("..."));
@@ -70,6 +67,6 @@ public class Intro : Cinematic
 
     public Light bedsideLamp;
     public Thunder lightning;
-    public Vector3 initialPosition;
+    public Vector3 bedPosition;
     public Vector3 lampTurnOnPosition;
 }
