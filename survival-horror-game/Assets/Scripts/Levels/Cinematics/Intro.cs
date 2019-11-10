@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Intro : Cinematic
 {
-    private void Update()
+    public void ToDoIfNoIntro()
     {
+        lightning.StartLoopStrike(8, 12);
     }
 
     protected override IEnumerator StartLevelObject()

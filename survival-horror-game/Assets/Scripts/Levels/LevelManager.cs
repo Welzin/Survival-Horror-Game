@@ -92,6 +92,11 @@ public class LevelManager : MonoBehaviour
             yield return WaitEndMission("Tutorial");
             dd.TutorialDone = true;
         }
+        else
+        {
+            FindObjectOfType<Intro>().ToDoIfNoIntro();
+            FindObjectOfType<Tutorial>().ToDoIfNoIntro();
+        }
 
         // Reset all to begin values
         _playerManager.AddStress(-_playerManager.maxStress);
