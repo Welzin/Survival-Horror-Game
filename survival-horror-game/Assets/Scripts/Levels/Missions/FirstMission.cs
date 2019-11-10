@@ -17,8 +17,8 @@ public class FirstMission : Mission
     private IEnumerator BeginPattern()
     {
         yield return new WaitForSeconds(1);
-        //mom.StopActions();
-        //dad.StopActions();
+        mom.StopActions();
+        dad.StopActions();
     }
 
     protected override IEnumerator StartLevelObject()
@@ -99,34 +99,28 @@ public class FirstMission : Mission
         // On attend que le joueur ait passé la porte de la chambre des parents
         while (!_passDoor)
         {
+            Debug.Log("pass");
             // On attend que le joueur est coupé le courant
-            while (poweroff != player.GetLastEvent() && !_passDoor)
+            yield return WaitForEvent(poweroff);
+            player.SetLastEvent(null);
+            tele.gameObject.SetActive(false);
+
+            yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
+            dad.MoveTo(poweroff.transform.position, 1);
+
+            while (!dad.MovementHelper().IsMovementFinished())
             {
                 yield return null;
             }
 
-            if (_passDoor)
+            yield return new WaitForSeconds(4);
+            yield return SaySomething("Papa : C'est bon le courant est revenu !");
+            poweroff.cannotDoEventAnymore = false;
+            dad.MoveTo(televisionPosition, 2);
+
+            while (!dad.MovementHelper().IsMovementFinished())
             {
-                player.SetLastEvent(null);
-                tele.gameObject.SetActive(false);
-
-                yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
-                dad.MoveTo(poweroff.transform.position, 1);
-
-                while (!dad.MovementHelper().IsMovementFinished())
-                {
-                    yield return null;
-                }
-
-                yield return new WaitForSeconds(4);
-                yield return SaySomething("Papa : C'est bon le courant est revenu !");
-                poweroff.cannotDoEventAnymore = false;
-                dad.MoveTo(televisionPosition, 2);
-
-                while (!dad.MovementHelper().IsMovementFinished())
-                {
-                    yield return null;
-                }
+                yield return null;
             }
 
             if (!_passDoor)
