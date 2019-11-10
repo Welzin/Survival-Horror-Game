@@ -90,6 +90,10 @@ public class FirstMission : Mission
         yield return WaitForEvent(parentRoomDoor);
         yield return SaySomething("Le carnet doit se situer quelque part ici, il faut que je cherche !");
         _passDoor = true;
+
+        poweroff.cannotDoEventAnymore = true;
+        tele.gameObject.SetActive(false);
+        dad.PlayPattern();
     }
 
     private IEnumerator PowerOff()
@@ -99,8 +103,7 @@ public class FirstMission : Mission
         // On attend que le joueur ait passé la porte de la chambre des parents
         while (!_passDoor)
         {
-            Debug.Log("pass");
-            // On attend que le joueur est coupé le courant
+            // On attend que le joueur ait coupé le courant
             yield return WaitForEvent(poweroff);
             player.SetLastEvent(null);
             tele.gameObject.SetActive(false);
@@ -118,19 +121,11 @@ public class FirstMission : Mission
             poweroff.cannotDoEventAnymore = false;
             dad.MoveTo(televisionPosition, 2);
 
-            while (!dad.MovementHelper().IsMovementFinished())
-            {
-                yield return null;
-            }
-
             if (!_passDoor)
             {
                 tele.gameObject.SetActive(true);
             }
         }
-
-        tele.gameObject.SetActive(false);
-        dad.PlayPattern();
     }
 
     private IEnumerator ManageParent()

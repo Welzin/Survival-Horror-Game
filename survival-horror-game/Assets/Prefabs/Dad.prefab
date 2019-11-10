@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _allNoiseListened: 00000000030000000400000005000000
-  _hearRange: 1
-  lightDetectionRange: 1
+  _hearRange: 3
+  lightDetectionRange: 3
   movementPattern:
   - goTo: {fileID: 0}
     intervalUntilNextAction: 1
@@ -170,7 +170,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.28}
+  m_Offset: {x: 0, y: -0.24087206}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -181,7 +181,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.08}
+  m_Size: {x: 0.24, y: 0.15825588}
   m_EdgeRadius: 0
 --- !u!50 &5193105020184388830
 Rigidbody2D:
