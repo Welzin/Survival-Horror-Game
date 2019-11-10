@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Thunder : Light
+public class Thunder : MonoBehaviour
 {
     private void Start()
     {
         _emiter = gameObject.AddComponent<SoundEmiter>();
+        _emiter.SetNoiseEmited(NoiseType.Lightning);
         _loop = false;
 
-        if (loopOnStart)
-            StartLoopStrike(intervalMinimum, intervalMaximum);
+        _allLightning = GetComponentsInChildren<Light>();
     }
 
     public void Strike()
@@ -35,7 +35,8 @@ public class Thunder : Light
         StartCoroutine(StartWink(10, 15, 25));
         yield return new WaitForSeconds(Random.Range(1, 3));
 
-        _emiter.PlayCustomClip(Resources.Load<AudioClip>("Effects/Thunder/tonnerre" + random));
+        _emiter.PlayCustomClip(Resources.Load<AudioClip>("Effects/Thunder/tonnerre" + random), 200);
+        _emiter.EmitSoundWave(200, 1, 4);
     }
 
     private IEnumerator NewLoopStrike(float intervalMin, float intervalMax)
@@ -47,10 +48,44 @@ public class Thunder : Light
         }
     }
 
+    public IEnumerator StartWink(float minFrequency, float maxFrequency, int numberOfWink, float minValue = 0f, float maxValue = 1f)
+    {
+        bool intensify = true;
+
+        for (int i = 0; i <= numberOfWink; i++)
+        {
+            if (_allLightning.Length == 0)
+                break;
+
+            float actualIntensity = _allLightning[0].intensity;
+            float newIntensity;
+
+            if (intensify)
+            {
+                newIntensity = Random.Range(actualIntensity, maxValue);
+            }
+            else
+            {
+                newIntensity = Random.Range(minValue, actualIntensity);
+            }
+
+            foreach (Light light in _allLightning)
+            {
+                light.SetIntensity(newIntensity);
+            }
+
+            intensify = !intensify;
+            yield return new WaitForSeconds(1f / Random.Range(minFrequency, maxFrequency));
+        }
+
+        foreach (Light light in _allLightning)
+        {
+            light.SetIntensity(0);
+        }
+    }
+
     private SoundEmiter _emiter;
     private bool _loop;
 
-    public bool loopOnStart;
-    public float intervalMinimum;
-    public float intervalMaximum;
+    private Light[] _allLightning;
 }

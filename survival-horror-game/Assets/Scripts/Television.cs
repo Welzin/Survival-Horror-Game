@@ -5,11 +5,10 @@ using Light2D;
 
 public class Television : Light
 {
-    private void Start()
+    private void OnEnable()
     {
         _emiter = gameObject.AddComponent<SoundEmiter>();
         radius = 10;
-        base.Start();
     }
 
     private void Update()
@@ -23,7 +22,7 @@ public class Television : Light
         {
             StartCoroutine(StartWink(10, 15, int.MaxValue, 0.001f, 0.002f, true));
             StartCoroutine(ChangeColor());
-            _emiter.PlayCustomClip(televisionShow);
+            _emiter.PlayCustomClip(televisionShow, 10);
         }
     }
 

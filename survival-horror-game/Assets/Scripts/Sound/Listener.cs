@@ -10,7 +10,8 @@ public enum NoiseType
 {
     Player,
     Monster,
-    Environment,
+    Lightning,
+    Search,
 }
 
 /// <summary>

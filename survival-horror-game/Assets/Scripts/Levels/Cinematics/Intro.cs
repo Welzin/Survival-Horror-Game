@@ -22,13 +22,11 @@ public class Intro : Cinematic
 
         // Some text
         yield return new WaitForSeconds(6);
-        lightning.Strike();
+        lightning.StartLoopStrike(8, 12);
         yield return new WaitForSeconds(2);
         yield return StartCoroutine(SaySomething("Aaaah !"));
         yield return StartCoroutine(SaySomething("Qu'est ce que c'est ?"));
         yield return StartCoroutine(SaySomething("J'ai peur de l'orage !!!"));
-
-        lightning.StartLoopStrike(8, 12);
 
         // Turn on the light
         yield return StartCoroutine(MoveTo(lampTurnOnPosition, LookAt.RIGHT));

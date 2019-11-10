@@ -12,10 +12,11 @@ public class FirstMission : Mission
         yield return SaySomething("Il faut que j'aille au rez de chaussée pour sortir !");
 
         // On attend que le joueur est coupé le courant
-        //yield return WaitForEvent(poweroff);
+        yield return WaitForEvent(poweroff);
         tele.gameObject.SetActive(false);
         
-        //yield return WaitForEvent(parentRoomDoor);
+        // On attend que le joueur ait passé la porte de la chambre des parents
+        yield return WaitForEvent(parentRoomDoor);
         yield return SaySomething("Le carnet doit se situer quelque part ici, il faut que je cherche !");
 
         // Une fois qu'il a récupéré le carnet

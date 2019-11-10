@@ -6,9 +6,9 @@ public class Tutorial : Mission
 {
     void Start()
     {
-        battery.gameObject.SetActive(false);
-        keyToOpenTheRoom.gameObject.SetActive(false);
-        teddy.gameObject.SetActive(false);
+        //battery.gameObject.SetActive(false);
+        //keyToOpenTheRoom.gameObject.SetActive(false);
+        //teddy.gameObject.SetActive(false);
     }
 
     protected override IEnumerator StartLevelObject()
