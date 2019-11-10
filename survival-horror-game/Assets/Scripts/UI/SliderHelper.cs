@@ -9,23 +9,28 @@ public class SliderHelper : MonoBehaviour
     private void Awake()
     {
         _dd = FindObjectOfType<DontDestroyOnLoad>();
+        musicsSlider.value = _dd.GetMusicVolume();
+        effectsSlider.value = _dd.GetEffectsVolume();
     }
 
     public void UpdateSoundEffects()
     {
-        _dd.SetEffectsVolume(gameObject.GetComponent<Slider>().value);
-        UpdateText();
+        _dd.SetEffectsVolume(effectsSlider.value);
+        UpdateText(effectsSlider);
     }
     public void UpdateMusic()
     {
-        _dd.SetMusicVolume(gameObject.GetComponent<Slider>().value);
-        UpdateText();
+        _dd.SetMusicVolume(musicsSlider.value);
+        UpdateText(musicsSlider);
     }
 
-    private void UpdateText()
+    private void UpdateText(Slider slider)
     {
-        transform.GetChild(3).GetComponent<Text>().text = String.Format("{0:0.00}", gameObject.GetComponent<Slider>().value);
+        slider.GetComponentInChildren<Text>().text = String.Format("{0:0.00}", slider.value);
     }
 
     private DontDestroyOnLoad _dd;
+
+    public Slider musicsSlider;
+    public Slider effectsSlider;
 }

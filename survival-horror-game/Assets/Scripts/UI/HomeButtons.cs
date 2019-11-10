@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class HomeButtons : MonoBehaviour
 {
+    private void Start()
+    {
+        MusicManager m = FindObjectOfType<MusicManager>();
+        // Plays first music of the manager when starting
+        m.UpdateMusic(0);
+        m.PlayLoop();
+    }
+
     public void Play()
     {
         FindObjectOfType<MusicManager>().StopMusic();

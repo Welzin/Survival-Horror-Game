@@ -18,6 +18,9 @@ public class DontDestroyOnLoad : MonoBehaviour
 {
     void Awake()
     {
+        if (FindObjectsOfType<DontDestroyOnLoad>().Length > 1)
+            Destroy(gameObject);
+
         _soundPower = 1;
         _musicPower = 1;
         _allKeys = new Dictionary<Controls, (KeyCode, KeyCode)>();

@@ -10,9 +10,6 @@ public class MusicManager : MonoBehaviour
     private void Start()
     {
         _currentMusic = gameObject.AddComponent<AudioSource>();
-        // Plays first music of the manager when starting
-        UpdateMusic(0);
-        PlayLoop();
     }
 
     /// <summary>
