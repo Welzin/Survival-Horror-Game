@@ -13,6 +13,12 @@ public class SoundManager : MonoBehaviour
         _soundEmiters = new List<SoundEmiter>();
     }
 
+    private void OnLevelWasLoaded()
+    {
+        _listeners = new List<Listener>();
+        _soundEmiters = new List<SoundEmiter>();
+    }
+
     /// <summary>
     /// Adds a listener to the list of objects to be notified when there is a sound
     /// </summary>
