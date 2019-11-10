@@ -312,6 +312,14 @@ public class PlayerManager : MonoBehaviour
         _arrived = true;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.GetComponent<Monster>())
+        {
+            GameOver();
+        }
+    }
+
     // The lamp handle
     public Lamp lamp;
     // The body which will turn
