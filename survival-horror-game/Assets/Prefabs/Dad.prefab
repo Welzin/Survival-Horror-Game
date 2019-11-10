@@ -118,7 +118,6 @@ MonoBehaviour:
   _allNoiseListened: 
   _hearRange: 1
   lightDetectionRange: 1
-  soundDetectionRange: 1
   movementPattern: []
   speed: 1
   targetBehaviour: 0
@@ -146,7 +145,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.28}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,7 +156,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.36, y: 0.66}
+  m_Size: {x: 0.24, y: 0.08}
   m_EdgeRadius: 0
 --- !u!50 &5021377314732606117
 Rigidbody2D:
