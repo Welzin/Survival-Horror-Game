@@ -340,6 +340,14 @@ public class MovementHelper : MonoBehaviour
         }
     }
 
+    public void Stop()
+    {
+        _currentDestination = null;
+        _currentPath.Clear();
+        _isMovementFinished = true;
+        _animator.SetInteger("Mouvement", 0);
+    }
+
     // All nodes in the pathfinder network
     private Node[] _allNodes;
     // Current path is saved here

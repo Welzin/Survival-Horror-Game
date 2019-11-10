@@ -37,16 +37,19 @@ public class Listener : MonoBehaviour
     {
         List<Noise> buffer = new List<Noise>();
         // Checks if there is any sound which is finished in the list. 
-        foreach(Noise noise in _allNoisesHeard.Keys)
+        if(_allNoisesHeard.Count > 0)
         {
-            if(noise.duration <= 0)
+            foreach (Noise noise in _allNoisesHeard.Keys)
             {
-                buffer.Add(noise);
+                if (noise.duration <= 0)
+                {
+                    buffer.Add(noise);
+                }
             }
-        }
-        foreach(Noise noise in buffer)
-        {
-            _allNoisesHeard.Remove(noise);
+            foreach (Noise noise in buffer)
+            {
+                _allNoisesHeard.Remove(noise);
+            }
         }
     }
 

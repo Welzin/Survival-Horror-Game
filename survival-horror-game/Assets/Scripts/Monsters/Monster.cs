@@ -25,12 +25,12 @@ public class Monster : Listener
         if(cond.condition != Condition.Action.None)
         {
             // Play the condition before executing the patterns
-            Invoke("RunCondition", cond.timeToCheck);
+            // Invoke("RunCondition", cond.timeToCheck);
         }
         // Else, invoke patterns after 1 second
         else
         {
-            Invoke("ExecutePattern", 1);
+            // Do nothing atm
         }
     }
 
@@ -90,7 +90,7 @@ public class Monster : Listener
             _move.StartMovement(transform.position, toDo.goTo);
             _pattern.Enqueue(toDo);
             // Wait until the movement is finished, and call ExecutePattern again after the given time.
-            StartCoroutine(_move.WaitNonBlocking(_move.IsMovementFinished, () => Invoke("ExecutePattern", toDo.intervalUntilNextAction)));
+            _currentWait = StartCoroutine(_move.WaitNonBlocking(_move.IsMovementFinished, () => Invoke("ExecutePattern", toDo.intervalUntilNextAction)));
         }
         else
         {
@@ -213,6 +213,39 @@ public class Monster : Listener
         }
     }
 
+    /// <summary>
+    /// Play pattern where it stopped
+    /// </summary>
+    public void PlayPattern()
+    {
+        if(_hasTarget)
+        {
+            _move.TargetLost();
+            _hasTarget = false;
+        }
+        ExecutePattern();
+    }
+
+    /// <summary>
+    /// Stops all actions (except detecting actions)
+    /// </summary>
+    public void StopActions()
+    {
+        CancelInvoke("ExecutePattern");
+        if(_currentWait != null)
+            StopCoroutine(_currentWait);
+        _move.Stop();
+    }
+
+    /// <summary>
+    /// Moves to the specified position. Stops all other actions
+    /// </summary>
+    public void MoveTo(Vector2 position)
+    {
+        StopActions();
+        _move.RunTowardTarget(position);
+    }
+
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
     public float lightDetectionRange = 1f;
     // Patterns of the monster when there are no target
@@ -229,4 +262,5 @@ public class Monster : Listener
     private bool _hasTarget;
 
     private MovementHelper _move;
+    private Coroutine _currentWait;
 }
