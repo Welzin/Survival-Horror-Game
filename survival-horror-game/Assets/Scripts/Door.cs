@@ -9,8 +9,16 @@ public class Door : TimedEvent
         base.Start();
         _animator = GetComponent<Animator>();
         _emiter = gameObject.AddComponent<SoundEmiter>();
+        _isClosed = true;
     }
-    
+
+    protected void OnEnable()
+    {
+        Debug.Log("pass");
+        if (_animator != null)
+            _animator.SetBool("Closing", IsClosed());
+    }
+
     public void OpenForMonster()
     {
         if (IsClosed())
@@ -67,7 +75,7 @@ public class Door : TimedEvent
 
     public bool IsClosed()
     {
-        return _animator.GetBool("Closing");
+        return _isClosed;
     }
 
     private void DoorOpening()
@@ -76,6 +84,7 @@ public class Door : TimedEvent
         lightObstacle.SetActive(false);
         _animator.SetBool("Closing", false);
         _emiter.PlayCustomClip(doorOpening);
+        _isClosed = false;
     }
 
     private void DoorClosing()
@@ -84,6 +93,7 @@ public class Door : TimedEvent
         lightObstacle.SetActive(true);
         _animator.SetBool("Closing", true);
         _emiter.PlayCustomClip(doorClosing);
+        _isClosed = true;
     }
 
     public bool needAKey;
@@ -95,4 +105,5 @@ public class Door : TimedEvent
 
     private Animator _animator;
     private SoundEmiter _emiter;
+    private bool _isClosed;
 }
