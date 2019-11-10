@@ -13,10 +13,10 @@ public class HomeButtons : MonoBehaviour
 
     public void ShowOptions()
     {
-
         home.SetActive(false);
         options.SetActive(true);
     }
+
     public void Quit()
     {
 #if UNITY_EDITOR
@@ -25,25 +25,14 @@ public class HomeButtons : MonoBehaviour
         Application.Quit();
 #endif
     }
+
     public void GoBack()
     {
-        dialog.SetActive(true);
-    }
-
-    public void Ok()
-    {
         options.SetActive(false);
-        dialog.SetActive(false);
         home.SetActive(true);
-    }
-    
-    public void Cancel()
-    {
-        dialog.SetActive(false);
     }
 
     public string scene;
     public GameObject options;
     public GameObject home;
-    public GameObject dialog;
 }
