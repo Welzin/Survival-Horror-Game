@@ -17,12 +17,13 @@ public class FirstMission : Mission
     private IEnumerator BeginPattern()
     {
         yield return new WaitForSeconds(1);
-        mom.StopActions();
-        dad.StopActions();
+        //mom.StopActions();
+        //dad.StopActions();
     }
 
     protected override IEnumerator StartLevelObject()
     {
+        yield return new WaitForSeconds(1);
         dad.MoveTo(televisionPosition, 2);
         mom.PlayPattern();
         brokenChest.gameObject.SetActive(false);
@@ -88,7 +89,7 @@ public class FirstMission : Mission
     {
         yield return WaitForEvent(parentRoomDoor);
         yield return SaySomething("Le carnet doit se situer quelque part ici, il faut que je cherche !");
-        _passDoor = false;
+        _passDoor = true;
     }
 
     private IEnumerator PowerOff()
@@ -99,26 +100,33 @@ public class FirstMission : Mission
         while (!_passDoor)
         {
             // On attend que le joueur est coupé le courant
-            yield return WaitForEvent(poweroff);
-            player.SetLastEvent(null);
-            tele.gameObject.SetActive(false);
-
-            yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
-            dad.MoveTo(poweroff.transform.position, 1);
-
-            while (!dad.MovementHelper().IsMovementFinished())
+            while (poweroff != player.GetLastEvent() && !_passDoor)
             {
                 yield return null;
             }
 
-            yield return new WaitForSeconds(4);
-            yield return SaySomething("Papa : C'est bon le courant est revenu !");
-            poweroff.cannotDoEventAnymore = false;
-            dad.MoveTo(televisionPosition, 2);
-
-            while (!dad.MovementHelper().IsMovementFinished())
+            if (_passDoor)
             {
-                yield return null;
+                player.SetLastEvent(null);
+                tele.gameObject.SetActive(false);
+
+                yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
+                dad.MoveTo(poweroff.transform.position, 1);
+
+                while (!dad.MovementHelper().IsMovementFinished())
+                {
+                    yield return null;
+                }
+
+                yield return new WaitForSeconds(4);
+                yield return SaySomething("Papa : C'est bon le courant est revenu !");
+                poweroff.cannotDoEventAnymore = false;
+                dad.MoveTo(televisionPosition, 2);
+
+                while (!dad.MovementHelper().IsMovementFinished())
+                {
+                    yield return null;
+                }
             }
 
             if (!_passDoor)
@@ -127,6 +135,7 @@ public class FirstMission : Mission
             }
         }
 
+        tele.gameObject.SetActive(false);
         dad.PlayPattern();
     }
 

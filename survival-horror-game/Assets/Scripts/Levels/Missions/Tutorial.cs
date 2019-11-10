@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Tutorial : Mission
 {
-    void Start()
+    protected override IEnumerator StartLevelObject()
     {
         battery.gameObject.SetActive(false);
         keyToOpenTheRoom.gameObject.SetActive(false);
         teddy.gameObject.SetActive(false);
-    }
 
-    protected override IEnumerator StartLevelObject()
-    {
         player.hud.transform.Find("Stress").gameObject.SetActive(false);
         player.hud.transform.Find("Battery").gameObject.SetActive(false);
         player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
