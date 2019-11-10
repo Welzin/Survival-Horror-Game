@@ -41,7 +41,7 @@ public class LevelEvent : TimedEvent
     {
         if (soundMake != null)
         {
-            Debug.Log(intensitySoundMake);
+            Debug.LogError(soundMake);
             _emiter.PlayCustomClip(soundMake, intensitySoundMake);
             _emiter.EmitSoundWave(intensitySoundMake, player.CurrentFloor, eventTime);
         }

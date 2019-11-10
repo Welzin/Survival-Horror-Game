@@ -14,7 +14,6 @@ public class Door : TimedEvent
 
     protected void OnEnable()
     {
-        Debug.Log("pass");
         if (_animator != null)
             _animator.SetBool("Closing", IsClosed());
     }
