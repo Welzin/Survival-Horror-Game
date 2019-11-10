@@ -23,6 +23,17 @@ public class SoundEmiter : MonoBehaviour
         // Initialize the current sound to the first element of the list
         _currentPlayingSound = SoundType.Footsteps;
         _soundOrigin.clip = _soundManager.GetClipByType(_currentPlayingSound);
+        ConfigureAudioSource();
+    }
+
+    private void ConfigureAudioSource()
+    {
+        _soundOrigin.spatialBlend = 1;
+        _soundOrigin.reverbZoneMix = 1.1f;
+        _soundOrigin.dopplerLevel = 5;
+        _soundOrigin.rolloffMode = AudioRolloffMode.Linear;
+        _soundOrigin.minDistance = 0;
+        _soundOrigin.maxDistance = 5;
     }
 
     /// <summary>
@@ -95,10 +106,12 @@ public class SoundEmiter : MonoBehaviour
     /// <summary>
     /// Plays the custom clip
     /// </summary>
-    public void PlayCustomClip(AudioClip clip)
+    public void PlayCustomClip(AudioClip clip, float intensity = 5)
     {
         _currentPlayingSound = SoundType.Custom;
-        AudioSource.PlayClipAtPoint(clip, transform.position);
+        _soundOrigin.clip = clip;
+        _soundOrigin.maxDistance = intensity;
+        _soundOrigin.Play();
     }
     
     // Audiosource on which the class has to play the clip
