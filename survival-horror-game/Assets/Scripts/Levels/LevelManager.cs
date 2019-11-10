@@ -67,12 +67,9 @@ public class LevelManager : MonoBehaviour
     private IEnumerator ManageLevelOverTime()
     {
         MusicManager m = FindObjectOfType<MusicManager>();
-        SoundManager s = FindObjectOfType<SoundManager>();
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
         m.UpdateMusic(0);
         m.PlayLoop(2);
-        m.ChangeVolume(0.1f);
-        s.UpdateSoundVolume(0.1f);
 
         // Start in the bed
         _playerManager.transform.position = initialPosition;
