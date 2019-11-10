@@ -34,6 +34,9 @@ public class PanicManager : MonoBehaviour
                 }
             }
         }
+        
+        if(_player.Stress() < 100) 
+            ResetPanic(); 
     }
 
     public bool IsPanicking()
@@ -54,23 +57,16 @@ public class PanicManager : MonoBehaviour
         else if (!_player.lamp.Active)
         {
             if (_player.lamp.actualBattery > 0)
-            {
                 _player.ToggleLamp();
-                Invoke("ResetPanic", 2);
-            }
             else
             {
                 if (_player.inventory.HaveBattery())
                 {
                     _player.ReloadLamp();
                     _player.ToggleLamp();
-                    Invoke("ResetPanic", 2);
                 }
                 else
-                {
                     MakePlayerRun();
-                    Invoke("StopMovement", 4);
-                }
             }
         }
 
@@ -91,13 +87,12 @@ public class PanicManager : MonoBehaviour
             }
             else
             {
-                destination = NearestNode((Vector2)transform.position + 20 * nextDir, _player.CurrentFloor);
+                destination = NearestNode((Vector2)transform.position + 100 * nextDir, _player.CurrentFloor);
             }
         }
         else
         {
-            Vector2 direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
-            destination = NearestNode((Vector2)transform.position + 100 * direction, _player.CurrentFloor);
+            destination = FarestNode(transform.position, _player.CurrentFloor);
         }
         //Debug.Log(destination);
         if (destination != null)
@@ -143,6 +138,23 @@ public class PanicManager : MonoBehaviour
             }
         }
         return minNode.Item1;
+    }
+    
+    private Node FarestNode(Vector2 position, int floor)
+    {
+        Node[] allNodes = NodesOfFloor(floor);
+        (Node, float) maxNode = (allNodes[0], float.MinValue);
+        foreach (Node node in allNodes)
+        {
+            // Get the distance between the node and the current position
+            float dist = Mathf.Sqrt(Mathf.Pow(node.X() - position.x, 2) + Mathf.Pow(node.Y() - position.y, 2));
+            // If the distance is inferior from the min value, this node is nearer than the last recorded
+            if (dist > maxNode.Item2)
+            {
+                maxNode = (node, dist);
+            }
+        }
+        return maxNode.Item1;
     }
 
     private Node[] NodesOfFloor(int floor)
