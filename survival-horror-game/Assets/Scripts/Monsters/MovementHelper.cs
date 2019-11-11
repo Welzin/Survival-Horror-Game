@@ -177,6 +177,8 @@ public class MovementHelper : MonoBehaviour
     {
         Node node = NearestNode(target, targetFloor);
         float dist = Vector2.Distance(transform.position, target);
+        if (targetFloor != _mainScript.currentFloor)
+            dist += 20;
         // If the mob is closer than a node to the target, it can run on the target.
         // But if the mob is really close from the target, it will still run on the target and not stop.
         if (Vector2.Distance(target, node.Position()) > dist || dist < 0.5f)

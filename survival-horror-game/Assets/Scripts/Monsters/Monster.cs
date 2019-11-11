@@ -222,13 +222,12 @@ public class Monster : Listener
         foreach (Noise noise in AllNoiseHeard())
         {
             Vector2 dest = GetOrigin(noise);
+            float distance = Vector2.Distance(transform.position, dest);
             // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
             if (noise.floor != currentFloor)
-                dest += new Vector2(15, 15);
+                distance += 20;
             if(Vector2.Distance(transform.position, dest) < Vector2.Distance(transform.position, _move.Target()))
             {
-                if (noise.floor != currentFloor)
-                    dest -= new Vector2(15, 15);
                 newTarget = dest;
                 floor = noise.floor;
             }
