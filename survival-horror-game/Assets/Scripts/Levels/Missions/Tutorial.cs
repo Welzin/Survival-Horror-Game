@@ -13,9 +13,15 @@ public class Tutorial : Mission
 
     public void ToDoIfNoIntro()
     {
-        battery.gameObject.SetActive(true);
-        keyToOpenTheRoom.gameObject.SetActive(true);
-        teddy.gameObject.SetActive(true);
+        player.inventory.AddItem(keyToOpenTheRoom.item);
+        player.inventory.AddItem(teddy.item);
+        player.inventory.AddItem(teddy.item);
+        player.inventory.AddItem(lamp.item);
+
+        MusicManager m = FindObjectOfType<MusicManager>();
+        m.UpdateMusic(2);
+        m.PlayLoop();
+        greenLight.SetIntensity(1f);
     }
 
     protected override IEnumerator StartLevelObject()
@@ -182,5 +188,6 @@ public class Tutorial : Mission
     public ItemObject keyToOpenTheRoom;
     public ItemObject battery;
     public ItemObject teddy;
+    public ItemObject lamp;
     public AudioClip scream;
 }

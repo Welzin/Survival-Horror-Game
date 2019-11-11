@@ -16,7 +16,7 @@ public class FirstMission : Mission
 
     private IEnumerator BeginPattern()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         mom.StopActions();
         dad.StopActions();
     }
