@@ -148,7 +148,7 @@ public class Monster : Listener
             {
                 bool obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("Obstacle"));
                 if (!obstrusion)
-                    SetTarget(lamp.transform.position);
+                    SetTarget(lamp.transform.position, currentFloor);
                 else
                     ResetTarget();
             }
@@ -171,7 +171,7 @@ public class Monster : Listener
         }
     }
 
-    private void SetTarget(Vector2 targetPos)
+    private void SetTarget(Vector2 targetPos, int floor)
     {
         Vector2 destination;
         if(IsInvoking("RunCondition"))
@@ -212,12 +212,13 @@ public class Monster : Listener
         }
         _hasTarget = true;
         CancelInvoke("ExecutePattern");
-        _move.RunTowardTarget(destination, currentFloor);
+        _move.RunTowardTarget(destination, floor);
     }
 
     private void SearchForSound()
     {
         Vector2 newTarget = new Vector2(float.MaxValue, float.MaxValue);
+        int floor = currentFloor;
         foreach (Noise noise in AllNoiseHeard())
         {
             Vector2 dest = GetOrigin(noise);
@@ -229,11 +230,12 @@ public class Monster : Listener
                 if (noise.floor != currentFloor)
                     dest -= new Vector2(15, 15);
                 newTarget = dest;
+                floor = noise.floor;
             }
         }
         if(newTarget.x != float.MaxValue && newTarget.y != float.MaxValue)
         {
-            SetTarget(newTarget);
+            SetTarget(newTarget, floor);
         }
         else
         {
