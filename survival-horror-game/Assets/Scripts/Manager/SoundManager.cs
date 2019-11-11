@@ -87,4 +87,6 @@ public class SoundManager : MonoBehaviour
     private List<SoundEmiter> _soundEmiters;
     // Record the current volume to change the volume of an emiter when it registers to the Manager
     private float _volume = 1f;
+
+    public float Volume { get => _volume; }
 }

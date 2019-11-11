@@ -51,7 +51,7 @@ public class Inventory
             _hud.DisplayItems(itemToDisplay);
         }
 
-        _hud.helper.DisplayInfo("Vous avez attrapper un item : " + item.name, 5);
+        _hud.helper.DisplayInfo("Vous avez attrappé un objet : " + item.name, 5);
     }
 
     public bool HaveBattery()
@@ -187,7 +187,7 @@ public class LampItem : Item
 
 public class Battery : Item
 {
-    public Battery() : base("une batterie") {}
+    public Battery() : base("une pile") {}
 }
 
 public class Teddy : Utility

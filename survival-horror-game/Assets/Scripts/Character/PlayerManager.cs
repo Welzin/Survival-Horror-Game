@@ -103,7 +103,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                hud.helper.DisplayInfo("Vous ne pouvez pas recharger sans batteries !", 5);
+                hud.helper.DisplayInfo("Vous ne pouvez pas recharger sans piles !", 5);
             }
         }
         else
@@ -262,7 +262,7 @@ public class PlayerManager : MonoBehaviour
             hud.stressBar.ChangeStressPercentage(_actualStress / maxStress * 100);
         }
 
-        heartbeat.volume = _actualStress / maxStress;
+        heartbeat.volume = _actualStress / maxStress * FindObjectOfType<SoundManager>().Volume;
     }
 
     public bool InPanic()
