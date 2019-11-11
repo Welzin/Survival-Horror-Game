@@ -144,7 +144,7 @@ public class FirstMission : Mission
         }
 
         yield return StartCoroutine(SaySomething("Maman : Qu'est ce qu'il se passe ?"));
-        yield return StartCoroutine(SaySomething("Papa : Je ne sais pas, le coffre a sonné, mai sil n'y a personne ..."));
+        yield return StartCoroutine(SaySomething("Papa : Je ne sais pas, le coffre a sonné, mais il n'y a personne ..."));
         yield return StartCoroutine(SaySomething("Maman : Je t'avais bien dit de le réparer ..."));
         yield return StartCoroutine(SaySomething("Papa : Oui je sais... Je ferais ça un autre jour..."));
 

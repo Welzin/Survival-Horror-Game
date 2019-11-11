@@ -15,7 +15,7 @@ public class Intro : Cinematic
 
         // Thunder begin
         yield return new WaitForSeconds(1);
-        player.hud.helper.DisplayInfo("Appuyer sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
+        player.hud.helper.DisplayInfo("Appuyez sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
         yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
         player.hud.helper.StopDisplayingInfo();
         yield return new WaitForSeconds(3);
@@ -37,7 +37,7 @@ public class Intro : Cinematic
 
         // Return at bed
         yield return StartCoroutine(MoveTo(whereToBegin, LookAt.DOWN));
-        yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir... Maintenant"));
+        yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir maintenant..."));
         yield return StartCoroutine(SaySomething("Je ne sais pas quoi faire"));
         yield return StartCoroutine(SaySomething("..."));
         yield return new WaitForSeconds(3);
@@ -56,7 +56,7 @@ public class Intro : Cinematic
 
         yield return StartCoroutine(SaySomething("QU'EST CE QUI SE PASSE"));
         yield return StartCoroutine(SaySomething("J'AI PEUUUUUR"));
-        yield return StartCoroutine(SaySomething("Papa : OH TU LA BOUCLE ET TU DORS !"));
+        yield return StartCoroutine(SaySomething("Papa : OH TU LA BOUCLES ET TU DORS !"));
         yield return new WaitForSeconds(3);
         yield return StartCoroutine(SaySomething("*Snif*"));
         yield return StartCoroutine(SaySomething("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !"));
