@@ -31,12 +31,6 @@ public class PlayerController : Listener
     protected override void Update()
     {
         base.Update();
-        
-        if (Input.GetKeyDown(_dd.GetKey(Controls.Pause).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Pause).Item2))
-        {
-            _dd.GamePause = !_dd.GamePause;
-            _manager.menu.SetActive(_dd.GamePause);
-        }
 
         if (_dd.GamePause)
         {

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SliderHelper : MonoBehaviour
 {
-    private void Awake()
+    private void OnEnable()
     {
         _dd = FindObjectOfType<DontDestroyOnLoad>();
         musicsSlider.value = _dd.GetMusicVolume();

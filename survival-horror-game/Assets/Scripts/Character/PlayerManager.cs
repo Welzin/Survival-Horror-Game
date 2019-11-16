@@ -19,8 +19,6 @@ public class PlayerManager : MonoBehaviour
         _emiter = GetComponent<SoundEmiter>();
         _emiter.SetNoiseEmited(NoiseType.Player);
         _currentFloor = 2;
-
-        menu.SetActive(false);
     }
 
     private void Update()
@@ -354,8 +352,6 @@ public class PlayerManager : MonoBehaviour
     public GameObject body;
     // The hud where everything will be displayed
     public HUD hud;
-    // The menu to display on pause
-    public GameObject menu;
     // Inventory
     public Inventory inventory;
     // PlayerController for movement
