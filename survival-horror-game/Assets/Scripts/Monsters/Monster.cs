@@ -23,6 +23,7 @@ public class Monster : Listener
         _hasTarget = false;
         _dd = FindObjectOfType<DontDestroyOnLoad>(); 
         _player = FindObjectOfType<PlayerManager>();
+        _isStopped = false;
         // If there is a condition for playing patterns, play it
         if (cond.condition != Condition.Action.None)
         {
@@ -39,7 +40,7 @@ public class Monster : Listener
 
     protected override void Update()
     {
-        if(!_dd.GamePause && !_player.IsSpeaking())
+        if(!_dd.GamePause && !_player.IsSpeaking() && !_isStopped)
         {
             base.Update();
             // Search if the player emits light every frame
@@ -310,6 +311,21 @@ public class Monster : Listener
     public bool InPause() => _dd.GamePause;
     public bool IsSpeaking() => _player.IsSpeaking();
 
+    public void StopEverything()
+    {
+        ResetTarget();
+        StopActions();
+        _isStopped = true;
+    }
+
+    /// <summary>
+    /// Call this function if the StopEverything() function has been called before
+    /// </summary>
+    public void Release()
+    {
+        _isStopped = false;
+    }
+
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
     public float lightDetectionRange = 1f;
     // Patterns of the monster when there are no target
@@ -329,4 +345,5 @@ public class Monster : Listener
     private Coroutine _currentWait;
     private DontDestroyOnLoad _dd;
     private PlayerManager _player;
+    private bool _isStopped;
 }
