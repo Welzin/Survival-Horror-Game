@@ -46,7 +46,7 @@ public class MovementHelper : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        if(!_mainScript.InPause())
+        if(!_mainScript.InPause() && !_mainScript.IsSpeaking())
         {
             // If the gameObject is near the destination's node and there are still enqueued nodes, we can change the destination.
             if (_currentDestination != null && !_isMovementFinished)
