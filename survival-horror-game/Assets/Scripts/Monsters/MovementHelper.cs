@@ -46,63 +46,69 @@ public class MovementHelper : MonoBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        // If the gameObject is near the destination's node and there are still enqueued nodes, we can change the destination.
-        if (_currentDestination != null && !_isMovementFinished)
+        if(!_mainScript.InPause())
         {
-            if(IsNear(transform.position, _currentDestination.Position()))
+            // If the gameObject is near the destination's node and there are still enqueued nodes, we can change the destination.
+            if (_currentDestination != null && !_isMovementFinished)
             {
-                if (_currentPath.Count > 0)
+                if(IsNear(transform.position, _currentDestination.Position()))
                 {
-                    // If it opened a door on the last node, close it
-                    if (_lastDoor != null)
+                    if (_currentPath.Count > 0)
                     {
-                        StartCoroutine(ChangeDoorState(_lastDoor, !_lastDoor.IsClosed()));
-                        _lastDoor = null;
-                    }
-                    // Check if a door exists between the current and next node
-                    Door door = _currentDestination.DoorBetweenNodes(_currentPath.Peek());
-                    // If there is a door, checks if it can be opened without key
-                    if (door != null)
-                    {
-                        if (door.needAKey)
+                        // If it opened a door on the last node, close it
+                        if (_lastDoor != null)
                         {
-                            _currentPath.Clear();
-                            return;
+                            StartCoroutine(ChangeDoorState(_lastDoor, !_lastDoor.IsClosed()));
+                            _lastDoor = null;
                         }
-                        // If it doesn't need a key, open the door
-                        StartCoroutine(ChangeDoorState(door, door.IsClosed()));
-                        _lastDoor = door;
+                        // Check if a door exists between the current and next node
+                        Door door = _currentDestination.DoorBetweenNodes(_currentPath.Peek());
+                        // If there is a door, checks if it can be opened without key
+                        if (door != null)
+                        {
+                            if (door.needAKey)
+                            {
+                                _currentPath.Clear();
+                                return;
+                            }
+                            // If it doesn't need a key, open the door
+                            StartCoroutine(ChangeDoorState(door, door.IsClosed()));
+                            _lastDoor = door;
+                        }
+                        _currentDestination = _currentPath.Dequeue();
+                        CheckFloor();
                     }
-                    _currentDestination = _currentPath.Dequeue();
-                    CheckFloor();
+                    // If there isn't any enqueued node, we inform that the movement is finished
+                    else
+                    {
+                        _animator.SetInteger("Mouvement", 0);
+                        _isMovementFinished = true;
+                    }
                 }
-                // If there isn't any enqueued node, we inform that the movement is finished
                 else
                 {
-                    _animator.SetInteger("Mouvement", 0);
-                    _isMovementFinished = true;
+                    if(!_isOpeningDoor)
+                    {
+                        _animator.SetInteger("Mouvement", 1);
+                        // If the gameObject isn't near, we move it
+                        Move();
+                    }
                 }
             }
-            else
+            if(_currentDestination == null && (_target.x != float.MaxValue || _target.y != float.MaxValue))
             {
-                if(!_isOpeningDoor)
+                if (!IsNear(transform.position, _target) && !WallBetween(transform.position, _target))
                 {
                     _animator.SetInteger("Mouvement", 1);
-                    // If the gameObject isn't near, we move it
-                    Move();
+                    Move(_target);
                 }
+                else
+                    _mainScript.ResetTarget();
             }
+
         }
-        if(_currentDestination == null && (_target.x != float.MaxValue || _target.y != float.MaxValue))
-        {
-            if (!IsNear(transform.position, _target) && !WallBetween(transform.position, _target))
-            {
-                _animator.SetInteger("Mouvement", 1);
-                Move(_target);
-            }
-            else
-                _mainScript.ResetTarget();
-        }
+        else
+            _animator.SetInteger("Mouvement", 0);
     }
 
     private void CheckFloor()

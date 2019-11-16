@@ -21,6 +21,7 @@ public class Monster : Listener
         _pattern = new Queue<Pattern>(movementPattern);
         // It has no target at the start of the game
         _hasTarget = false;
+        _dd = FindObjectOfType<DontDestroyOnLoad>();
         // If there is a condition for playing patterns, play it
         if(cond.condition != Condition.Action.None)
         {
@@ -37,11 +38,14 @@ public class Monster : Listener
 
     protected override void Update()
     {
-        base.Update();
-        // Search if the player emits light every frame
-        SearchForLight();
-        SearchForSound(); 
-        ChangeStateDependingOnPlayer();
+        if(!_dd.GamePause)
+        {
+            base.Update();
+            // Search if the player emits light every frame
+            SearchForLight();
+            SearchForSound();
+            ChangeStateDependingOnPlayer();
+        }
     }
 
     private void ChangeStateDependingOnPlayer()
@@ -302,6 +306,8 @@ public class Monster : Listener
         return door.IsClosed();
     }
 
+    public bool InPause() => _dd.GamePause;
+
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
     public float lightDetectionRange = 1f;
     // Patterns of the monster when there are no target
@@ -319,4 +325,5 @@ public class Monster : Listener
 
     private MovementHelper _move;
     private Coroutine _currentWait;
+    private DontDestroyOnLoad _dd;
 }
