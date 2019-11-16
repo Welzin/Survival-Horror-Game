@@ -95,16 +95,13 @@ public class MovementHelper : MonoBehaviour
         }
         if(_currentDestination == null && (_target.x != float.MaxValue || _target.y != float.MaxValue))
         {
-            if(!IsNear(transform.position, _target))
+            if (!IsNear(transform.position, _target) && !WallBetween(transform.position, _target))
             {
                 _animator.SetInteger("Mouvement", 1);
                 Move(_target);
             }
             else
-            {
-                _isMovementFinished = true;
-                _animator.SetInteger("Mouvement", 0);
-            }
+                _mainScript.ResetTarget();
         }
     }
 
@@ -185,8 +182,11 @@ public class MovementHelper : MonoBehaviour
         {
             // I may have to add WaitNonBlocking here with the target to tempo if it's called again before the previous movement
             // has ended and the node is the same.
-            _currentDestination = null;
-            _target = target;
+            if(!WallBetween(transform.position, target))
+            {
+                _currentDestination = null;
+                _target = target;
+            }
         }
         // Else, we redo the path and wait for the end of the movement
         else
@@ -359,6 +359,14 @@ public class MovementHelper : MonoBehaviour
         _currentPath.Clear();
         _isMovementFinished = true;
         _animator.SetInteger("Mouvement", 0);
+    }
+
+    private bool WallBetween(Vector2 position, Vector2 goal)
+    {
+        LayerMask mask = LayerMask.GetMask("Wall");
+        RaycastHit2D hit = Physics2D.Linecast(position, goal, mask);
+
+        return !(hit.collider == null);
     }
 
     // All nodes in the pathfinder network

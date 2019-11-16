@@ -146,8 +146,9 @@ public class Monster : Listener
             float dist = Vector2.Distance(pos, lampPos);
             if (dist <= lightDetectionRange + lamp.radius)
             {
-                bool obstrusion = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("Obstacle"));
-                if (!obstrusion)
+                bool obstrusionWall = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("Wall"));
+                bool obstrusionDoor = IsDoorBetween(pos, lampPos);
+                if (!obstrusionWall && !obstrusionDoor)
                     SetTarget(lamp.transform.position, currentFloor);
                 else
                     ResetTarget();
@@ -160,7 +161,7 @@ public class Monster : Listener
         }
     }
 
-    private void ResetTarget()
+    public void ResetTarget()
     {
         if(_hasTarget)
         {
@@ -226,10 +227,11 @@ public class Monster : Listener
             // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
             if (noise.floor != currentFloor)
                 distance += 20;
-            if(Vector2.Distance(transform.position, dest) < Vector2.Distance(transform.position, _move.Target()))
+            if(Vector2.Distance(transform.position, dest) < Vector2.Distance(transform.position, _move.Target()) || noise.emiterType == NoiseType.Player)
             {
                 newTarget = dest;
                 floor = noise.floor;
+                if (noise.emiterType == NoiseType.Player) break;
             }
         }
         if(newTarget.x != float.MaxValue && newTarget.y != float.MaxValue)
@@ -279,6 +281,25 @@ public class Monster : Listener
     public MovementHelper MovementHelper()
     {
         return _move;
+    }
+
+    private bool IsDoorBetween(Vector2 position, Vector2 goal)
+    {
+        Door door = null;
+        //Vector2 distance = other.Position() - Position();
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.layerMask = LayerMask.GetMask("Event");
+        Physics2D.Linecast(position, goal, filter, hits);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
+            {
+                door = hit.collider.gameObject.GetComponent<Door>();
+                break;
+            }
+        }
+        return door.IsClosed();
     }
 
     // Draws a circle and checks if there are lights in this circle. If there are, the monster will have its target (limited by sight)
