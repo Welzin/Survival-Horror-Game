@@ -32,11 +32,21 @@ public class PlayerController : Listener
     {
         base.Update();
         
+        if (Input.GetKeyDown(_dd.GetKey(Controls.Pause).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Pause).Item2))
+        {
+            _dd.GamePause = !_dd.GamePause;
+            _manager.menu.SetActive(_dd.GamePause);
+        }
+
+        if (_dd.GamePause)
+        {
+            return;
+        }
+
         // In all case, we can pass dialogs
         if ((Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2)) && _manager.IsSpeaking())
         {
             _manager.PassDialog();
-            return;
         }
 
         // If we are in a cinematic, in panic or speaking, the player have no control

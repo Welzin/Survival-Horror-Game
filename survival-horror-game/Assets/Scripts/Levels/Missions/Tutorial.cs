@@ -107,7 +107,7 @@ public class Tutorial : Mission
 
         player.hud.helper.DisplayInfo("Le stress est un élément essentiel, vous pouvez voir votre barre actuelle de stress en haut à droite de l'écran, en rouge." +
             " Lorsque cette jauge atteint un seuil critique, votre personnage panique et devient hors de contrôle pendant quelques secondes !" +
-            "\n\n/!\\ Rester paniqué plus de 10 secondes et vous ferez une crise cardiaque !");
+            "\n\n/!\\ Restez paniqué plus de 10 secondes et vous ferez une crise cardiaque !");
         yield return StartCoroutine(SaySomething(new Dialog("Aaaaaaaah !", Expression.AFRAID)));
         yield return StartCoroutine(SaySomething(new Dialog("QU'EST CE QUE C'EST QUE CA ???", Expression.AFRAID)));
         yield return StartCoroutine(SaySomething(new Dialog("J'ai besoin de mon Teddy, où est mon Teddy ?", Expression.SAD)));

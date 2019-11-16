@@ -13,7 +13,9 @@ public enum Controls
     Interact,
     Reload,
     HugTeddy,
+    Pause,
 }
+
 public class DontDestroyOnLoad : MonoBehaviour
 {
     void Awake()
@@ -25,6 +27,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         _musicPower = 1;
         _allKeys = new Dictionary<Controls, (KeyCode, KeyCode)>();
         _tutorialDone = false;
+        _gamePause = false;
 
         AssignKey(Controls.Left, KeyCode.Q, KeyCode.LeftArrow);
         AssignKey(Controls.Right, KeyCode.D, KeyCode.RightArrow);
@@ -35,6 +38,7 @@ public class DontDestroyOnLoad : MonoBehaviour
         AssignKey(Controls.Interact, KeyCode.E, KeyCode.Mouse1);
         AssignKey(Controls.Reload, KeyCode.R, KeyCode.None);
         AssignKey(Controls.HugTeddy, KeyCode.F, KeyCode.None);
+        AssignKey(Controls.Pause, KeyCode.Escape, KeyCode.None);
 
         DontDestroyOnLoad(gameObject);
     }
@@ -87,9 +91,11 @@ public class DontDestroyOnLoad : MonoBehaviour
     }
 
     public bool TutorialDone { get { return _tutorialDone; } set { _tutorialDone = value; } }
+    public bool GamePause { get { return _gamePause; } set { _gamePause = value; } }
 
     private Dictionary<Controls, (KeyCode, KeyCode)> _allKeys;
     private float _soundPower;
     private float _musicPower;
     private bool _tutorialDone;
+    private bool _gamePause;
 }

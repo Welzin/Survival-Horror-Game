@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An object with this class should be place where the sound will emit
+/// </summary>
 public class Thunder : MonoBehaviour
 {
     private void Start()
@@ -10,12 +13,18 @@ public class Thunder : MonoBehaviour
         _emiter.SetNoiseEmited(NoiseType.Lightning);
         _loop = false;
 
-        _allLightning = GetComponentsInChildren<Light>();
+        _allLightning = FindObjectsOfType<Lightning>();
 
-        foreach (Light light in _allLightning)
+        foreach (Lightning light in _allLightning)
         {
             light.SetIntensity(0);
         }
+    }
+
+    private void Update()
+    {
+        if (objectToFollow != null)
+            transform.position = objectToFollow.transform.position;
     }
 
     public void Strike()
@@ -74,7 +83,7 @@ public class Thunder : MonoBehaviour
                 newIntensity = Random.Range(minValue, actualIntensity);
             }
 
-            foreach (Light light in _allLightning)
+            foreach (Lightning light in _allLightning)
             {
                 light.SetIntensity(newIntensity);
             }
@@ -83,14 +92,16 @@ public class Thunder : MonoBehaviour
             yield return new WaitForSeconds(1f / Random.Range(minFrequency, maxFrequency));
         }
 
-        foreach (Light light in _allLightning)
+        foreach (Lightning light in _allLightning)
         {
             light.SetIntensity(0);
         }
     }
 
+    public GameObject objectToFollow;
+
     private SoundEmiter _emiter;
     private bool _loop;
 
-    private Light[] _allLightning;
+    private Lightning[] _allLightning;
 }
