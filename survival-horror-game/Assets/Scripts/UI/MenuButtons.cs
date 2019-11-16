@@ -19,18 +19,19 @@ public class MenuButtons : MonoBehaviour
             if (optionsMenu.activeSelf)
             {
                 ShowMainMenu();
-                return;
             }
-
-            if (restartMenu.activeSelf)
+            else if (restartMenu.activeSelf)
             {
                 ShowMainMenu();
-                return;
             }
-
-            _dd.GamePause = !_dd.GamePause;
-            menu.gameObject.SetActive(_dd.GamePause);
-            hud.gameObject.SetActive(!_dd.GamePause);
+            else if (menu.gameObject.activeSelf)
+            {
+                ShowMenu(false);
+            }
+            else
+            {
+                ShowMenu(true);
+            }
         }
     }
 
@@ -48,7 +49,7 @@ public class MenuButtons : MonoBehaviour
 
     private void Restart()
     {
-        _dd.GamePause = false;
+        ShowMenu(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -73,9 +74,21 @@ public class MenuButtons : MonoBehaviour
         restartMenu.SetActive(true);
     }
 
+    public void ShowMenu(bool show)
+    {
+        if (show)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+
+        _dd.GamePause = show;
+        menu.gameObject.SetActive(show);
+        hud.gameObject.SetActive(!show);
+    }
+
     public void GoBackToHome()
     {
-        _dd.GamePause = false;
+        ShowMenu(false);
         SceneManager.LoadScene(homeScene);
     }
 
