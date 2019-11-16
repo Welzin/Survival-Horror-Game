@@ -300,10 +300,10 @@ public class Monster : Listener
             if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
             {
                 door = hit.collider.gameObject.GetComponent<Door>();
-                break;
+                return door.IsClosed();
             }
         }
-        return door.IsClosed();
+        return false;
     }
 
     public bool InPause() => _dd.GamePause;
