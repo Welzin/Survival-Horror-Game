@@ -93,7 +93,7 @@ public class HUD : MonoBehaviour
     public ActionBar actionBar;
     public Text batteryNumberZone;
     public Helper helper;
-    public Dialog dialog;
+    public DialogManager dialog;
 
     // Player settings
     private DontDestroyOnLoad _dd;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lamp : Light
+public class Lamp : MonoBehaviour
 {
     private void Awake()
     {
@@ -39,6 +39,7 @@ public class Lamp : Light
     public float maxBattery = 100f;
     public float consommationBySec = 10f;
     public float batteryGainOnReload;
+    public float radius;
 
     private bool _active;
     private float _actualBattery;

@@ -5,21 +5,26 @@ using Light2D;
 
 public class Television : Light
 {
-    private void OnEnable()
+    protected void Start()
     {
-        _emiter = gameObject.AddComponent<SoundEmiter>();
+        base.Start();
         radius = 5;
-        _isWinking = false;
+        _emiter = gameObject.AddComponent<SoundEmiter>();
+
+        // This method is called after 1 second because when we add an emiter, the emiter's start method isn't called instantly
+        // TurnOn() method need to called emiter.PlayCustomClip() and for this, emiter's start method should be called
+        Invoke("TurnOn", 1);
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        TurnOn();
+        if (_emiter != null)
+            TurnOn();
     }
 
     public void TurnOn()
     {
-        if (!_isWinking)
+        if (!IsWinking())
         {
             StartCoroutine(StartWink(10, 15, int.MaxValue, 0.001f, 0.002f, true));
             StartCoroutine(ChangeColor());
@@ -29,7 +34,7 @@ public class Television : Light
 
     public void TurnOff()
     {
-        _isWinking = false;
+        StopWink();
         _emiter.StopEffect();
     }
 

@@ -8,7 +8,6 @@ public class Light : MonoBehaviour
     protected void Start()
     {
         _isWinking = false;
-        _winkingLoop = false;
         SetIntensity(intensity);
     }
 
@@ -58,19 +57,14 @@ public class Light : MonoBehaviour
         _isWinking = false;
     }
 
-    public bool IsInWinkingLoop()
-    {
-        return _winkingLoop;
-    }
-
-    public void StopWinkinkLoop()
-    {
-        _winkingLoop = false;
-    }
-
     public bool IsWinking()
     {
         return _isWinking;
+    }
+
+    public void StopWink()
+    {
+        _isWinking = false;
     }
     
     // The radius of the circle
@@ -80,6 +74,5 @@ public class Light : MonoBehaviour
     // The number of materials applies (YOU HAVE TO APPLY THEM YOURSELF ON THE MESH RENDERER)
     public int strength = 1;
 
-    protected bool _isWinking;
-    private bool _winkingLoop;
+    private bool _isWinking;
 }

@@ -20,15 +20,14 @@ public abstract class TimedEvent : Event
         else if(!cannotDoEventAnymore)
         {
             if (textToHelp != "")
-                player.Speak(textToHelp);
+                player.Speak(new Dialog(textToHelp, Expression.DISAPPOINTED));
 
             WhatToDoIfConditionNotRespected();
         }
         else
         {
-            Debug.Log("no");
             if (disableEventText != "")
-                player.Speak(disableEventText);
+                player.Speak(new Dialog(disableEventText));
         }
     }
     
@@ -52,7 +51,7 @@ public abstract class TimedEvent : Event
         if (!action.interrupted)
         {
             if (victoryText != "")
-                player.Speak(victoryText);
+                player.Speak(new Dialog(victoryText, Expression.HAPPY));
 
             player.SetLastEvent(this);
             WhatToDoAfterEvent();

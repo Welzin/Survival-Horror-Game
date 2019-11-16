@@ -11,7 +11,7 @@ public class DialogEvent : Event
 
     private IEnumerator Speak()
     {
-        foreach (string dialog in whatToSay)
+        foreach (Dialog dialog in whatToSay)
         {
             player.Speak(dialog);
             while (player.IsSpeaking())
@@ -26,6 +26,6 @@ public class DialogEvent : Event
         }
     }
 
-    public List<string> whatToSay;
+    public List<Dialog> whatToSay;
     public bool justOnce;
 }

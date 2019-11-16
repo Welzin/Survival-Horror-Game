@@ -22,19 +22,19 @@ public abstract class LevelObject : MonoBehaviour
     }
 
     protected abstract IEnumerator StartLevelObject();
-    protected void Stop()
+    protected virtual void Stop()
     {
         _isLaunched = false;
     }
 
-    protected IEnumerator SaySomething(string text)
+    protected IEnumerator SaySomething(Dialog dialog)
     {
         if (player.IsSpeaking())
         {
             player.PassDialog();
         }
 
-        player.Speak(text);
+        player.Speak(dialog);
 
         while (player.IsSpeaking())
         {
@@ -97,7 +97,23 @@ public abstract class Cinematic : LevelObject
     public override void Launch()
     {
         player.transform.position = whereToBegin;
+
+        foreach (GameObject go in FindObjectOfType<LevelManager>().elementsToHideOnCinematic)
+        {
+            go.SetActive(false);
+        }
+
         base.Launch();
+    }
+
+    protected override void Stop()
+    {
+        foreach (GameObject go in FindObjectOfType<LevelManager>().elementsToHideOnCinematic)
+        {
+            go.SetActive(true);
+        }
+
+        base.Stop();
     }
 
     public Vector2 whereToBegin;

@@ -20,11 +20,6 @@ public class LevelManager : MonoBehaviour
                 return true;
         }
 
-        foreach (GameObject go in elementsToHideOnCinematic)
-        {
-            go.SetActive(true);
-        }
-
         return false;
     }
 
@@ -41,10 +36,6 @@ public class LevelManager : MonoBehaviour
             if (cinematic.levelObjectName == name)
             {
                 cinematic.Launch();
-                foreach(GameObject go in elementsToHideOnCinematic)
-                {
-                    go.SetActive(false);
-                }
                 return;
             }
         }
@@ -82,7 +73,7 @@ public class LevelManager : MonoBehaviour
 
         // We play the intro cinematic
         yield return null;
-
+        
         if (!dd.TutorialDone)
         {
             StartCinematic("Intro");

@@ -9,6 +9,7 @@ public class Tutorial : Mission
         battery.gameObject.SetActive(false);
         keyToOpenTheRoom.gameObject.SetActive(false);
         teddy.gameObject.SetActive(false);
+        lamp.gameObject.SetActive(false);
     }
 
     public void ToDoIfNoIntro()
@@ -26,10 +27,11 @@ public class Tutorial : Mission
 
     protected override IEnumerator StartLevelObject()
     {
-
         player.hud.transform.Find("Stress").gameObject.SetActive(false);
         player.hud.transform.Find("Battery").gameObject.SetActive(false);
         player.hud.transform.Find("BatteryItem").gameObject.SetActive(false);
+        lamp.gameObject.SetActive(true);
+        player.lamp.actualBattery = player.lamp.maxBattery / 100 * 30;
 
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
 
@@ -66,7 +68,7 @@ public class Tutorial : Mission
         player.hud.helper.DisplayInfo("Attention, utiliser la lampe use des piles. Une fois la jauge de la lampe complètement perdue, " +
             "la lampe ne pourra plus s'allumer. Cette jauge est visible en haut à droite de l'écran, en jaune.");
         yield return new WaitForSeconds(6);
-        yield return StartCoroutine(SaySomething("Il n'y a plus beaucoup de piles dans cette lampe, il doit y en avoir une dans mon coffre à jouets !"));
+        yield return StartCoroutine(SaySomething(new Dialog("Cette lampe n'a plus beaucoup de batterie, il doit y avoir une pile dans mon coffre à jouets !")));
 
         // Search battery
         player.hud.helper.StopDisplayingInfo();
@@ -106,9 +108,9 @@ public class Tutorial : Mission
         player.hud.helper.DisplayInfo("Le stress est un élément essentiel, vous pouvez voir votre barre actuelle de stress en haut à droite de l'écran, en rouge." +
             " Lorsque cette jauge atteint un seuil critique, votre personnage panique et devient hors de contrôle pendant quelques secondes !" +
             "\n\n/!\\ Rester paniqué plus de 10 secondes et vous ferez une crise cardiaque !");
-        yield return StartCoroutine(SaySomething("Aaaaaaaah !"));
-        yield return StartCoroutine(SaySomething("QU'EST CE QUE C'EST QUE CA ???"));
-        yield return StartCoroutine(SaySomething("J'ai besoin de mon Teddy, où est mon Teddy ?"));
+        yield return StartCoroutine(SaySomething(new Dialog("Aaaaaaaah !", Expression.AFRAID)));
+        yield return StartCoroutine(SaySomething(new Dialog("QU'EST CE QUE C'EST QUE CA ???", Expression.AFRAID)));
+        yield return StartCoroutine(SaySomething(new Dialog("J'ai besoin de mon Teddy, où est mon Teddy ?", Expression.SAD)));
 
         // Get Teddy
         teddy.gameObject.SetActive(true);
@@ -122,7 +124,7 @@ public class Tutorial : Mission
             yield return null;
         }
 
-        yield return StartCoroutine(SaySomething("Oui ! Mon Teddy !"));
+        yield return StartCoroutine(SaySomething(new Dialog("Oui ! Mon Teddy !", Expression.HAPPY)));
         player.hud.helper.StopDisplayingInfo();
         player.hud.helper.DisplayInfo("Pour serrer Teddy contre vous, appuyer sur " + dd.GetKey(Controls.HugTeddy).Item1 + ".");
 
@@ -142,12 +144,12 @@ public class Tutorial : Mission
         }
 
         player.hud.helper.StopDisplayingInfo();
-        yield return StartCoroutine(SaySomething("Mais quelle est donc cette étrange lumière ?"));
-        yield return StartCoroutine(SaySomething("Je suis curieux de savoir..."));
-        yield return StartCoroutine(SaySomething("Mais pour ça il faudrait que je sorte dehors !"));
-        yield return StartCoroutine(SaySomething("De toute façon, je n'arrive pas à dormir, c'est décidé, je sors !"));
-        yield return StartCoroutine(SaySomething("Juste, il faut que je récupère les clés pour ouvrir la porte de ma chambre."));
-        yield return StartCoroutine(SaySomething("Si papa savait que je gardais un double sous le tapis, il serait vert !"));
+        yield return StartCoroutine(SaySomething(new Dialog("Mais quelle est donc cette étrange lumière ?", Expression.SURPRISED)));
+        yield return StartCoroutine(SaySomething(new Dialog("Je suis curieux de savoir...", Expression.SURPRISED)));
+        yield return StartCoroutine(SaySomething(new Dialog("Mais pour ça il faudrait que je sorte dehors !", Expression.DISAPPOINTED)));
+        yield return StartCoroutine(SaySomething(new Dialog("De toute façon, je n'arrive pas à dormir, c'est décidé, je sors !", Expression.DEAD)));
+        yield return StartCoroutine(SaySomething(new Dialog("Juste, il faut que je récupère les clés pour ouvrir la porte de ma chambre.")));
+        yield return StartCoroutine(SaySomething(new Dialog("Si papa savait que je gardais un double sous le tapis, il serait vert !", Expression.LAUGHING)));
         keyToOpenTheRoom.gameObject.SetActive(true);
 
         Key key = (Key)keyToOpenTheRoom.item;
@@ -166,8 +168,8 @@ public class Tutorial : Mission
         }
 
         player.hud.helper.StopDisplayingInfo();
-        yield return StartCoroutine(SaySomething("La porte est ouverte"));
-        yield return StartCoroutine(SaySomething("Il faut que je me fasse discret, si Papa ou Maman me voient, ils vont me remettre au lit..."));
+        yield return StartCoroutine(SaySomething(new Dialog("La porte est ouverte")));
+        yield return StartCoroutine(SaySomething(new Dialog("Il faut que je me fasse discret, si Papa ou Maman me voient, ils vont me remettre au lit...", Expression.SAD)));
 
         player.hud.helper.DisplayInfo("Bienvenue dans l'aventure ! Rappelez vous de ne pas faire de bruit au risque de vous faire attraper, vous pouvez courir en utilisant " +
             dd.GetKey(Controls.Run).Item1 + " mais attention, courir produit beaucoup plus de bruit !", 10);

@@ -131,12 +131,12 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                Speak("Je n'ai pas besoin de te serrer contre moi, je suis calme.");
+                Speak(new Dialog("Je n'ai pas besoin de te serrer contre moi, je suis calme.", Expression.HAPPY));
             }
         }
         else
         {
-            Speak("J'aimerais bien faire un câlin à mon Teddy, mais il est perdu :'(");
+            Speak(new Dialog("J'aimerais bien faire un câlin à mon Teddy, mais il est perdu.", Expression.SAD));
         }
     }
 
@@ -302,10 +302,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public void Speak(string newText)
+    public void Speak(Dialog dialog)
     {
         controller.Movement(0, 0, false);
-        hud.dialog.AddDialog(newText);
+        hud.dialog.AddDialog(dialog);
     }
 
     public void PassDialog()

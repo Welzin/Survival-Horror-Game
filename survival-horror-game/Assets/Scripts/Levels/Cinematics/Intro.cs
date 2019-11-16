@@ -15,8 +15,8 @@ public class Intro : Cinematic
 
         // Thunder begin
         yield return new WaitForSeconds(1);
-        player.hud.helper.DisplayInfo("Appuyez sur " + dd.GetKey(Controls.Interact).Item1 + " pour passer le dialogue");
-        yield return StartCoroutine(SaySomething("Zzzzzzzzz"));
+        player.hud.helper.DisplayInfo("Appuyez sur " + dd.GetKey(Controls.Interact).Item1 + " pour continuer.");
+        yield return StartCoroutine(SaySomething(new Dialog("Zzzzzzzzz", Expression.SLEEPING)));
         player.hud.helper.StopDisplayingInfo();
         yield return new WaitForSeconds(3);
         lightning.Strike();
@@ -25,9 +25,9 @@ public class Intro : Cinematic
         yield return new WaitForSeconds(6);
         lightning.StartLoopStrike(8, 12);
         yield return new WaitForSeconds(2);
-        yield return StartCoroutine(SaySomething("Aaaah !"));
-        yield return StartCoroutine(SaySomething("Qu'est ce que c'est ?"));
-        yield return StartCoroutine(SaySomething("J'ai peur de l'orage !!!"));
+        yield return StartCoroutine(SaySomething(new Dialog("Aaaah !", Expression.AFRAID)));
+        yield return StartCoroutine(SaySomething(new Dialog("Qu'est ce que c'est ?", Expression.AFRAID)));
+        yield return StartCoroutine(SaySomething(new Dialog("J'ai peur de l'orage !!!", Expression.SAD)));
 
         // Turn on the light
         yield return StartCoroutine(MoveTo(lampTurnOnPosition, LookAt.RIGHT));
@@ -37,16 +37,16 @@ public class Intro : Cinematic
 
         // Return at bed
         yield return StartCoroutine(MoveTo(whereToBegin, LookAt.DOWN));
-        yield return StartCoroutine(SaySomething("Je ne vais pas réussir à me rendormir maintenant..."));
-        yield return StartCoroutine(SaySomething("Je ne sais pas quoi faire"));
-        yield return StartCoroutine(SaySomething("..."));
+        yield return StartCoroutine(SaySomething(new Dialog("Je ne vais pas réussir à me rendormir maintenant...", Expression.DISAPPOINTED)));
+        yield return StartCoroutine(SaySomething(new Dialog("Je ne sais pas quoi faire", Expression.DISAPPOINTED)));
+        yield return StartCoroutine(SaySomething(new Dialog("...", Expression.SAD)));
         yield return new WaitForSeconds(3);
-        yield return StartCoroutine(SaySomething("Surtout ne pas pleurer"));
+        yield return StartCoroutine(SaySomething(new Dialog("Surtout ne pas pleurer", Expression.SAD)));
         yield return new WaitForSeconds(3);
 
         // The light is winking
         StartCoroutine(bedsideLamp.StartWink(10, 15, 50, 0, 1, true));
-        yield return StartCoroutine(SaySomething("QU'EST CE QUE..."));
+        yield return StartCoroutine(SaySomething(new Dialog("QU'EST CE QUE...", Expression.SURPRISED)));
 
         // The light is shutting down
         while (bedsideLamp.IsWinking())
@@ -54,12 +54,12 @@ public class Intro : Cinematic
             yield return null;
         }
 
-        yield return StartCoroutine(SaySomething("QU'EST CE QUI SE PASSE"));
-        yield return StartCoroutine(SaySomething("J'AI PEUUUUUR"));
-        yield return StartCoroutine(SaySomething("Papa : OH TU LA BOUCLES ET TU DORS !"));
+        yield return StartCoroutine(SaySomething(new Dialog("QU'EST CE QU'IL SE PASSE", Expression.AFRAID)));
+        yield return StartCoroutine(SaySomething(new Dialog("J'AI PEUUUUUR", Expression.AFRAID)));
+        yield return StartCoroutine(SaySomething(new Dialog("OH TU LA BOUCLES ET TU DORS !", Expression.ANGRY, Person.DAD)));
         yield return new WaitForSeconds(3);
-        yield return StartCoroutine(SaySomething("*Snif*"));
-        yield return StartCoroutine(SaySomething("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !"));
+        yield return StartCoroutine(SaySomething(new Dialog("*Snif*", Expression.SAD)));
+        yield return StartCoroutine(SaySomething(new Dialog("Oh j'y pense, il y a une lampe dans l'armoire, je pourrais la récupérer !")));
         
         Stop();
     }

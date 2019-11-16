@@ -29,16 +29,16 @@ public class FirstMission : Mission
         brokenChest.gameObject.SetActive(false);
         seau.gameObject.SetActive(false);
 
-        yield return SaySomething("Il faut que j'aille au rez de chaussée pour sortir !");
+        yield return SaySomething(new Dialog("Il faut que j'aille au rez de chaussée pour sortir !"));
 
         StartCoroutine(ManageDog());
         StartCoroutine(PowerOff());
 
         // Une fois qu'il a récupéré le carnet
         yield return WaitForItemInInventory("Carnet");
-        yield return SaySomething("Il faut que je trouve le code maintenant");
-        yield return SaySomething("Voyons voir...");
-        yield return SaySomething("Je l'ai !");
+        yield return SaySomething(new Dialog("Il faut que je trouve le code maintenant"));
+        yield return SaySomething(new Dialog("Voyons voir..."));
+        yield return SaySomething(new Dialog("Je l'ai !", Expression.HAPPY));
         
         // On ajoute le code et on enlève le carnet
         player.inventory.AddItem(code.item);
@@ -88,7 +88,7 @@ public class FirstMission : Mission
     private IEnumerator PassDoor()
     {
         yield return WaitForEvent(parentRoomDoor);
-        yield return SaySomething("Le carnet doit se situer quelque part ici, il faut que je cherche !");
+        yield return SaySomething(new Dialog("Le carnet doit se situer quelque part ici, il faut que je cherche !"));
         _passDoor = true;
 
         poweroff.cannotDoEventAnymore = true;
@@ -108,7 +108,7 @@ public class FirstMission : Mission
             player.SetLastEvent(null);
             tele.gameObject.SetActive(false);
 
-            yield return SaySomething("Papa : Qu'est ce qu'il se passe ??? Je vais aller voir !");
+            yield return SaySomething(new Dialog("Qu'est ce qu'il se passe ??? Je vais aller voir !", Expression.SURPRISED, Person.DAD));
             dad.MoveTo(poweroff.transform.position, 1);
 
             while (!dad.MovementHelper().IsMovementFinished())
@@ -117,7 +117,7 @@ public class FirstMission : Mission
             }
 
             yield return new WaitForSeconds(4);
-            yield return SaySomething("Papa : C'est bon le courant est revenu !");
+            yield return SaySomething(new Dialog("C'est bon le courant est revenu !", Expression.HAPPY, Person.DAD));
             poweroff.cannotDoEventAnymore = false;
             dad.MoveTo(televisionPosition, 2);
 
@@ -143,10 +143,10 @@ public class FirstMission : Mission
             yield return null;
         }
 
-        yield return StartCoroutine(SaySomething("Maman : Qu'est ce qu'il se passe ?"));
-        yield return StartCoroutine(SaySomething("Papa : Je ne sais pas, le coffre a sonné, mais il n'y a personne ..."));
-        yield return StartCoroutine(SaySomething("Maman : Je t'avais bien dit de le réparer ..."));
-        yield return StartCoroutine(SaySomething("Papa : Oui je sais... Je ferais ça un autre jour..."));
+        yield return StartCoroutine(SaySomething(new Dialog("Qu'est ce qu'il se passe ?", Expression.SURPRISED, Person.MOM)));
+        yield return StartCoroutine(SaySomething(new Dialog("Je ne sais pas, le coffre a sonné, mais il n'y a personne ...", Expression.SURPRISED, Person.DAD)));
+        yield return StartCoroutine(SaySomething(new Dialog("Je t'avais bien dit de le réparer ...", Expression.ANGRY, Person.MOM)));
+        yield return StartCoroutine(SaySomething(new Dialog("Oui je sais... Je ferais ça un autre jour...", Expression.DEAD, Person.DAD)));
 
         mom.PlayPattern();
         dad.PlayPattern();
