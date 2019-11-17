@@ -74,6 +74,7 @@ public class Listener : MonoBehaviour
         Physics2D.Linecast(position, goal, filter, hits);
         foreach (RaycastHit2D hit in hits)
         {
+            // I don't know why but some colliders without layer "Wall" passed so here is a new verification
             if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
             {
                 number++;
@@ -121,10 +122,11 @@ public class Listener : MonoBehaviour
         // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
         if (noise.floor != currentFloor)
         {
-            dist += 20;
+            dist += 20 * Mathf.Abs(noise.floor - currentFloor);
         }
         else
         {
+            // Walls are managed only if noise and listener are on the same floor
             dist += NumberOfObstaclesBetween(transform.position, noise.origin) * 10;
 
             if (noise.emiterType == NoiseType.Player)
