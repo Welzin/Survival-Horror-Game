@@ -34,6 +34,11 @@ public class Lamp : MonoBehaviour
         }
     }
 
+    public bool CanBeSeenByMonster(Monster monster)
+    {
+        return Vector2.Distance(monster.transform.position, transform.position) <= monster.lightDetectionRange + radius;
+    }
+
     public float actualBattery {  get { return _actualBattery; } set { _actualBattery = value; } }
 
     public float maxBattery = 100f;

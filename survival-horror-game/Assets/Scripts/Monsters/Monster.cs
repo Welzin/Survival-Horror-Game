@@ -128,7 +128,7 @@ public class Monster : Listener
             CancelInvoke("ExecutePattern");
         }
     }
-    
+
     /// <summary>
     /// Checks if the gameObject is in range of the player's lamp turned on
     /// If it's in range, it will target the player.
@@ -144,26 +144,16 @@ public class Monster : Listener
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
-        if (lamp.Active)
+
+        // If the lamp is active and monster can see the light, its new target is the lamp position
+        if (lamp.Active && lamp.CanBeSeenByMonster(this) && NumberOfObstaclesBetween(transform.position, lamp.transform.position) == 0)
         {
-            Vector2 lampPos = lamp.transform.position;
-            Vector2 pos = transform.position;
-            // Distance between lamp and monster
-            float dist = Vector2.Distance(pos, lampPos);
-            if (dist <= lightDetectionRange + lamp.radius)
-            {
-                bool obstrusionWall = Physics2D.Linecast(pos, lampPos, LayerMask.GetMask("Wall"));
-                bool obstrusionDoor = IsDoorBetween(pos, lampPos);
-                if (!obstrusionWall && !obstrusionDoor)
-                    SetTarget(lamp.transform.position, currentFloor);
-                else
-                    ResetTarget();
-            }
+            SetTarget(lamp.transform.position, currentFloor);
         }
-        else
+
+        if (_move.IsNear(transform.position, _move.Target()))
         {
-            if (_move.IsNear(transform.position, _move.Target()))
-                ResetTarget();
+            ResetTarget();
         }
     }
 
@@ -222,6 +212,8 @@ public class Monster : Listener
         _move.RunTowardTarget(destination, floor);
     }
 
+    protected 
+
     private void SearchForSound()
     {
         Vector2 newTarget = new Vector2(float.MaxValue, float.MaxValue);
@@ -230,10 +222,8 @@ public class Monster : Listener
         {
             Vector2 dest = GetOrigin(noise);
             float distance = Vector2.Distance(transform.position, dest);
-            // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
-            if (noise.floor != currentFloor)
-                distance += 20;
-            if(Vector2.Distance(transform.position, dest) < Vector2.Distance(transform.position, _move.Target()) || noise.emiterType == NoiseType.Player)
+
+            if (distance < Vector2.Distance(transform.position, _move.Target()) || noise.emiterType == NoiseType.Player)
             {
                 newTarget = dest;
                 floor = noise.floor;
@@ -289,27 +279,9 @@ public class Monster : Listener
         return _move;
     }
 
-    private bool IsDoorBetween(Vector2 position, Vector2 goal)
-    {
-        Door door = null;
-        //Vector2 distance = other.Position() - Position();
-        List<RaycastHit2D> hits = new List<RaycastHit2D>();
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.layerMask = LayerMask.GetMask("Event");
-        Physics2D.Linecast(position, goal, filter, hits);
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
-            {
-                door = hit.collider.gameObject.GetComponent<Door>();
-                return door.IsClosed();
-            }
-        }
-        return false;
-    }
-
     public bool InPause() => _dd.GamePause;
     public bool IsSpeaking() => _player.IsSpeaking();
+    public Queue<Pattern> ActualPattern { get { return _pattern; } set { _pattern = value; } }
 
     public void StopEverything()
     {
@@ -334,8 +306,6 @@ public class Monster : Listener
     // Behaviour when seeing a target
     public Behaviour targetBehaviour = Behaviour.Follow;
     public Condition cond;
-    [Range(1, 2)]
-    public int currentFloor = 0;
 
     private Queue<Pattern> _pattern;
     // Has a target been found ?

@@ -199,7 +199,7 @@ public class PlayerController : Listener
 
         // Generate sound
         float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
-        _manager.Emiter.EmitSoundWave(noise, _currentFloor, 1);
+        _manager.Emiter.EmitSoundWave(noise, _currentFloor, 0.1f);
     }
 
     /// <summary>

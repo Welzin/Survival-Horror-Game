@@ -67,12 +67,15 @@ public class LevelManager : MonoBehaviour
         DontDestroyOnLoad dd = FindObjectOfType<DontDestroyOnLoad>();
         m.UpdateMusic(0);
         m.PlayLoop(2);
+        m.ChangeVolume(0.1f);
+        FindObjectOfType<SoundManager>().UpdateSoundVolume(0.1f);
 
         // Start in the bed
-        _playerManager.transform.position = initialPosition;
+        //_playerManager.transform.position = initialPosition;
 
         // We play the intro cinematic
-        yield return null;
+        dd.TutorialDone = true;
+        yield return new WaitForSeconds(3f);
         
         if (!dd.TutorialDone)
         {
@@ -81,7 +84,6 @@ public class LevelManager : MonoBehaviour
 
             StartMission("Tutorial");
             yield return WaitEndMission("Tutorial");
-            dd.TutorialDone = true;
         }
         else
         {

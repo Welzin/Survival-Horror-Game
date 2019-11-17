@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour
         _arrived = true;
         _emiter = GetComponent<SoundEmiter>();
         _emiter.SetNoiseEmited(NoiseType.Player);
-        _currentFloor = 2;
+        controller.currentFloor = 2;
     }
 
     private void Update()
@@ -28,8 +28,8 @@ public class PlayerManager : MonoBehaviour
             return;
 
         Move();
-
-        _emiter.EmitSoundWave(1, _currentFloor, 0.1f);
+        
+        _emiter.EmitSoundWave(1, controller.currentFloor, 0.1f);
         
         // If we are in a cinematic or te player is speaking, he cannot have more stress (because he cannot move)
         if (levelManager.CinematicStarted() || IsSpeaking())
@@ -189,7 +189,7 @@ public class PlayerManager : MonoBehaviour
                     AddStress(4f * Time.deltaTime);
                     break;
                 case NoiseType.Monster:
-                    if(noise.floor == _currentFloor)
+                    if(noise.floor == controller.currentFloor)
                         AddStress(10f * Time.deltaTime);
                     break;
                 case NoiseType.Ouaf:
@@ -388,10 +388,9 @@ public class PlayerManager : MonoBehaviour
     private Vector3 _destination;
     private PanicManager _panicManager;
     private TimedEvent _lastEvent;
-    private int _currentFloor;
     // All sound emited
     private SoundEmiter _emiter;
 
     public SoundEmiter Emiter { get => _emiter; }
-    public int CurrentFloor { get => _currentFloor; set => _currentFloor = value; }
+    public int CurrentFloor { get => controller.currentFloor; set => controller.currentFloor = value; }
 }

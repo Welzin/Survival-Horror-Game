@@ -52,6 +52,56 @@ public class Listener : MonoBehaviour
             }
         }
     }
+    
+    /// <summary>
+    /// Detect if there is a door or a wall between two points.
+    /// A sound isn't heard if there is an obstacle
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="goal"></param>
+    /// <returns></returns>
+    protected int NumberOfObstaclesBetween(Vector2 position, Vector2 goal)
+    {
+        int number = 0;
+
+        // First, check for walls
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Wall")
+        };
+
+        Physics2D.Linecast(position, goal, filter, hits);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                number++;
+            }
+        }
+
+        // Then, check for doors
+        hits = new List<RaycastHit2D>();
+        filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Event")
+        };
+
+        Physics2D.Linecast(position, goal, filter, hits);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
+            {
+                if (hit.collider.gameObject.GetComponent<Door>().IsClosed())
+                {
+                    Debug.Log(hit.collider.gameObject);
+                    number++;
+                }
+            }
+        }
+
+        return number;
+    }
 
     /// <summary>
     /// Checks if the object listens to the given type
@@ -67,6 +117,20 @@ public class Listener : MonoBehaviour
     public void DetectSound(Noise noise)
     {
         float dist = Vector2.Distance(transform.position, noise.origin);
+
+        // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
+        if (noise.floor != currentFloor)
+        {
+            dist += 20;
+        }
+        else
+        {
+            dist += NumberOfObstaclesBetween(transform.position, noise.origin) * 10;
+
+            if (noise.emiterType == NoiseType.Player)
+                Debug.Log(NumberOfObstaclesBetween(transform.position, noise.origin));
+        }
+
         // Distance between object and the source of the noise has to be lesser than the radius + the range of hearing :
         // it means that the radius of the noise and the range of hearing are intersecting.
         if(dist <= noise.radius + _hearRange)
@@ -140,4 +204,6 @@ public class Listener : MonoBehaviour
     // All noises that the listener is currently hearing with their intensity felt.
     private Dictionary<Noise, float> _allNoisesHeard;
 
+    [Range(1, 2)]
+    public int currentFloor = 0;
 }

@@ -11,20 +11,49 @@ public class FirstMission : Mission
         
         _passDoor = false;
 
-        StartCoroutine(BeginPattern());
+        Invoke("BeginPattern", 3);
     }
 
-    private IEnumerator BeginPattern()
+    private void BeginPattern()
     {
-        yield return new WaitForSeconds(3);
         mom.StopActions();
-        dad.StopActions();
+        _dadPattern = dad.ActualPattern;
+        DadGoToTelevision();
+    }
+
+    private void DadGoToTelevision()
+    {
+        Queue<Pattern> televisionPatterns = new Queue<Pattern>();
+        televisionPatterns.Enqueue(new Pattern
+        {
+            goTo = televisionNode,
+            intervalUntilNextAction = 1
+        });
+        dad.ActualPattern = televisionPatterns;
+        dad.PlayPattern();
+    }
+
+    private void DadGoToPoweroff()
+    {
+        Queue<Pattern> poweroffPatterns = new Queue<Pattern>();
+        poweroffPatterns.Enqueue(new Pattern
+        {
+            goTo = poweroffNode,
+            intervalUntilNextAction = 1
+        });
+        dad.ActualPattern = poweroffPatterns;
+        dad.PlayPattern();
+    }
+
+    private void DadFollowHisPattern()
+    {
+        dad.ActualPattern = _dadPattern;
+        dad.PlayPattern();
     }
 
     protected override IEnumerator StartLevelObject()
     {
         yield return new WaitForSeconds(1);
-        dad.MoveTo(televisionPosition, 2);
         mom.PlayPattern();
         brokenChest.gameObject.SetActive(false);
         seau.gameObject.SetActive(false);
@@ -63,26 +92,17 @@ public class FirstMission : Mission
 
     private IEnumerator ManageDog()
     {
-        _alreadyInside = false;
-
         while (player.GetLastEvent() != dogEat)
         {
-            if (!_alreadyInside && player.CurrentFloor == 1 && (player.transform.position - niche.transform.position).magnitude < 5f)
+            if (player.CurrentFloor == 1 && (player.transform.position - niche.transform.position).magnitude < 5f)
             {
-                _alreadyInside = true;
                 _dog.PlayCustomClip(aboiement, 20);
                 _dog.EmitSoundWave(20, 1, 4);
-                StartCoroutine(WaitDog());
+                yield return new WaitForSecondsRealtime(4f);
             }
 
             yield return null;
         }
-    }
-
-    private IEnumerator WaitDog()
-    {
-        yield return new WaitForSecondsRealtime(4f);
-        _alreadyInside = false;
     }
 
     private IEnumerator PassDoor()
@@ -91,9 +111,11 @@ public class FirstMission : Mission
         yield return SaySomething(new Dialog("Le carnet doit se situer quelque part ici, il faut que je cherche !"));
         _passDoor = true;
 
+        // On ne peut plus couper le courant une fois la porte passée
         poweroff.cannotDoEventAnymore = true;
-        tele.gameObject.SetActive(false);
-        dad.PlayPattern();
+
+        // Le père reprend son pattern, il ne reste plus devant la télé
+        DadFollowHisPattern();
     }
 
     private IEnumerator PowerOff()
@@ -105,27 +127,42 @@ public class FirstMission : Mission
         {
             // On attend que le joueur ait coupé le courant
             yield return WaitForEvent(poweroff);
+            StopCoroutine(DadComeBackToTelevision());
+
+            // On fait ça pour éviter que ça tourne en boucle si le joueur n'a pas fait de nouvel événement à la fin de la boucle
             player.SetLastEvent(null);
+
+            // Permet de passer dans le salon
             tele.gameObject.SetActive(false);
 
+            // Le père va voir dans le garage
             yield return SaySomething(new Dialog("Qu'est ce qu'il se passe ??? Je vais aller voir !", Expression.SURPRISED, Person.DAD));
-            dad.MoveTo(poweroff.transform.position, 1);
+            DadGoToPoweroff();
 
+            // On attend que le père soit arrivé au garage
             while (!dad.MovementHelper().IsMovementFinished())
             {
                 yield return null;
             }
 
+            // Le courant a été rétabli donc le père retourne en haut et le joueur peut de nouveau couper le courant
             yield return new WaitForSeconds(4);
             yield return SaySomething(new Dialog("C'est bon le courant est revenu !", Expression.HAPPY, Person.DAD));
             poweroff.cannotDoEventAnymore = false;
-            dad.MoveTo(televisionPosition, 2);
-
-            if (!_passDoor)
-            {
-                tele.gameObject.SetActive(true);
-            }
+            DadGoToTelevision();
+            StartCoroutine(DadComeBackToTelevision());
         }
+    }
+
+    private IEnumerator DadComeBackToTelevision()
+    {
+        while (!dad.MovementHelper().IsMovementFinished())
+        {
+            yield return null;
+        }
+
+        tele.gameObject.SetActive(true);
+        television.TurnOn();
     }
 
     private IEnumerator ManageParent()
@@ -167,9 +204,10 @@ public class FirstMission : Mission
     public Monster dad;
     public Monster mom;
     public Television television;
-    public Vector2 televisionPosition;
+    public Node televisionNode;
+    public Node poweroffNode;
 
     private SoundEmiter _dog;
-    private bool _alreadyInside;
     private bool _passDoor;
+    private Queue<Pattern> _dadPattern;
 }
