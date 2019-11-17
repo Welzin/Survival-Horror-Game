@@ -41,6 +41,7 @@ public class PlayerController : Listener
         if ((Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item1) || Input.GetKeyDown(_dd.GetKey(Controls.Interact).Item2)) && _manager.IsSpeaking())
         {
             _manager.PassDialog();
+            return;
         }
 
         // If we are in a cinematic, in panic or speaking, the player have no control

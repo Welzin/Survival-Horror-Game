@@ -60,8 +60,6 @@ public class HUD : MonoBehaviour
 
             GameObject go = new GameObject();
             Image image = go.AddComponent<Image>();
-            Debug.Log(item);
-            Debug.Log(item.sprite);
             image.sprite = item.sprite;
             image.color = new Color(image.color.r, image.color.g, image.color.b, 0.5f);
 

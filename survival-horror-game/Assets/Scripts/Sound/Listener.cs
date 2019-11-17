@@ -52,57 +52,6 @@ public class Listener : MonoBehaviour
             }
         }
     }
-    
-    /// <summary>
-    /// Detect if there is a door or a wall between two points.
-    /// A sound isn't heard if there is an obstacle
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="goal"></param>
-    /// <returns></returns>
-    protected int NumberOfObstaclesBetween(Vector2 position, Vector2 goal)
-    {
-        int number = 0;
-
-        // First, check for walls
-        List<RaycastHit2D> hits = new List<RaycastHit2D>();
-        ContactFilter2D filter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Wall")
-        };
-
-        Physics2D.Linecast(position, goal, filter, hits);
-        foreach (RaycastHit2D hit in hits)
-        {
-            // I don't know why but some colliders without layer "Wall" passed so here is a new verification
-            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
-            {
-                number++;
-            }
-        }
-
-        // Then, check for doors
-        hits = new List<RaycastHit2D>();
-        filter = new ContactFilter2D
-        {
-            layerMask = LayerMask.GetMask("Event")
-        };
-
-        Physics2D.Linecast(position, goal, filter, hits);
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
-            {
-                if (hit.collider.gameObject.GetComponent<Door>().IsClosed())
-                {
-                    Debug.Log(hit.collider.gameObject);
-                    number++;
-                }
-            }
-        }
-
-        return number;
-    }
 
     /// <summary>
     /// Checks if the object listens to the given type
@@ -122,20 +71,17 @@ public class Listener : MonoBehaviour
         // If the sound is on another floor, the monster will have to do more distance to go to the origin of the sound
         if (noise.floor != currentFloor)
         {
-            dist += 20 * Mathf.Abs(noise.floor - currentFloor);
+            dist += NOISE_LOST_BY_FLOOR * Mathf.Abs(noise.floor - currentFloor);
         }
         else
         {
             // Walls are managed only if noise and listener are on the same floor
-            dist += NumberOfObstaclesBetween(transform.position, noise.origin) * 10;
-
-            if (noise.emiterType == NoiseType.Player)
-                Debug.Log(NumberOfObstaclesBetween(transform.position, noise.origin));
+            dist += NumberOfObstaclesUntil(noise.origin) * NOISE_LOST_WITH_WALL;
         }
 
         // Distance between object and the source of the noise has to be lesser than the radius + the range of hearing :
         // it means that the radius of the noise and the range of hearing are intersecting.
-        if(dist <= noise.radius + _hearRange)
+        if (dist <= noise.radius + _hearRange)
         {
             _allNoisesHeard.Add(noise, CalculateIntensity(dist, noise.radius));
         }
@@ -181,6 +127,87 @@ public class Listener : MonoBehaviour
     }
 
     /// <summary>
+    /// Detect if there is a door or a wall between the listener and a point.
+    /// For example, sound decrease according to obstacles number
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    protected int NumberOfObstaclesUntil(Vector2 point)
+    {
+        return NumberOfDoorsUntil(point) + NumberOfWallsUntil(point);
+    }
+
+    /// <summary>
+    /// Detect if there is at least one obstacle between the listener and a point
+    /// For example, light cannot be detected if there is an obstacle
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    protected bool IsAnyObstacleUntil(Vector2 point)
+    {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, point, LayerMask.GetMask("Wall"));
+
+        return hit.collider != null || NumberOfDoorsUntil(point) != 0;
+    }
+
+    /// <summary>
+    /// Get the number of walls between the listener and a point
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    private int NumberOfWallsUntil(Vector2 point)
+    {
+        int number = 0;
+
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Wall")
+        };
+
+        Physics2D.Linecast(transform.position, point, filter, hits);
+        foreach (RaycastHit2D hit in hits)
+        {
+            // I don't know why but some colliders without layer "Wall" passed so here is a new verification
+            if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                number++;
+            }
+        }
+
+        return number;
+    }
+
+    /// <summary>
+    /// Get the number of doors between the listener and a point
+    /// </summary>
+    /// <param name="point"></param>
+    /// <returns></returns>
+    private int NumberOfDoorsUntil(Vector2 point)
+    {
+        int number = 0;
+        List<RaycastHit2D> hits = new List<RaycastHit2D>();
+        ContactFilter2D filter = new ContactFilter2D
+        {
+            layerMask = LayerMask.GetMask("Event")
+        };
+
+        Physics2D.Linecast(transform.position, point, filter, hits);
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider != null && hit.collider.gameObject.GetComponent<Door>())
+            {
+                if (hit.collider.gameObject.GetComponent<Door>().IsClosed())
+                {
+                    number++;
+                }
+            }
+        }
+
+        return number;
+    }
+
+    /// <summary>
     /// Calculates the intensity of the noise heard with the radius. We assume that the object is in range to hear the noise.
     /// </summary>
     private float CalculateIntensity(float dist, float radius)
@@ -208,4 +235,7 @@ public class Listener : MonoBehaviour
 
     [Range(1, 2)]
     public int currentFloor = 0;
+
+    protected static float NOISE_LOST_WITH_WALL = 5f;
+    protected static float NOISE_LOST_BY_FLOOR = 20f;
 }

@@ -14,8 +14,11 @@ public class Tutorial : Mission
 
     public void ToDoIfNoIntro()
     {
+        keyToOpenTheRoom.gameObject.SetActive(true);
+        teddy.gameObject.SetActive(true);
+        lamp.gameObject.SetActive(true);
+
         player.inventory.AddItem(keyToOpenTheRoom.item);
-        player.inventory.AddItem(teddy.item);
         player.inventory.AddItem(teddy.item);
         player.inventory.AddItem(lamp.item);
 

@@ -135,20 +135,21 @@ public class Monster : Listener
     /// </summary>
     private void SearchForLight()
     {
-        // Get the position of the lamp
-        Lamp lamp = FindObjectOfType<Lamp>();
-        if (lamp == null)
+        PlayerManager player = FindObjectOfType<PlayerManager>();
+
+        if (player == null)
         {
 #if UNITY_EDITOR
-            Debug.LogError("Error: There are no lamps in the level");
+            Debug.LogError("Error: There are no player in the level");
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
         }
 
-        // If the lamp is active and monster can see the light, its new target is the lamp position
-        if (lamp.Active && lamp.CanBeSeenByMonster(this) && NumberOfObstaclesBetween(transform.position, lamp.transform.position) == 0)
+        // If monster can see the light, its new target is the lamp position
+        if (player.CurrentFloor == currentFloor && player.lamp.CanBeSeenByMonster(this) && !IsAnyObstacleUntil(player.transform.position))
         {
-            SetTarget(lamp.transform.position, currentFloor);
+            Debug.LogWarning(name + " see light");
+            SetTarget(player.transform.position, currentFloor);
         }
 
         if (_move.IsNear(transform.position, _move.Target()))
@@ -164,7 +165,7 @@ public class Monster : Listener
             _hasTarget = false;
             _move.TargetLost();
             // If the monster doesnt see anything anymore in 10 seconds, it'll go back to its pattern
-            Invoke("ExecutePattern", 10);
+            Invoke("ExecutePattern", TIME_TO_WAIT_LOST_TARGET);
         }
     }
 
@@ -225,11 +226,13 @@ public class Monster : Listener
 
             if (distance < Vector2.Distance(transform.position, _move.Target()) || noise.emiterType == NoiseType.Player)
             {
+                Debug.LogWarning(name + " hear " + noise.emiterType);
                 newTarget = dest;
                 floor = noise.floor;
                 if (noise.emiterType == NoiseType.Player) break;
             }
         }
+
         if(newTarget.x != float.MaxValue && newTarget.y != float.MaxValue)
         {
             SetTarget(newTarget, floor);
@@ -316,4 +319,6 @@ public class Monster : Listener
     private DontDestroyOnLoad _dd;
     private PlayerManager _player;
     private bool _isStopped;
+
+    protected static float TIME_TO_WAIT_LOST_TARGET = 2f;
 }
