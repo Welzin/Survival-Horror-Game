@@ -236,6 +236,6 @@ public class Listener : MonoBehaviour
     [Range(1, 2)]
     public int currentFloor = 0;
 
-    protected static float NOISE_LOST_WITH_WALL = 5f;
+    protected static float NOISE_LOST_WITH_WALL = 2f;
     protected static float NOISE_LOST_BY_FLOOR = 20f;
 }

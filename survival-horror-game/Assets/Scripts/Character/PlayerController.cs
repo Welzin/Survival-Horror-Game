@@ -14,7 +14,6 @@ public class PlayerController : Listener
         _audio = GetComponent<AudioSource>();
 
         _eventInRange = null;
-        _currentFloor = 2;
 
         if (_dd == null)
         {
@@ -199,8 +198,8 @@ public class PlayerController : Listener
         transform.position = pos;
 
         // Generate sound
-        float noise = isRunning ? _manager.walkingNoise : _manager.walkingNoise * _manager.runningFactor;
-        _manager.Emiter.EmitSoundWave(noise, _currentFloor, 0.1f);
+        float noise = _animator.GetInteger("Mouvement") == 0 ? _manager.idleNoise : isRunning ? _manager.runningNoise : _manager.walkingNoise;
+        _manager.Emiter.EmitSoundWave(noise, _manager.CurrentFloor, 0.1f);
     }
 
     /// <summary>
@@ -300,7 +299,6 @@ public class PlayerController : Listener
     private DontDestroyOnLoad _dd;
 
     private AudioSource _audio;
-    private int _currentFloor;
 
     private Event _eventInRange;
 }

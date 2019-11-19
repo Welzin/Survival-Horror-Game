@@ -134,13 +134,14 @@ public class FirstMission : Mission
 
             // Permet de passer dans le salon
             tele.gameObject.SetActive(false);
+            television.TurnOff();
 
             // Le père va voir dans le garage
             yield return SaySomething(new Dialog("Qu'est ce qu'il se passe ??? Je vais aller voir !", Expression.SURPRISED, Person.DAD));
             DadGoToPoweroff();
 
             // On attend que le père soit arrivé au garage
-            while (!dad.MovementHelper().IsMovementFinished())
+            while (!dad.MovementHelper().IsMovementFinished() || !dad.MovementHelper().IsNear(dad.transform.position, poweroffNode.transform.position))
             {
                 yield return null;
             }
@@ -161,8 +162,16 @@ public class FirstMission : Mission
             yield return null;
         }
 
-        tele.gameObject.SetActive(true);
-        television.TurnOn();
+        if (!_passDoor)
+        {
+            tele.gameObject.SetActive(true);
+            television.TurnOn();
+        }
+        else
+        {
+            tele.gameObject.SetActive(false);
+            television.TurnOff();
+        }
     }
 
     private IEnumerator ManageParent()
@@ -175,15 +184,20 @@ public class FirstMission : Mission
         dad.MoveTo(chest.transform.position, 1);
         mom.MoveTo(chest.transform.position, 1);
 
-        while (!dad.MovementHelper().IsMovementFinished() || !mom.MovementHelper().IsMovementFinished())
+        bool dadArrived = false;
+        bool momArrived = false;
+
+        while (!dadArrived || !momArrived)
         {
+            if (dad.MovementHelper().IsMovementFinished()) { dadArrived = true; }
+            if (mom.MovementHelper().IsMovementFinished()) { momArrived = true; }
             yield return null;
         }
 
         yield return StartCoroutine(SaySomething(new Dialog("Qu'est ce qu'il se passe ?", Expression.SURPRISED, Person.MOM)));
         yield return StartCoroutine(SaySomething(new Dialog("Je ne sais pas, le coffre a sonné, mais il n'y a personne ...", Expression.SURPRISED, Person.DAD)));
         yield return StartCoroutine(SaySomething(new Dialog("Je t'avais bien dit de le réparer ...", Expression.ANGRY, Person.MOM)));
-        yield return StartCoroutine(SaySomething(new Dialog("Oui je sais... Je ferais ça un autre jour...", Expression.DEAD, Person.DAD)));
+        yield return StartCoroutine(SaySomething(new Dialog("Oui je sais... Je ferai ça un autre jour...", Expression.DEAD, Person.DAD)));
 
         mom.PlayPattern();
         dad.PlayPattern();

@@ -18,9 +18,9 @@ public class Tutorial : Mission
         teddy.gameObject.SetActive(true);
         lamp.gameObject.SetActive(true);
 
-        player.inventory.AddItem(keyToOpenTheRoom.item);
-        player.inventory.AddItem(teddy.item);
-        player.inventory.AddItem(lamp.item);
+        keyToOpenTheRoom.GiveItemToPlayer();
+        teddy.GiveItemToPlayer();
+        lamp.GiveItemToPlayer();
 
         MusicManager m = FindObjectOfType<MusicManager>();
         m.UpdateMusic(2);

@@ -219,6 +219,7 @@ public class Monster : Listener
     {
         Vector2 newTarget = new Vector2(float.MaxValue, float.MaxValue);
         int floor = currentFloor;
+
         foreach (Noise noise in AllNoiseHeard())
         {
             Vector2 dest = GetOrigin(noise);

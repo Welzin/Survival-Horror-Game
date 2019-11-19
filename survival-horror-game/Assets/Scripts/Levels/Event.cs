@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Event : MonoBehaviour
 {
-    protected void Start()
+    protected void Awake()
     {
         player = FindObjectOfType<PlayerManager>();
     }

@@ -15,6 +15,8 @@ public class ItemObject : TimedEvent
 
     private void Awake()
     {
+        base.Awake();
+
         switch (itemType)
         {
             case Type.Utility:
@@ -68,6 +70,11 @@ public class ItemObject : TimedEvent
     protected override void WhatToDoOnEventInterruption()
     {
         _emiter.StopEffect();
+    }
+
+    public void GiveItemToPlayer()
+    {
+        WhatToDoAfterEvent();
     }
 
     public Item item;

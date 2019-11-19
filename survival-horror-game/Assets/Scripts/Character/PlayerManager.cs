@@ -29,8 +29,6 @@ public class PlayerManager : MonoBehaviour
 
         Move();
         
-        _emiter.EmitSoundWave(1, controller.currentFloor, 0.1f);
-        
         // If we are in a cinematic or te player is speaking, he cannot have more stress (because he cannot move)
         if (levelManager.CinematicStarted() || IsSpeaking())
         {
@@ -186,13 +184,15 @@ public class PlayerManager : MonoBehaviour
             switch (noise.emiterType)
             {
                 case NoiseType.Lightning:
+                    Debug.Log("lightning");
                     AddStress(4f * Time.deltaTime);
                     break;
                 case NoiseType.Monster:
-                    if(noise.floor == controller.currentFloor)
-                        AddStress(10f * Time.deltaTime);
+                    Debug.Log("monster");
+                    AddStress(10f * Time.deltaTime);
                     break;
                 case NoiseType.Ouaf:
+                    Debug.Log("Ouaf");
                     AddStress(1f * Time.deltaTime);
                     break;
             }
@@ -376,8 +376,10 @@ public class PlayerManager : MonoBehaviour
     public float timeToHugTeddy = 2f;
     // The time that take the action "reload lamp"
     public float timeToReloadLamp = 2f;
-    // Noise range propagation when walking
-    public float walkingNoise = 2f;
+    // Noise range propagation when idle/walking/running
+    public float idleNoise = 2f;
+    public float walkingNoise = 4f;
+    public float runningNoise = 10f;
     public AudioSource heartbeat;
     public string gameOverScene;
 

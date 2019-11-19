@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class LevelEvent : TimedEvent
 {
-    protected void Awake()
+    protected void Start()
     {
+        base.Start();
         _emiter = gameObject.AddComponent<SoundEmiter>();
         _emiter.SetNoiseEmited(NoiseType.Event);
     }

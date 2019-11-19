@@ -8,7 +8,6 @@ public class ChangeLevelEvent : Event
 {
     private void Start()
     {
-        base.Start();
         _startFade = false;
     }
 

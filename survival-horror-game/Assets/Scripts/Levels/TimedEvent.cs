@@ -6,7 +6,6 @@ public abstract class TimedEvent : Event
 {
     protected void Start()
     {
-        base.Start();
         cannotDoEventAnymore = false;
     }
 
